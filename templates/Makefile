@@ -6,6 +6,9 @@ build:
 run: build
 	@./bin/main
 
+tidy:
+	@go mod tidy
+
 # Go files should be named with `_test.go` suffix and contain `Test` or 
 # `Benchmark` functions to be recognized by `go test`.
 test:
@@ -15,11 +18,8 @@ test:
 # `go install github.com/incu6us/goimports-reviser/v2@latest` 
 # and add the `set -gx PATH $HOME/go/bin $PATH` to your `config.fish`:
 fmt:
-	goimports-reviser -rm-unused -set-alias -format ./...
-
-tidy:
-	go mod tidy
+	@goimports-reviser -rm-unused -set-alias -format ./...
 
 clean:
-	rm -rf bin/
-	rm -rf .cph/
+	@rm -rf bin/
+	@rm -rf .cph/
