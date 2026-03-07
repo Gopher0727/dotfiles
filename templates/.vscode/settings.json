@@ -1,0 +1,6 @@
+{
+    "cph.general.defaultLanguage": "go",
+    "gopls": {
+        "ui.navigation.importShortcut": "Definition"
+    }
+}
