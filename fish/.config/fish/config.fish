@@ -8,3 +8,7 @@ alias ls="lsd -l"
 # Go 环境
 set -Ux PATH /usr/local/go/bin $PATH
 set -gx PATH $HOME/go/bin $PATH
+
+# zoxide
+zoxide init fish | source
+
