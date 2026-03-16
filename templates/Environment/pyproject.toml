@@ -1,13 +1,24 @@
 # pyproject.toml
 
-[tool.isort]
-line_length = 120
+[tool.ruff]
+line-length = 120
 
-skip = ["tests", "setup.py", ".venv"]
-skip_glob = ["*.pyc", "__pycache__"]
+exclude = [".venv", "setup.py", "__pycache__", "*.pyc"]
 
-force_to_top = ["pkg_resources"]
+[tool.ruff.lint]
+select = [
+    "E", # pycodestyle errors
+    "W", # pycodestyle warnings
+    "F", # Pyflakes
+    "I", # isort (导入排序)
+]
 
-quiet = true
-order_by_type = true
+ignore = [
+    "E731", # Do not assign a lambda expression, use a def
+    "E741", # Ambiguous variable name
+]
+
+[tool.ruff.lint.isort]
+force-to-top = ["pkg_resources"]
+order-by-type = true
 

@@ -32,5 +32,10 @@
     ],
     "gopls": {
         "ui.navigation.importShortcut": "Definition"
+    },
+    "[python]": {
+        "editor.codeActionsOnSave": {
+            "source.fixAll.ruff": "explicit"
+        }
     }
 }

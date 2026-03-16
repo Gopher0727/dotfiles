@@ -79,7 +79,7 @@
             "italic": false
         },
         {
-            "tag": "\"",
+            "tag": ">",
             "color": "#98C379",
             "strikethrough": false,
             "underline": false,
