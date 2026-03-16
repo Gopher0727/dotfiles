@@ -8,7 +8,7 @@ set nocompatible
 
 "主题
 set termguicolors
-colorscheme catppuccin
+colorscheme catppuccin_mocha
 
 "缩进
 set tabstop=4
