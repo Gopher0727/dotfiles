@@ -13,6 +13,9 @@ set -gx PATH $HOME/go/bin $PATH
 # Cargo
 set -gx PATH $HOME/.cargo/bin $PATH
 
+# Flutter
+set -gx PATH $HOME/dev/flutter/bin $PATH
+
 # zoxide
 zoxide init fish | source
 
