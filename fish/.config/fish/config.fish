@@ -16,6 +16,13 @@ set -gx PATH $HOME/.cargo/bin $PATH
 # Flutter
 set -gx PATH $HOME/dev/flutter/bin $PATH
 
+# Android SDK & Java
+set -gx ANDROID_SDK_ROOT $HOME/Android/Sdk
+set -gx PATH $ANDROID_SDK_ROOT/cmdline-tools/latest/bin $PATH
+set -gx PATH $ANDROID_SDK_ROOT/platform-tools $PATH
+set -gx JAVA_HOME /usr/lib/jvm/java-17-openjdk
+set -gx PATH $JAVA_HOME/bin $PATH
+
 # zoxide
 zoxide init fish | source
 
