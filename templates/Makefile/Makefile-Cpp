@@ -1,0 +1,15 @@
+.PHONY: build run clean
+
+CXX = g++
+CXXFLAGS = -O2
+
+# You should install `ccache` first.
+build:
+	@ccache $(CXX) $(CXXFLAGS) main.cpp -o main
+
+run: build
+	@./main
+
+clean:
+	@rm -f main
+

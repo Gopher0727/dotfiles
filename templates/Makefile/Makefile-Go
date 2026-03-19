@@ -15,8 +15,8 @@ test:
 	@go test --bench=. -benchmem ./..
 
 # If you use fish, you should install goimports-reviser with 
-# `go install github.com/incu6us/goimports-reviser/v2@latest` 
-# and add the `set -gx PATH $HOME/go/bin $PATH` to your `config.fish`:
+# `go install github.com/incu6us/goimports-reviser/v2@latest`
+# and add the `set -gx PATH $HOME/go/bin $PATH` to your `config.fish`.
 fmt:
 	@goimports-reviser -rm-unused -set-alias -format ./...
 

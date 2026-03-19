@@ -18,7 +18,7 @@
                 // "-Wconversion",
                 // "-Wall",
                 "-o",
-                "${workspaceFolder}/build/${fileBasenameNoExtension}.exe",
+                "${workspaceFolder}/${fileBasenameNoExtension}",
                 "${file}"
             ],
             "group": {
