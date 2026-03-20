@@ -31,7 +31,7 @@
         // CompilationDatabase: build/
     ],
     "gopls": {
-        "ui.navigation.importShortcut": "Definition"
+        "ui.navigation.importShortcut": "Definition",
         "build.buildFlags": [
             "-tags=wireinject"
         ]
