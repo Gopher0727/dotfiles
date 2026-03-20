@@ -6,23 +6,28 @@ end
 alias l="command ls"
 alias ls="lsd -l"
 
-# Go 环境
-set -Ux PATH /usr/local/go/bin $PATH
-set -gx PATH $HOME/go/bin $PATH
+# Go
+fish_add_path /usr/local/go/bin
+fish_add_path $HOME/go/bin
 
 # Cargo
-set -gx PATH $HOME/.cargo/bin $PATH
+fish_add_path $HOME/.cargo/bin
 
 # Flutter
-set -gx PATH $HOME/dev/flutter/bin $PATH
+fish_add_path $HOME/dev/flutter/bin
 
 # Android SDK & Java
 set -gx ANDROID_SDK_ROOT $HOME/Android/Sdk
-set -gx PATH $ANDROID_SDK_ROOT/cmdline-tools/latest/bin $PATH
-set -gx PATH $ANDROID_SDK_ROOT/platform-tools $PATH
-set -gx JAVA_HOME /usr/lib/jvm/java-17-openjdk
-set -gx PATH $JAVA_HOME/bin $PATH
+fish_add_path $ANDROID_SDK_ROOT/cmdline-tools/latest/bin
+fish_add_path $ANDROID_SDK_ROOT/platform-tools
+
+if not set -q JAVA_HOME; or test -z "$JAVA_HOME"
+    echo "JAVA_HOME is null"
+    echo "   TODO: set -Ux JAVA_HOME /path/to/your/java"
+else
+    fish_add_path $JAVA_HOME/bin
+end
 
 # zoxide
 zoxide init fish | source
-
+ 
