@@ -32,6 +32,9 @@
     ],
     "gopls": {
         "ui.navigation.importShortcut": "Definition"
+        "build.buildFlags": [
+            "-tags=wireinject"
+        ]
     },
     "[python]": {
         "editor.codeActionsOnSave": {
