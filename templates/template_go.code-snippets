@@ -67,7 +67,7 @@
     "out-f": {
         "prefix": "Fprint",
         "scope": "go",
-        "body": "fmt.Fprint(out, $0, " ")",
+        "body": "fmt.Fprint(out, $0, \" \")",
     },
     "out-ln": {
         "prefix": "Fprintln",
