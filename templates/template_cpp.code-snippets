@@ -82,7 +82,7 @@
             "}"
         ]
     },
-   "readFromFile": {
+    "readFromFile": {
         "prefix": "freopen",
         "scope": "cpp",
         "body": [

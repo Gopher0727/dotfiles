@@ -74,7 +74,7 @@
         "scope": "go",
         "body": "fmt.Fprintln(out, $0)",
     },
-   "二分查找": {
+    "二分查找": {
         "prefix": "binaryfind",
         "scope": "go",
         "body": [
