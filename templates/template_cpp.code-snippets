@@ -82,22 +82,7 @@
             "}"
         ]
     },
-    "MOD_1'000'000'007": {
-        "prefix": "MOD_1'000'000'007",
-        "scope": "cpp",
-        "body": "static constexpr int MOD = 1'000'000'007;"
-    },
-    "MOD_9998244353": {
-        "prefix": "MOD_998244353",
-        "scope": "cpp",
-        "body": "static constexpr int MOD = 998244353;"
-    },
-    "inf": {
-        "prefix": "inf",
-        "scope": "cpp",
-        "body": "static constexpr $1 inf = $0;"
-    },
-    "readFromFile": {
+   "readFromFile": {
         "prefix": "freopen",
         "scope": "cpp",
         "body": [
