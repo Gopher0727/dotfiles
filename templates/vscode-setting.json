@@ -13,6 +13,7 @@
     "editor.minimap.enabled": false,
     "editor.smoothScrolling": true,
     "editor.snippetSuggestions": "top",
+    "editor.wordWrap": "on",
     "explorer.compactFolders": false,
     "explorer.confirmDragAndDrop": false,
     "explorer.confirmPasteNative": false,
@@ -39,6 +40,7 @@
     "workbench.iconTheme": "material-icon-theme",
     "workbench.layoutControl.enabled": false,
     "workbench.list.smoothScrolling": true,
+    "workbench.navigationControl.enabled": false,
     "workbench.startupEditor": "none",
     "workbench.tree.indent": 12,
     "better-comments.tags": [
