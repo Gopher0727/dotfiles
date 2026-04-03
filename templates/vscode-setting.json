@@ -37,7 +37,7 @@
     "update.mode": "none",
     "workbench.colorTheme": "Catppuccin Mocha",
     "workbench.editor.empty.hint": "hidden",
-    "workbench.iconTheme": "material-icon-theme",
+    "workbench.iconTheme": "catppuccin-mocha",
     "workbench.layoutControl.enabled": false,
     "workbench.list.smoothScrolling": true,
     "workbench.navigationControl.enabled": false,
