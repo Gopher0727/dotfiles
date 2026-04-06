@@ -27,6 +27,9 @@ eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
 
 # 插件
+# git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.zsh/plugins/zsh-syntax-highlighting
+# git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/plugins/zsh-autosuggestions
+# git clone https://github.com/zsh-users/zsh-history-substring-search ~/.zsh/plugins/zsh-history-substring-search
 source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh # 自动补全
 source ~/.zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh # 历史子串搜索
 source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh # 语法高亮
@@ -66,3 +69,6 @@ export PATH="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH"
 export PATH="$ANDROID_SDK_ROOT/platform-tools:$PATH"
 export PATH="$JAVA_HOME/bin:$PATH"
 
+
+# opencode
+export PATH=/home/gopher/.opencode/bin:$PATH
