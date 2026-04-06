@@ -1,5 +1,10 @@
 syntax on
 
+" 插件
+call plug#begin('~/.vim/plugged')
+Plug 'mg979/vim-visual-multi', {'branch': 'master'} " 多光标插件
+call plug#end()
+
 set number
 set relativenumber
 set cursorline
