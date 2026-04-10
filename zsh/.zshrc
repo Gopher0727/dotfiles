@@ -19,6 +19,7 @@ alias ls="lsd"
 alias la="lsd -a"
 alias ll="lsd -l"
 alias lla="lsd -la"
+alias fastfetch="fastfetch --config examples/25"
 
 # zoxide 初始化
 eval "$(zoxide init zsh)"
@@ -69,6 +70,3 @@ export PATH="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH"
 export PATH="$ANDROID_SDK_ROOT/platform-tools:$PATH"
 export PATH="$JAVA_HOME/bin:$PATH"
 
-
-# opencode
-export PATH=/home/gopher/.opencode/bin:$PATH
