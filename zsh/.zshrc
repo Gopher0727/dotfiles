@@ -70,3 +70,6 @@ export PATH="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH"
 export PATH="$ANDROID_SDK_ROOT/platform-tools:$PATH"
 export PATH="$JAVA_HOME/bin:$PATH"
 
+# opencode
+export PATH=/home/gopher/.opencode/bin:$PATH
+
