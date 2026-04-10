@@ -1,0 +1,20 @@
+{
+    "autoclose": true,
+    "autoindent": true,
+    "basename": false,
+    "comment": true,
+    "cursorline": true,
+    "eofnewline": true,
+    "fileformat": "unix",
+    "incsearch": true,
+    "colorscheme": "darcula",
+    "initlua": true,
+    "mouse": true,
+    "keepautoindent": false,
+    "scrollbar": false,
+    "splitbottom": true,
+    "splitright": true,
+    "statusline": true,
+    "syntax": true,
+    "tabsize": 4
+}
