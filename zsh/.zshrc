@@ -20,6 +20,7 @@ alias la="lsd -a"
 alias ll="lsd -l"
 alias lla="lsd -la"
 alias fastfetch="fastfetch --config examples/25"
+alias cat="bat"
 
 # zoxide 初始化
 eval "$(zoxide init zsh)"
