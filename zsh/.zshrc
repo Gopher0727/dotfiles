@@ -59,18 +59,3 @@ ZSH_HIGHLIGHT_STYLES[assign]="fg=#50fa7b"                           # fish_color
 ZSH_HIGHLIGHT_STYLES[default]="fg=#bd93f9"                          # fish_color_param
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#6272a4"                        # fish_color_autosuggestion
 
-# 环境变量
-export GOPATH="$HOME/go"
-export PATH="/usr/local/go/bin:$GOPATH/bin:$PATH"  # Go
-export PATH="$HOME/.cargo/bin:$PATH"               # Cargo
-export PATH="$HOME/dev/flutter/bin:$PATH"          # Flutter
-
-# Android SDK
-export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
-export PATH="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$PATH"
-export PATH="$ANDROID_SDK_ROOT/platform-tools:$PATH"
-export PATH="$JAVA_HOME/bin:$PATH"
-
-# opencode
-export PATH=/home/gopher/.opencode/bin:$PATH
-
