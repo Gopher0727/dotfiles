@@ -1,3 +1,4 @@
+filetype plugin indent on
 syntax on
 
 " 插件
@@ -8,9 +9,21 @@ call plug#end()
 
 set number
 set relativenumber
-set cursorline
 
 set nocompatible
+set undofile
+set showcmd
+set showmode
+set mouse=a
+set noerrorbells
+
+"分屏
+set splitbelow
+set splitright
+
+"状态栏
+set cursorline
+set laststatus=2
 
 "主题
 set termguicolors
@@ -27,7 +40,11 @@ set ignorecase
 set smartcase
 set incsearch
 set hlsearch
+set showmatch
 
 "剪贴板
 set clipboard=unnamedplus
+
+"键位
+inoremap jk <ESC>
 
