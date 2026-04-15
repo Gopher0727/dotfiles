@@ -15,18 +15,23 @@ setopt completealiases # 别名补全
 setopt autocd # 自动跳转
 
 # alias
+alias l="command ls"
 alias ls="lsd"
 alias la="lsd -a"
 alias ll="lsd -l"
 alias lla="lsd -la"
-alias fastfetch="fastfetch --config examples/25"
 alias cat="bat"
+alias fastfetch="fastfetch --config examples/25"
 
 # zoxide 初始化
 eval "$(zoxide init zsh)"
 
 # starship 初始化
 eval "$(starship init zsh)"
+
+# 环境变量
+export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+export PATH="/usr/local/texlive/2026/bin/universal-darwin:$PATH"
 
 # 插件
 # git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.zsh/plugins/zsh-syntax-highlighting
