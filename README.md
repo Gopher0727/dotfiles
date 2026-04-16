@@ -10,6 +10,10 @@ You could install the following software packages.
 
 - `reqable` `sublime` `maccy` `mos`
 
+```bash
+mkdir -p ~/.config/nvim
+```
+
 ## Git
 ```bash
 # 当上次提交还没有推送/合入，amend 会在上次提交基础上更新
