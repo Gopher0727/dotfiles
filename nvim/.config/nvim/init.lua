@@ -36,12 +36,17 @@ vim.pack.add {
 }
 vim.cmd.colorscheme("catppuccin-mocha")
 
--- lsp
+-- plugin
 vim.pack.add {
 	{ src = 'https://github.com/neovim/nvim-lspconfig' },
 	{ src = "https://github.com/mason-org/mason.nvim" },
-    { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
-    { src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
+	{ src = "https://github.com/mason-org/mason-lspconfig.nvim" },
+	{ src = "https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim" },
+	{ src = "https://github.com/saghen/blink.cmp" },
+	{ src = "https://github.com/rafamadriz/friendly-snippets" },
+	{ src = "https://github.com/nvim-treesitter/nvim-treesitter" },
+	{ src = "https://github.com/stevearc/oil.nvim" },
+	{ src = "https://github.com/windwp/nvim-autopairs" },
 }
 require("mason").setup({
 	ui = {
@@ -60,7 +65,29 @@ require("mason-tool-installer").setup({
 		"gopls",
 	}
 })
+require("blink.cmp").setup({
+	keymap = {
+		['<CR>'] = { 'select_and_accept', 'fallback' },
+	},
+	fuzzy = {
+		implementation = "lua",
+	},
+})
+require("nvim-treesitter").setup({
+	install = {
+		auto_install = true,
+		sync = true,
+	},
+    install_dir = vim.fn.stdpath("data") .. "/site",
+})
+require("oil").setup()
+require("nvim-autopairs").setup({
+	check_ts = true,
+	fast_wrap = {},
+	disable_filetype = { "TelescopePrompt", "vim" },
+})
 
+-- lsp
 vim.lsp.config("lua_ls", {
 	settings = {
 		Lua = {
@@ -79,6 +106,20 @@ vim.lsp.config("lua_ls", {
 		},
 	},
 })
+vim.lsp.config("gopls", {
+	cmd = { "gopls" },
+	filetypes = { "go", "gomod", "gowork" },
+	root_markers = { "go.mod", "go.work", ".git" },
+	settings = {
+		gopls = {
+			staticcheck = true,
+			gofumpt = true,
+			analyses = {
+				unusedparams = true,
+			},
+		},
+	},
+})
 
 -- edit
 vim.api.nvim_create_autocmd("BufReadPost", {
@@ -88,5 +129,12 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 			vim.cmd("normal! g'\"")
 		end
 	end
+})
+
+-- treesitter
+vim.api.nvim_create_autocmd("FileType", {
+    callback = function(args)
+        pcall(vim.treesitter.start, args.buf)
+    end,
 })
 
