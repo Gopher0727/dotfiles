@@ -34,6 +34,8 @@ eval "$(starship init zsh)"
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 export PATH="/usr/local/texlive/2026/bin/universal-darwin:$PATH"
 
+ZSH_AUTOSUGGEST_STRATEGY=(completion history)
+
 # 插件
 # git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.zsh/plugins/zsh-syntax-highlighting
 # git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/plugins/zsh-autosuggestions
@@ -64,4 +66,3 @@ ZSH_HIGHLIGHT_STYLES[comment]="fg=#6272a4"                          # fish_color
 ZSH_HIGHLIGHT_STYLES[assign]="fg=#50fa7b"                           # fish_color_operator
 ZSH_HIGHLIGHT_STYLES[default]="fg=#bd93f9"                          # fish_color_param
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#6272a4"                        # fish_color_autosuggestion
-
