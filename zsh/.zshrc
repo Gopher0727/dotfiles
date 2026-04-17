@@ -15,6 +15,7 @@ setopt completealiases # 别名补全
 setopt autocd # 自动跳转
 
 # alias
+alias cd="z"
 alias l="command ls"
 alias ls="lsd"
 alias la="lsd -a"

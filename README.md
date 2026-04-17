@@ -12,6 +12,10 @@ You could install the following software packages.
 
 ```bash
 mkdir -p ~/.config/nvim
+mkdir -p ~/.config/fish
+mkdir -p ~/.config/helix
+mkdir -p ~/.config/micro
+mkdir -p ~/.config/yazi
 ```
 
 ## Git
