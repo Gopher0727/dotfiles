@@ -34,8 +34,6 @@ eval "$(starship init zsh)"
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 export PATH="/usr/local/texlive/2026/bin/universal-darwin:$PATH"
 
-ZSH_AUTOSUGGEST_STRATEGY=(completion history)
-
 # yazi 退出时切换目录
 function y() {
 	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
