@@ -1,0 +1,182 @@
+{
+  "Fprint": {
+    "body": "fmt.Fprint(out, $0, \" \")",
+    "prefix": "Fprint"
+  },
+  "Fprintln": {
+    "body": "fmt.Fprintln(out, $0)",
+    "prefix": "Fprintln"
+  },
+  "Fscan": {
+    "body": "fmt.Fscan(in, &$0)",
+    "prefix": "Fscan"
+  },
+  "acm": {
+    "body": [
+      "package main",
+      "",
+      "import (",
+      "\t\"bufio\"",
+      "\t\"os\"",
+      ")",
+      "",
+      "var (",
+      "\tin  = bufio.NewReader(os.Stdin)",
+      "\tout = bufio.NewWriter(os.Stdout)",
+      ")",
+      "",
+      "func solve() {",
+      "\t$0\t",
+      "}",
+      "",
+      "func main() {",
+      "\tdefer out.Flush()",
+      "",
+      "\tsolve()",
+      "}"
+    ],
+    "prefix": "acm"
+  },
+  "acms": {
+    "body": [
+      "package main",
+      "",
+      "import (",
+      "\t\"bufio\"",
+      "\t\"fmt\"",
+      "\t\"os\"",
+      ")",
+      "",
+      "var (",
+      "\tin  = bufio.NewReader(os.Stdin)",
+      "\tout = bufio.NewWriter(os.Stdout)",
+      ")",
+      "",
+      "func solve() {",
+      "\t$0\t",
+      "}",
+      "",
+      "func main() {",
+      "\tdefer out.Flush()",
+      "",
+      "\tvar T int",
+      "\tfmt.Fscan(in, &T)",
+      "",
+      "\tfor range T {",
+      "\t\tsolve()",
+      "\t}",
+      "}"
+    ],
+    "prefix": "acms"
+  },
+  "binaryfind": {
+    "body": [
+      "check := func(x int) bool {",
+      "\t$0",
+      "}",
+      "",
+      "lo, hi := $1, $2",
+      "for lo+1 < hi {",
+      "\tmid := lo + (hi-lo)/2",
+      "\tif check(mid) {",
+      "\t\t$3",
+      "\t} else {",
+      "\t\t$4",
+      "\t}",
+      "}"
+    ],
+    "prefix": "binaryfind"
+  },
+  "boologic": {
+    "body": [
+      "$0",
+      "func b2i(x bool) int {",
+      "\tif x {",
+      "\t\treturn 1",
+      "\t}",
+      "\treturn 0",
+      "}",
+      "",
+      "func i2b(x int) bool {",
+      "\tif x != 0 {",
+      "\t\treturn true",
+      "\t}",
+      "\treturn false",
+      "}",
+      "",
+      "func cond[T any](cond bool, x, y T) T {",
+      "\tif cond {",
+      "\t\treturn x",
+      "\t}",
+      "\treturn y",
+      "}"
+    ],
+    "prefix": "boologic"
+  },
+  "calc": {
+    "body": [
+      "$0",
+      "func abs(x int) int {",
+      "\tif x < 0 {",
+      "\t\treturn -x",
+      "\t}",
+      "\treturn x",
+      "}",
+      "",
+      "func divmod(x, y int) (int, int) {",
+      "\treturn x / y, x % y",
+      "}",
+      "",
+      "func gcd(a, b int) int {",
+      "\tfor b != 0 {",
+      "\t\ta, b = b, a%b",
+      "\t}",
+      "\treturn a",
+      "}",
+      "",
+      "func lcm(a, b int) int {",
+      "\treturn a * b / gcd(a, b)",
+      "}",
+      "",
+      "func qpow(x, n, mod int) int {",
+      "\tres := 1",
+      "\tfor ; n > 0; n >>= 1 {",
+      "\t\tif n&1 == 1 {",
+      "\t\t\tres = res * x % mod",
+      "\t\t}",
+      "\t\tx = x * x % mod",
+      "\t}",
+      "\treturn res",
+      "}"
+    ],
+    "prefix": "calc"
+  },
+  "dir": {
+    "body": [
+      "dx = [4]int{1, 0, -1, 0}",
+      "dy = [4]int{0, 1, 0, -1}"
+    ],
+    "prefix": "dir"
+  },
+  "dir_around": {
+    "body": [
+      "dx = [8]int{1, 0, -1, 0, 1, 1, -1, -1}",
+      "dy = [8]int{0, 1, 0, -1, 1, -1, 1, -1}"
+    ],
+    "prefix": "dir_around"
+  },
+  "dir_corner": {
+    "body": [
+      "dx = [4]int{-1, -1, 1, 1}",
+      "dy = [4]int{1, -1, -1, 1}"
+    ],
+    "prefix": "dir_corner"
+  },
+  "dir_horse": {
+    "body": [
+      "dx = [8]int{1, 1, 2, 2, -1, -1, -2, -2}",
+      "dy = [8]int{2, -2, 1, -1, 2, -2, 1, -1}"
+    ],
+    "prefix": "dir_horse"
+  }
+}
