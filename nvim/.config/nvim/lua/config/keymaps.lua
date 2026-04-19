@@ -1,5 +1,5 @@
 -- quick fix
-vim.keymap.set("n", "<leader>fix", vim.lsp.buf.code_action)
+vim.keymap.set("n", "<leader>f", vim.lsp.buf.code_action)
 
 -- snippet edit
 vim.keymap.set(
@@ -16,4 +16,13 @@ vim.keymap.set(
 	function() require("scissors").addNewSnippet() end,
 	{ desc = "Snippet: Add" }
 )
+
+-- toggle sidebar
+vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<cr>", { silent = true })
+
+-- move cursor
+-- 行首（跳到第一个非空白字符）
+vim.keymap.set({ "n", "v" }, "H", "^", { noremap = true, silent = true })
+-- 行尾
+vim.keymap.set({ "n", "v" }, "L", "$", { noremap = true, silent = true })
 

@@ -12,6 +12,7 @@ vim.opt.winborder = "rounded"
 vim.opt.scrolloff = 10
 vim.opt.confirm = true
 vim.opt.autowrite = true
+vim.opt.signcolumn = "yes"
 
 -- tab
 vim.opt.tabstop = 4
@@ -27,4 +28,12 @@ vim.opt.incsearch = true
 vim.opt.hlsearch = false
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+
+-- diagnostic
+vim.diagnostic.config({
+	signs = true,
+	underline = true,
+	-- virtual_text = true,
+	severity_sort = true,
+})
 
