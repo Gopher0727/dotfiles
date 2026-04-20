@@ -1,0 +1,58 @@
+// Settings in here override those in "Default/Preferences.sublime-settings",
+// and are overridden in turn by syntax-specific settings.
+{
+    "theme": "Adaptive.sublime-theme",
+    "ignored_packages": [],
+    "index_files": true,
+    "color_scheme": "Monokai.sublime-color-scheme",
+    "show_encoding": true,
+    "font_size": 15,
+    // "font_face": "Fira Code",
+    "font_face": "Fira Code Nerd Font",
+    // "font_face": "Maple Mono SC NF",
+    // "font_face": "YaHei Consolas Hybrid",
+    /*"font_size": 11.5,*/
+    "font_options": [
+        "no_italic"
+    ],
+    // 设置tab的大小为4
+    "tab_size": 4,
+    // 使用空格代替 Tab
+    "translate_tabs_to_spaces": true,
+    // 失去光标自动保存
+    "save_on_focus_lost": true,
+    // 显示空白字符
+    "draw_white_space": "none",
+    // 保存时自动去除行末空白
+    "trim_trailing_white_space_on_save": "all",
+    // 保存时自动增加文件末尾换行
+    "ensure_newline_at_eof_on_save": true,
+    // 默认编码格式
+    "default_encoding": "UTF-8",
+    // 不检查更新
+    "update_check": false,
+    // 把光标的样式从闪烁变成淡入淡出
+    // 其余的选项还有"smooth", "phase", "blink", "wide"， "solid".
+    "caret_style": "phase",
+    // 高亮当前行
+    "highlight_line": true,
+    // 增加行间距
+    "line_padding_bottom": 1,
+    "line_padding_top": 1,
+    // 一直显示代码折叠箭头
+    "fade_fold_buttons": false,
+    // 排除这些文件夹，搜索和侧边栏都不会显示
+    "folder_exclude_patterns": [
+        "*.dSYM"
+    ],
+    // 排除这些文件，搜索和侧边栏都不会显示
+    "file_exclude_patterns": [
+        ".DS_Store",
+        // ".clang-format",
+        ".clang-tidy"
+    ],
+    // 光标样式
+    "caret_extra_top": 1,
+    "caret_extra_bottom": 1,
+    "caret_extra_width": 1
+}
