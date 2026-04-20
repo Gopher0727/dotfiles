@@ -1,10 +1,12 @@
 require("plugins.autopairs")
 require("plugins.blink_cmp")
 require("plugins.lsp")
+require("plugins.lualine")
 require("plugins.mason")
 require("plugins.neo_tree")
 require("plugins.oil")
 require("plugins.scissors")
 require("plugins.telescope")
+require("plugins.toggleterm")
 require("plugins.treesitter")
 

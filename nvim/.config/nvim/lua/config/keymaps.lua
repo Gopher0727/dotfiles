@@ -20,6 +20,12 @@ vim.keymap.set(
 -- toggle sidebar
 vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<cr>", { silent = true })
 
+-- terminal
+vim.keymap.set("n", "<leader>tt", "<cmd>ToggleTerm direction=horizontal<cr>", { silent = true })
+vim.keymap.set("n", "<leader>tf", "<cmd>ToggleTerm direction=float<cr>", { silent = true })
+vim.keymap.set("n", "<leader>tv", "<cmd>ToggleTerm direction=vertical<cr>", { silent = true })
+vim.keymap.set("n", "<leader>th", "<cmd>ToggleTerm direction=horizontal<cr>", { silent = true })
+
 -- move cursor
 -- 行首（跳到第一个非空白字符）
 vim.keymap.set({ "n", "v" }, "H", "^", { noremap = true, silent = true })
