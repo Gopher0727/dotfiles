@@ -6,6 +6,7 @@ vim.opt.mouse = "a"
 vim.opt.showcmd = true
 vim.opt.wildmenu = true
 vim.opt.autochdir = true
+vim.opt.exrc = true
 vim.opt.updatetime = 200
 vim.opt.termguicolors = true
 vim.opt.winborder = "rounded"
