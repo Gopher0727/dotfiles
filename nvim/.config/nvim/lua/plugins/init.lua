@@ -1,5 +1,6 @@
 require("plugins.autopairs")
 require("plugins.blink_cmp")
+require("plugins.dap")
 require("plugins.lsp")
 require("plugins.lualine")
 require("plugins.mason")

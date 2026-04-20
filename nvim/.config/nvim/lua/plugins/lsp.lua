@@ -12,6 +12,9 @@ vim.lsp.config("lua_ls", {
 				globals = {
 					"vim",
 					"require"
+				},
+				disable = {
+					"codestyle-check"
 				}
 			},
 			workspace = {
