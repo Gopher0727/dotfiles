@@ -29,8 +29,10 @@ vim.keymap.set("n", "<leader>tv", "<cmd>ToggleTerm direction=vertical<cr>", { si
 vim.keymap.set("n", "<leader>th", "<cmd>ToggleTerm direction=horizontal<cr>", { silent = true })
 
 -- move cursor
--- 行首（跳到第一个非空白字符）
-vim.keymap.set({ "n", "v" }, "H", "^", { noremap = true, silent = true })
--- 行尾
+vim.keymap.set({ "n", "v" }, "H", "^", { noremap = true, silent = true }) -- 行首（跳到第一个非空白字符）
 vim.keymap.set({ "n", "v" }, "L", "$", { noremap = true, silent = true })
 
+-- edit window
+vim.keymap.set("n", "<leader>n", "<cmd>tabnew<cr>", { silent = true })
+vim.keymap.set("n", "<leader>h", "<cmd>tabprevious<cr>", { silent = true })
+vim.keymap.set("n", "<leader>l", "<cmd>tabnext<cr>", { silent = true })
