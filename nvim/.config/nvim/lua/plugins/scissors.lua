@@ -3,6 +3,6 @@ vim.pack.add({
 })
 
 require("scissors").setup({
-	snippetDir = "/Users/gopher/dotfiles/nvim/.config/nvim/lua/snippets/",
+	snippetDir = "~/dotfiles/nvim/.config/nvim/lua/snippets/",
 })
 
