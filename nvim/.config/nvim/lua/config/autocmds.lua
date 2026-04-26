@@ -57,4 +57,3 @@ vim.api.nvim_create_autocmd("TermOpen", {
 		vim.keymap.set("t", "<C-l>", [[<Cmd>wincmd l<CR>]], { buffer = 0, silent = true })
 	end,
 })
-

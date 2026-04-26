@@ -1,4 +1,5 @@
 require("plugins.autopairs")
+require("plugins.conform")
 require("plugins.blink_cmp")
 require("plugins.dap")
 require("plugins.lsp")

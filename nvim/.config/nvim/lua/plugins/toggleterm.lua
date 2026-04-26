@@ -31,3 +31,9 @@ require("toggleterm").setup({
 		end
 	end,
 })
+
+-- terminal
+vim.keymap.set("n", "<leader>tt", "<cmd>ToggleTerm direction=horizontal<cr>", { silent = true })
+vim.keymap.set("n", "<leader>tf", "<cmd>ToggleTerm direction=float<cr>", { silent = true })
+vim.keymap.set("n", "<leader>tv", "<cmd>ToggleTerm direction=vertical<cr>", { silent = true })
+vim.keymap.set("n", "<leader>th", "<cmd>ToggleTerm direction=horizontal<cr>", { silent = true })

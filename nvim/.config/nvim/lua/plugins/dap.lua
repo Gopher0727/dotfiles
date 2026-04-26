@@ -13,19 +13,19 @@ local dapui = require("dapui")
 dapui.setup()
 
 dap.listeners.after.event_initialized["dapui_config"] = function()
-    dapui.open()
+	dapui.open()
 end
 dap.listeners.before.event_terminated["dapui_config"] = function()
-    dapui.close()
+	dapui.close()
 end
 dap.listeners.before.event_exited["dapui_config"] = function()
-    dapui.close()
+	dapui.close()
 end
 
 -- dap debug (使用 persistent-breakpoints 替代原生断点命令)
 local pb = require("persistent-breakpoints.api")
 require("persistent-breakpoints").setup({
-    load_breakpoints_event = { "BufReadPost" },
+	load_breakpoints_event = { "BufReadPost" },
 })
 
 vim.keymap.set("n", "<leader>db", pb.toggle_breakpoint, { desc = "Toggle breakpoint" })
@@ -37,22 +37,24 @@ vim.keymap.set("n", "<leader>dt", dap.terminate, { desc = "Terminate" })
 vim.keymap.set("n", "<leader>du", dapui.toggle, { desc = "Toggle DAP UI" })
 
 -- 条件断点
-vim.keymap.set("n", "<leader>dB", function() pb.set_conditional_breakpoint() end, { desc = "Conditional breakpoint" })
+vim.keymap.set("n", "<leader>dB", function()
+	pb.set_conditional_breakpoint()
+end, { desc = "Conditional breakpoint" })
 
 -- 次数断点
 vim.keymap.set("n", "<leader>dH", function()
-    local hit = vim.fn.input("Hit condition (e.g. >= 5): ")
-    if hit ~= "" then
-        dap.set_breakpoint(nil, hit, nil)
-    end
+	local hit = vim.fn.input("Hit condition (e.g. >= 5): ")
+	if hit ~= "" then
+		dap.set_breakpoint(nil, hit, nil)
+	end
 end, { desc = "Hit count breakpoint" })
 
 -- 日志断点
 vim.keymap.set("n", "<leader>dL", function()
-    local msg = vim.fn.input("Log message ({expr} for interpolation): ")
-    if msg ~= "" then
-        dap.set_breakpoint(nil, nil, msg)
-    end
+	local msg = vim.fn.input("Log message ({expr} for interpolation): ")
+	if msg ~= "" then
+		dap.set_breakpoint(nil, nil, msg)
+	end
 end, { desc = "Log point" })
 
 -- 清除断点
@@ -74,46 +76,46 @@ require("dap-go").setup({
 -- Python: uv add --dev debugpy
 -- 查找虚拟环境的 python，adapter 和调试目标都用同一个
 local function get_python_path()
-    if vim.env.VIRTUAL_ENV then
-        return vim.env.VIRTUAL_ENV .. "/bin/python"
-    end
-    local uv_venv = vim.fn.getcwd() .. "/.venv/bin/python"
-    if vim.fn.executable(uv_venv) == 1 then
-        return uv_venv
-    end
-    return "python3"
+	if vim.env.VIRTUAL_ENV then
+		return vim.env.VIRTUAL_ENV .. "/bin/python"
+	end
+	local uv_venv = vim.fn.getcwd() .. "/.venv/bin/python"
+	if vim.fn.executable(uv_venv) == 1 then
+		return uv_venv
+	end
+	return "python3"
 end
 
 require("dap-python").setup(get_python_path())
 
 -- Rust/C/C++: brew install llvm (提供 lldb-dap)
 dap.adapters["lldb-dap"] = {
-    type = "executable",
-    command = "/opt/homebrew/opt/llvm/bin/lldb-dap",
+	type = "executable",
+	command = "/opt/homebrew/opt/llvm/bin/lldb-dap",
 }
 
 dap.configurations.rust = {
-    {
-        name = "Launch",
-        type = "lldb-dap",
-        request = "launch",
-        program = function()
-            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/target/debug/", "file")
-        end,
-        cwd = "${workspaceFolder}",
-    },
+	{
+		name = "Launch",
+		type = "lldb-dap",
+		request = "launch",
+		program = function()
+			return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/target/debug/", "file")
+		end,
+		cwd = "${workspaceFolder}",
+	},
 }
 
 dap.configurations.c = {
-    {
-        name = "Launch",
-        type = "lldb-dap",
-        request = "launch",
-        program = function()
-            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
-        end,
-        cwd = "${workspaceFolder}",
-    },
+	{
+		name = "Launch",
+		type = "lldb-dap",
+		request = "launch",
+		program = function()
+			return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+		end,
+		cwd = "${workspaceFolder}",
+	},
 }
 
 dap.configurations.cpp = dap.configurations.c

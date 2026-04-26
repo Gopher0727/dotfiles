@@ -13,3 +13,6 @@ vim.pack.add({
 require('neo-tree').setup({
 	-- options go here
 })
+
+-- toggle sidebar
+vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<cr>", { silent = true })
