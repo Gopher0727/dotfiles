@@ -45,4 +45,3 @@ vim.lsp.config("gopls", {
 		},
 	},
 })
-

@@ -13,4 +13,3 @@ vim.pack.add({
 require('neo-tree').setup({
 	-- options go here
 })
-

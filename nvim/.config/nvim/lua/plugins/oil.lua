@@ -3,4 +3,3 @@ vim.pack.add({
 })
 
 require("oil").setup()
-

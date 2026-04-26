@@ -1,8 +1,7 @@
 vim.pack.add({
-	"https://github.com/chrisgrieser/nvim-scissors"
+	{ src = "https://github.com/chrisgrieser/nvim-scissors" }
 })
 
 require("scissors").setup({
 	snippetDir = "~/dotfiles/nvim/.config/nvim/lua/snippets/",
 })
-

@@ -23,4 +23,3 @@ require("mason-tool-installer").setup({
 		"gopls",
 	},
 })
-

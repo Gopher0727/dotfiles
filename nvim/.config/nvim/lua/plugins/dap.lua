@@ -1,10 +1,10 @@
 vim.pack.add({
-    { src = "https://github.com/mfussenegger/nvim-dap" },
-    { src = "https://github.com/rcarriga/nvim-dap-ui" },
-    { src = "https://github.com/nvim-neotest/nvim-nio" },
-    { src = "https://github.com/leoluz/nvim-dap-go" },
-    { src = "https://github.com/mfussenegger/nvim-dap-python" },
-    { src = "https://github.com/Weissle/persistent-breakpoints.nvim" },
+	{ src = "https://github.com/mfussenegger/nvim-dap" },
+	{ src = "https://github.com/rcarriga/nvim-dap-ui" },
+	{ src = "https://github.com/nvim-neotest/nvim-nio" },
+	{ src = "https://github.com/leoluz/nvim-dap-go" },
+	{ src = "https://github.com/mfussenegger/nvim-dap-python" },
+	{ src = "https://github.com/Weissle/persistent-breakpoints.nvim" },
 })
 
 local dap = require("dap")
@@ -59,7 +59,17 @@ end, { desc = "Log point" })
 vim.keymap.set("n", "<leader>dX", pb.clear_all_breakpoints, { desc = "Clear all breakpoints" })
 
 -- Go: go install github.com/go-delve/delve/cmd/dlv@latest
-require("dap-go").setup()
+require("dap-go").setup({
+	dap_configurations = {
+		{
+			type = "go",
+			name = "Debug (with input)",
+			request = "launch",
+			program = "${file}",
+			console = "externalTerminal",
+		},
+	},
+})
 
 -- Python: uv add --dev debugpy
 -- 查找虚拟环境的 python，adapter 和调试目标都用同一个

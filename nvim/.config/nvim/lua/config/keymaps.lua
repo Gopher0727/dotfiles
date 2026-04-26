@@ -36,3 +36,9 @@ vim.keymap.set({ "n", "v" }, "L", "$", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>n", "<cmd>tabnew<cr>", { silent = true })
 vim.keymap.set("n", "<leader>h", "<cmd>tabprevious<cr>", { silent = true })
 vim.keymap.set("n", "<leader>l", "<cmd>tabnext<cr>", { silent = true })
+
+-- builtin undotree
+vim.keymap.set("n", "<leader>u", function ()
+	vim.cmd.packadd("nvim.undotree")
+	require("undotree").open()
+end)
