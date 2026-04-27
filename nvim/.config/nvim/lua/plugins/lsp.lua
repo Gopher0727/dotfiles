@@ -2,7 +2,7 @@ vim.pack.add({
 	{ src = "https://github.com/neovim/nvim-lspconfig" },
 })
 
-vim.lsp.enable(
+vim.lsp.enable({
 	"lua_ls",
 	"gopls",
 	"clangd",
@@ -14,7 +14,7 @@ vim.lsp.enable(
 	"texlab",
 	"cmake",
 	"kotlin_language_server"
-)
+})
 
 vim.lsp.config("lua_ls", {
 	settings = {
