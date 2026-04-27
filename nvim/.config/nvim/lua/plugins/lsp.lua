@@ -13,7 +13,6 @@ vim.lsp.enable({
 	"marksman",
 	"texlab",
 	"cmake",
-	"kotlin_language_server"
 })
 
 vim.lsp.config("lua_ls", {
