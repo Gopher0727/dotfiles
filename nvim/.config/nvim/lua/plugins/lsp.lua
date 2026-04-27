@@ -2,26 +2,26 @@ vim.pack.add({
 	{ src = "https://github.com/neovim/nvim-lspconfig" },
 })
 
+vim.lsp.enable("lua_ls", "gopls", "clangd", "rust_analyzer", "jsonls")
+
 vim.lsp.config("lua_ls", {
 	settings = {
 		Lua = {
 			runtime = {
-				version = "LuaJIT"
+				version = "LuaJIT",
 			},
 			diagnostics = {
-				globals = {
-					"vim",
-					"require"
-				},
-				disable = {
-					"codestyle-check"
-				}
+				globals = { "vim" },
+				disable = { "codestyle-check" },
 			},
 			workspace = {
-				library = vim.api.nvim_get_runtime_file("", true),
+				library = {
+					vim.env.VIMRUNTIME,
+					vim.fn.stdpath("config"),
+				},
 			},
 			telemetry = {
-				enable = false
+				enable = false,
 			},
 		},
 	},

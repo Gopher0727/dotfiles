@@ -14,27 +14,12 @@ require("lualine").setup({
 			statusline = {},
 			winbar = {},
 		},
-		ignore_focus = {},
 		always_divide_middle = true,
-		always_show_tabline = true,
 		globalstatus = false,
 		refresh = {
 			statusline = 1000,
 			tabline = 1000,
 			winbar = 1000,
-			refresh_time = 16, -- ~60fps
-			events = {
-				"WinEnter",
-				"BufEnter",
-				"BufWritePost",
-				"SessionLoadPost",
-				"FileChangedShellPost",
-				"VimResized",
-				"Filetype",
-				"CursorMoved",
-				"CursorMovedI",
-				"ModeChanged",
-			},
 		},
 	},
 	sections = {
@@ -53,8 +38,4 @@ require("lualine").setup({
 		lualine_y = {},
 		lualine_z = {},
 	},
-	tabline = {},
-	winbar = {},
-	inactive_winbar = {},
-	extensions = {},
 })

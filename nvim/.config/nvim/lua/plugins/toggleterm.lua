@@ -7,7 +7,7 @@ require("toggleterm").setup({
 	insert_mappings = true,
 	terminal_mappings = true,
 	start_in_insert = true,
-	persist_mode = false,
+	-- persist_mode = false,
 	direction = "horizontal",
 	shade_terminals = false,
 	highlights = {

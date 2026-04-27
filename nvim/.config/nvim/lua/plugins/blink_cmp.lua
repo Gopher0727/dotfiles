@@ -12,7 +12,7 @@ require("blink.cmp").setup({
 			snippets = {
 				opts = {
 					search_paths = {
-						"/Users/gopher/dotfiles/nvim/.config/nvim/lua/snippets/",
+						"~/dotfiles/nvim/.config/nvim/lua/snippets/",
 					},
 				},
 			},
