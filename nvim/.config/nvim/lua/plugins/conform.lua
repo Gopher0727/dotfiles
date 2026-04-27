@@ -10,6 +10,12 @@ require("conform").setup({
 		rust = { "rustfmt", lsp_format = "fallback" },
 		c = { "clang-format" },
 		cpp = { "clang-format" },
+		php = { "php_cs_fixer" },
+		kotlin = { "ktlint" },
+		markdown = { "prettier" },
+		tex = { "latexindent" },
+		json = { "prettier" },
+		cmake = { "cmake_format" },
 
 		["_"] = { "trim_whitespace" },
 	},
