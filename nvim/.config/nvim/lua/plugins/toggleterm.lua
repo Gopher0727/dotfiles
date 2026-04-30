@@ -7,8 +7,8 @@ require("toggleterm").setup({
 	insert_mappings = true,
 	terminal_mappings = true,
 	start_in_insert = true,
-	-- persist_mode = false,
-	direction = "horizontal",
+	persist_mode = false,
+	direction = "vertical",
 	shade_terminals = false,
 	highlights = {
 		Normal = { guibg = "NONE" },
@@ -19,6 +19,8 @@ require("toggleterm").setup({
 
 	-- 浮窗尺寸
 	float_opts = {
+		border = "curved",
+		winblend = 0,
 		width = math.floor(vim.o.columns * 0.8),
 		height = math.floor(vim.o.lines * 0.8),
 	},
@@ -33,7 +35,7 @@ require("toggleterm").setup({
 })
 
 -- terminal
-vim.keymap.set("n", "<leader>tt", "<cmd>ToggleTerm direction=horizontal<cr>", { silent = true })
+vim.keymap.set("n", "<leader>tt", "<cmd>ToggleTerm direction=float<cr>", { silent = true })
 vim.keymap.set("n", "<leader>tf", "<cmd>ToggleTerm direction=float<cr>", { silent = true })
 vim.keymap.set("n", "<leader>tv", "<cmd>ToggleTerm direction=vertical<cr>", { silent = true })
 vim.keymap.set("n", "<leader>th", "<cmd>ToggleTerm direction=horizontal<cr>", { silent = true })
