@@ -24,10 +24,10 @@ STOW_PACKAGES=(nvim tmux vim yazi zsh)
 # 需要创建的配置目录
 CONFIG_DIRS=(
   ~/.config/nvim
+  ~/.config/ghostty
   ~/.config/fish
   ~/.config/helix
   ~/.config/micro
-  ~/.config/yazi
 )
 # ==========================================
 
