@@ -19,6 +19,7 @@ zoxide init fish | source
 starship init fish | source
 
 # 环境变量
+set -gx PATH /opt/dev $PATH
 set -gx PATH /opt/homebrew/opt/llvm/bin $PATH
 set -gx PATH /usr/local/texlive/2026/bin/universal-darwin $PATH
 

@@ -31,6 +31,7 @@ eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
 
 # 环境变量
+export PATH="/opt/dev:$PATH"
 export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 export PATH="/usr/local/texlive/2026/bin/universal-darwin:$PATH"
 
@@ -66,7 +67,7 @@ ZSH_HIGHLIGHT_STYLES[single-quoted-argument]="fg=#f1fa8c"           # fish_color
 ZSH_HIGHLIGHT_STYLES[double-quoted-argument]="fg=#f1fa8c"           # fish_color_quote
 ZSH_HIGHLIGHT_STYLES[dollar-quoted-argument]="fg=#f1fa8c"
 ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]="fg=#ff79c6"    # fish_color_escape
-ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]="fg=#ff79c6" 
+ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]="fg=#ff79c6"
 ZSH_HIGHLIGHT_STYLES[redirection]="fg=#f8f8f2"                      # fish_color_redirection
 ZSH_HIGHLIGHT_STYLES[commandseparator]="fg=#ffb86c"                 # fish_color_end (;、&、|)
 ZSH_HIGHLIGHT_STYLES[globbing]="fg=#50fa7b"                         # fish_color_operator
