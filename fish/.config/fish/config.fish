@@ -3,34 +3,34 @@ if status is-interactive
 end
 
 # 别名
+alias cd="z"
 alias l="command ls"
-alias ls="lsd -l"
+alias ls="lsd"
+alias la="lsd -a"
+alias ll="lsd -l"
+alias lla="lsd -la"
+alias cat="bat"
+alias fastfetch="fastfetch --config examples/25"
 
-# Go
-fish_add_path /usr/local/go/bin
-fish_add_path $HOME/go/bin
-
-# Cargo
-fish_add_path $HOME/.cargo/bin
-
-# Flutter
-fish_add_path $HOME/dev/flutter/bin
-
-# Android SDK & Java
-set -gx ANDROID_SDK_ROOT $HOME/Android/Sdk
-fish_add_path $ANDROID_SDK_ROOT/cmdline-tools/latest/bin
-fish_add_path $ANDROID_SDK_ROOT/platform-tools
-
-if not set -q JAVA_HOME; or test -z "$JAVA_HOME"
-    echo "JAVA_HOME is null"
-    echo "   TODO: set -Ux JAVA_HOME /path/to/your/java"
-else
-    fish_add_path $JAVA_HOME/bin
-end
-
-# zoxide
+# zoxide 初始化
 zoxide init fish | source
 
-# starship
+# starship 初始化
 starship init fish | source
- 
+
+# 环境变量
+set -gx PATH /opt/homebrew/opt/llvm/bin $PATH
+set -gx PATH /usr/local/texlive/2026/bin/universal-darwin $PATH
+
+# yazi 退出时切换目录
+function y
+    set tmp (mktemp -t yazi-cwd.XXXXXX)
+    env EDITOR=micro yazi $argv --cwd-file="$tmp"
+    if test -s $tmp
+        set cwd (cat $tmp)
+        if test "$cwd" != "$PWD"
+            cd $cwd
+        end
+    end
+    rm -f $tmp
+end
