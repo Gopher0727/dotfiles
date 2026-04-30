@@ -8,15 +8,9 @@ You could install the following software packages.
 
 - `uv` `ruff`
 
-- `reqable` `sublime` `maccy` `mos`
+- `pandoc` `ffmpeg` `poppler`
 
-```bash
-mkdir -p ~/.config/nvim
-mkdir -p ~/.config/fish
-mkdir -p ~/.config/helix
-mkdir -p ~/.config/micro
-mkdir -p ~/.config/yazi
-```
+- `reqable` `sublime` `maccy` `mos`
 
 ## Git
 ```bash

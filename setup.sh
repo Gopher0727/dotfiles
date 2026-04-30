@@ -25,6 +25,7 @@ STOW_PACKAGES=(nvim tmux vim yazi zsh)
 CONFIG_DIRS=(
   ~/.config/nvim
   ~/.config/ghostty
+  ~/.config/yazi
   ~/.config/fish
   ~/.config/helix
   ~/.config/micro
