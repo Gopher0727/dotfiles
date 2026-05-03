@@ -3,6 +3,8 @@ if status is-interactive
 end
 
 # 别名
+alias c="clear"
+alias e="exit"
 alias cd="z"
 alias l="command ls"
 alias ls="lsd"
@@ -19,8 +21,9 @@ zoxide init fish | source
 starship init fish | source
 
 # 环境变量
+set -gx JAVA_HOME (brew --prefix openjdk@17)/libexec/openjdk.jdk/Contents/Home
+set -gx PATH $JAVA_HOME/bin $PATH
 set -gx PATH /opt/dev $PATH
-set -gx PATH /opt/homebrew/opt/llvm/bin $PATH
 set -gx PATH /usr/local/texlive/2026/bin/universal-darwin $PATH
 
 # yazi 退出时切换目录

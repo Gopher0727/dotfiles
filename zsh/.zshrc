@@ -15,6 +15,8 @@ setopt completealiases # 别名补全
 setopt autocd # 自动跳转
 
 # alias
+alias c="clear"
+alias e="exit"
 alias cd="z"
 alias l="command ls"
 alias ls="lsd"
@@ -31,8 +33,9 @@ eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
 
 # 环境变量
+export JAVA_HOME="$(brew --prefix openjdk@17)/libexec/openjdk.jdk/Contents/Home"
+export PATH="$JAVA_HOME/bin:$PATH"
 export PATH="/opt/dev:$PATH"
-export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
 export PATH="/usr/local/texlive/2026/bin/universal-darwin:$PATH"
 
 # yazi 退出时切换目录
@@ -45,16 +48,26 @@ function y() {
 	rm -f -- "$tmp"
 }
 
-# 插件
-# git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.zsh/plugins/zsh-syntax-highlighting
-# git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/plugins/zsh-autosuggestions
-# git clone https://github.com/zsh-users/zsh-history-substring-search ~/.zsh/plugins/zsh-history-substring-search
-source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh # 自动补全
-source ~/.zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh # 历史子串搜索
-source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh # 语法高亮
+# 插件 (via Homebrew)
+FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# 双击 ESC 添加/移除 sudo
+sudo-command-line() {
+    [[ -z $BUFFER ]] && zle up-history
+    if [[ $BUFFER == sudo\ * ]]; then
+        LBUFFER="${LBUFFER#sudo }"
+    else
+        LBUFFER="sudo $LBUFFER"
+    fi
+}
+zle -N sudo-command-line
+bindkey "\e\e" sudo-command-line
 
 # Dracula 主题 - 对应 fish_color_*
 ZSH_HIGHLIGHT_STYLES[command]="fg=#8be9fd,bold"                     # fish_color_command
+ZSH_HIGHLIGHT_STYLES[precommand]="fg=#8be9fd,bold"                  # sudo, nice, etc.
 ZSH_HIGHLIGHT_STYLES[builtin]="fg=#8be9fd,bold"
 ZSH_HIGHLIGHT_STYLES[function]="fg=#8be9fd,bold"
 ZSH_HIGHLIGHT_STYLES[alias]="fg=#8be9fd,bold"
