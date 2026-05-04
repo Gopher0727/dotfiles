@@ -17,3 +17,15 @@ vim.keymap.set("n", "<leader>u", function()
 	vim.cmd.packadd("nvim.undotree")
 	require("undotree").open()
 end)
+
+-- Option + 上下：移动当前行
+vim.keymap.set('n', '<M-up>',   ':move .-2<cr>==')
+vim.keymap.set('n', '<M-down>', ':move .+1<cr>==')
+vim.keymap.set('v', '<M-up>',   ":move '<-2<cr>gv=gv")
+vim.keymap.set('v', '<M-down>', ":move '>+1<cr>gv=gv")
+
+-- Shift + Option + 上下：复制当前行
+vim.keymap.set('n', '<M-S-up>',   ':t .-1<cr>==')
+vim.keymap.set('n', '<M-S-down>', ':t .<cr>==')
+vim.keymap.set('v', '<M-S-up>',   ":t '<-1<cr>gv=gv")
+vim.keymap.set('v', '<M-S-down>', ":t '>+1<cr>gv=gv")
