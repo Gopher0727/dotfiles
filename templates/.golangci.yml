@@ -1,0 +1,19 @@
+version: "2"
+
+linters:
+  default: none
+  enable:
+    - errcheck
+    - govet
+    - ineffassign
+    - staticcheck
+    - unused
+  settings:
+    errcheck:
+      check-blank: true
+      exclude-functions:
+        - (*os.File).Close
+        - (net.Conn).Close
+        - (*bufio.Writer).Flush
+        - fmt.Fscan
+        - fmt.Fprintln

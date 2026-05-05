@@ -24,6 +24,8 @@ alias la="lsd -a"
 alias ll="lsd -l"
 alias lla="lsd -la"
 alias cat="bat"
+alias py='python3'
+alias python='python3'
 alias fastfetch="fastfetch --config examples/25"
 
 # zoxide 初始化
@@ -31,6 +33,9 @@ eval "$(zoxide init zsh)"
 
 # starship 初始化
 eval "$(starship init zsh)"
+
+# Hermes
+export PATH="$HOME/.local/bin:$PATH"
 
 # 环境变量
 export JAVA_HOME="$(brew --prefix openjdk@17)/libexec/openjdk.jdk/Contents/Home"

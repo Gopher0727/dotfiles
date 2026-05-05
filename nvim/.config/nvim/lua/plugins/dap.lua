@@ -68,7 +68,7 @@ require("dap-go").setup({
 			name = "Debug (with input)",
 			request = "launch",
 			program = "${file}",
-			console = "externalTerminal",
+			console = "integratedTerminal",
 		},
 	},
 })

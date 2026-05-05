@@ -10,9 +10,7 @@ vim.pack.add({
 	"https://github.com/nvim-tree/nvim-web-devicons",
 })
 
-require('neo-tree').setup({
-	-- options go here
-})
+require('neo-tree').setup({})
 
 -- toggle sidebar
 vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<cr>", { silent = true })

@@ -22,7 +22,7 @@ vim.lsp.config("lua_ls", {
 				version = "LuaJIT",
 			},
 			diagnostics = {
-				globals = { "vim" },
+				globals = { "vim", "Snacks" },
 				disable = { "codestyle-check" },
 			},
 			workspace = {
