@@ -1,4 +1,5 @@
 vim.g.mapleader = " "
+vim.opt.timeoutlen = 300
 
 -- ui
 vim.opt.number = true
