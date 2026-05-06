@@ -34,9 +34,6 @@ eval "$(zoxide init zsh)"
 # starship 初始化
 eval "$(starship init zsh)"
 
-# Hermes
-export PATH="$HOME/.local/bin:$PATH"
-
 # 环境变量
 export JAVA_HOME="$(brew --prefix openjdk@17)/libexec/openjdk.jdk/Contents/Home"
 export PATH="$JAVA_HOME/bin:$PATH"

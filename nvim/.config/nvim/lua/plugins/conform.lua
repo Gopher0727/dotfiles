@@ -16,7 +16,9 @@ require("conform").setup({
 		tex = { "latexindent" },
 		json = { "jq" },
 		javascript = { "prettier" },
+		javascriptreact = { "prettier" },
 		typescript = { "prettier" },
+		typescriptreact = { "prettier" },
 		cmake = { "cmake_format" },
 
 		["_"] = { "trim_whitespace" },
