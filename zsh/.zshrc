@@ -1,14 +1,16 @@
 # 历史命令优化
 HISTFILE=~/.zsh_history
-HISTSIZE=1000000
-SAVEHIST=1000000
+HISTSIZE=100000
+SAVEHIST=100000
 setopt appendhistory         # 追加历史而非覆盖
 setopt sharehistory          # 多终端共享历史
 setopt histignorealldups     # 去重历史命令
 setopt histignorespace       # 空格开头的命令不记入历史
 
 # 补全优化
+FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
 autoload -Uz compinit && compinit
+
 zstyle ':completion:*' menu select # 按 Tab 弹出交互式选择菜单（上下键选补全项）
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # 大小写不敏感
 setopt completealiases # 别名补全
@@ -51,7 +53,6 @@ function y() {
 }
 
 # 插件 (via Homebrew)
-FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
