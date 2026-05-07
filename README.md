@@ -1,6 +1,6 @@
 # 常用 OS 配置
 
-软件包列表见 [setup.sh](setup.sh)。
+软件包列表见 [checklist.sh](./checklist.sh)。
 
 ## Git
 ```bash
