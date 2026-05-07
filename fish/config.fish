@@ -1,3 +1,4 @@
+# ~/.config/fish/config.fish
 if status is-interactive
 # Commands to run in interactive sessions can go here
 end
@@ -19,12 +20,6 @@ zoxide init fish | source
 
 # starship 初始化
 starship init fish | source
-
-# 环境变量
-set -gx JAVA_HOME (brew --prefix openjdk@17)/libexec/openjdk.jdk/Contents/Home
-set -gx PATH $JAVA_HOME/bin $PATH
-set -gx PATH /opt/dev $PATH
-set -gx PATH /usr/local/texlive/2026/bin/universal-darwin $PATH
 
 # yazi 退出时切换目录
 function y

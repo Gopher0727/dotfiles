@@ -1,16 +1,6 @@
 # 常用 OS 配置
 
-You could install the following software packages.
-
-- `git` `stow` `yazi` `ghostty kitty` `zsh fish` `starship` `zoxide` `fastfetch` `vim` `nvim`
-
-- `tldr` `tmux` `btop` `lsd` `openssh` `fzf` `tree` `ccache` `cloc` `ripgrep` `fd (find)` `jq` `duf` `cmatrix` `lolcat` `bat`
-
-- `uv` `ruff`
-
-- `pandoc` `ffmpeg` `poppler`
-
-- `reqable` `sublime` `maccy` `mos`
+软件包列表见 [setup.sh](setup.sh)。
 
 ## Git
 ```bash

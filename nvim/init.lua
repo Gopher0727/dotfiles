@@ -7,4 +7,3 @@ require("config.autocmds")
 
 require("plugins")
 require("theme")
-

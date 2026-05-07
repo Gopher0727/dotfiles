@@ -3,7 +3,7 @@ vim.pack.add({
 })
 
 require("scissors").setup({
-	snippetDir = "~/dotfiles/nvim/.config/nvim/lua/snippets/",
+	snippetDir = "~/.config/nvim/lua/snippets/",
 })
 
 -- snippet edit

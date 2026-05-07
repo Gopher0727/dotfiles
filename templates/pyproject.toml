@@ -21,4 +21,3 @@ ignore = [
 [tool.ruff.lint.isort]
 force-to-top = ["pkg_resources"]
 order-by-type = true
-

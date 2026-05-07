@@ -1,3 +1,4 @@
+# ~/.zshrc
 # 历史命令优化
 HISTFILE=~/.zsh_history
 HISTSIZE=100000
@@ -35,12 +36,6 @@ eval "$(zoxide init zsh)"
 
 # starship 初始化
 eval "$(starship init zsh)"
-
-# 环境变量
-export JAVA_HOME="$(brew --prefix openjdk@17)/libexec/openjdk.jdk/Contents/Home"
-export PATH="$JAVA_HOME/bin:$PATH"
-export PATH="/opt/dev:$PATH"
-export PATH="/usr/local/texlive/2026/bin/universal-darwin:$PATH"
 
 # yazi 退出时切换目录
 function y() {

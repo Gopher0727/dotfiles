@@ -1,3 +1,4 @@
+# ~/.zprofile
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
@@ -17,4 +18,3 @@ export JAVA_HOME="$(brew --prefix openjdk@17)/libexec/openjdk.jdk/Contents/Home"
 export PATH="$JAVA_HOME/bin:$PATH"
 
 # Cargo
-[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"

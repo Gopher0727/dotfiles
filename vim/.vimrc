@@ -1,3 +1,4 @@
+" ~/.vimrc
 filetype plugin indent on
 syntax on
 
@@ -47,4 +48,3 @@ set clipboard=unnamedplus
 
 "键位
 inoremap jk <ESC>
-
