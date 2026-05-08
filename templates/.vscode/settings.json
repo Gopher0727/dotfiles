@@ -40,5 +40,38 @@
         "editor.codeActionsOnSave": {
             "source.fixAll.ruff": "explicit"
         }
-    }
+    },
+    "[latex]": {
+        "editor.formatOnSave": false,
+    },
+    "latex-workshop.formatting.latex": "tex-fmt",
+    "latex-workshop.latex.tools": [
+        {
+            "name": "xelatex",
+            "command": "xelatex",
+            "args": [
+                "-shell-escape",
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "%DOC%"
+            ]
+        },
+        {
+            "name": "bibtex",
+            "command": "bibtex",
+            "args": [
+                "%DOCFILE%"
+            ]
+        }
+    ],
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "xelatex-main",
+            "tools": [
+                "xelatex"
+            ]
+        }
+    ],
+    "latex-workshop.latex.recipe.default": "xelatex-main",
 }
