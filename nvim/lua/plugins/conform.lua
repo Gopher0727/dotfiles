@@ -20,6 +20,7 @@ require("conform").setup({
 		typescript = { "prettier" },
 		typescriptreact = { "prettier" },
 		cmake = { "cmake_format" },
+		toml = { "taplo" },
 
 		["_"] = { "trim_whitespace" },
 	},
