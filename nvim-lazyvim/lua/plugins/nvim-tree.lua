@@ -8,6 +8,9 @@ return {
                 dotfiles = false,
                 custom = { "^.git$" },
             },
+            view = {
+                width = 35,
+            },
             git = {
                 enable = true,
                 ignore = false,

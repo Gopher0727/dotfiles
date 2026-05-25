@@ -51,6 +51,9 @@ function y() {
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+# API-Key
+source ~/.zsh_secrets
+
 # 双击 ESC 添加/移除 sudo
 sudo-command-line() {
     [[ -z $BUFFER ]] && zle up-history
