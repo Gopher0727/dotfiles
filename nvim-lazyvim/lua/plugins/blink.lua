@@ -3,6 +3,15 @@ return {
         "saghen/blink.cmp",
         optional = true,
         opts = function(_, opts)
+            opts.completion = opts.completion or {}
+            opts.completion.menu = opts.completion.menu or {}
+            opts.completion.menu.auto_show = false
+
+            opts.keymap = {
+                preset = "enter",
+                ["<Tab>"] = { "show", "select_next", "fallback" },
+            }
+
             opts.sources = opts.sources or {}
             opts.sources.providers = opts.sources.providers or {}
 

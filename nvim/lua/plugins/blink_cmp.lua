@@ -5,8 +5,12 @@ vim.pack.add({
 })
 
 require("blink.cmp").setup({
+	completion = {
+		menu = { auto_show = false },
+	},
 	keymap = {
-		["<CR>"] = { "select_and_accept", "fallback" },
+		preset = "enter",
+		["<Tab>"] = { "show", "select_next", "fallback" },
 	},
 	sources = {
 		providers = {
