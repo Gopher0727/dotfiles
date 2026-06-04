@@ -1,5 +1,4 @@
 require("plugins.aerial")
-require("plugins.auto-save")
 require("plugins.autopairs")
 require("plugins.blink_cmp")
 require("plugins.conform")
