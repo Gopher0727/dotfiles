@@ -18,6 +18,8 @@ export PATH="$HOME/go/bin:$PATH"
 # Java 环境
 export JAVA_HOME="$(brew --prefix openjdk@17)/libexec/openjdk.jdk/Contents/Home"
 export PATH="$JAVA_HOME/bin:$PATH"
+# kimi-code
+export PATH="/Users/gopher/.kimi-code/bin:$PATH"
 
 # Cargo
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"

@@ -13,6 +13,7 @@ return {
             }
 
             opts.sources = opts.sources or {}
+            opts.sources.default = { "lsp", "path", "snippets" }
             opts.sources.providers = opts.sources.providers or {}
 
             -- snippets
