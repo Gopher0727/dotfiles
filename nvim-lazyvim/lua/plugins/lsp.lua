@@ -4,6 +4,21 @@ return {
         opts = {
             servers = {
                 marksman = {},
+                gopls = {
+                    settings = {
+                        gopls = {
+                            hints = {
+                                assignVariableTypes = false,
+                                compositeLiteralFields = false,
+                                compositeLiteralTypes = false,
+                                constantValues = false,
+                                functionTypeParameters = false,
+                                parameterNames = true,
+                                rangeVariableTypes = false,
+                            },
+                        },
+                    },
+                },
             },
         },
     },

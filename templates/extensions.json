@@ -1,0 +1,23 @@
+{
+    "recommendations": [
+        "Catppuccin.catppuccin-vsc", // 主题
+        "Catppuccin.catppuccin-vsc-icons", // 图标主题
+        "aaron-bond.better-comments", // 更好的注释
+        "vadimcn.vscode-lldb", // debug
+        "tamasfe.even-better-toml", // toml
+        "golang.go", // go
+        "rust-lang.rust-analyzer", // rust
+        "yzhang.markdown-all-in-one", // markdown
+        // python
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.debugpy",
+        "charliermarsh.ruff",
+        // frontend
+        "pranaygp.vscode-css-peek",
+        "dsznajder.es7-react-js-snippets",
+        "xabikos.JavaScriptSnippets",
+        "bradlc.vscode-tailwindcss",
+        "octref.vetur",
+    ]
+}

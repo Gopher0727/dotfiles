@@ -2,6 +2,16 @@ vim.pack.add({
 	{ src = "https://github.com/saghen/blink.cmp" },
 	{ src = "https://github.com/rafamadriz/friendly-snippets" },
 	{ src = "https://github.com/saghen/blink.lib" },
+	{ src = "https://github.com/supermaven-inc/supermaven-nvim" },
+})
+
+require("supermaven-nvim").setup({
+	disable_inline_completion = false,
+	keymaps = {
+		accept_suggestion = nil,
+		clear_suggestion = nil,
+		accept_word = nil,
+	},
 })
 
 require("blink.cmp").setup({
@@ -10,9 +20,23 @@ require("blink.cmp").setup({
 	},
 	keymap = {
 		preset = "enter",
-		["<Tab>"] = { "show", "select_next", "fallback" },
+		["<Tab>"] = {
+			function()
+				local ok, suggestion = pcall(require, "supermaven-nvim.completion_preview")
+				if ok and suggestion.has_suggestion() then
+					vim.schedule(function()
+						suggestion.on_accept_suggestion()
+					end)
+					return true
+				end
+			end,
+			"show",
+			"select_next",
+			"fallback",
+		},
 	},
 	sources = {
+		default = { "lsp", "path", "snippets" },
 		providers = {
 			snippets = {
 				opts = {
