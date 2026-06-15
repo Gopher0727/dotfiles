@@ -16,4 +16,5 @@ linters:
         - (net.Conn).Close
         - (*bufio.Writer).Flush
         - fmt.Fscan
+        - fmt.Fprint
         - fmt.Fprintln

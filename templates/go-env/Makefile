@@ -1,4 +1,4 @@
-.PHONY: build run test fmt tidy clean
+.PHONY: build run test check fmt tidy clean
 
 build:
 	@go build -o bin/ main.go
@@ -6,12 +6,12 @@ build:
 run: build
 	@./bin/main
 
-# Go files should be named with `_test.go` suffix and contain `Test` or
+# Go files should be named with `_test.go` suffix and contain `Test` or 
 # `Benchmark` functions to be recognized by `go test`.
 test:
 	@go test --bench=. -benchmem ./..
 
-# If you use fish, you should install goimports-reviser with
+# If you use fish, you should install goimports-reviser with 
 # `go install github.com/incu6us/goimports-reviser/v2@latest`
 # and add the `set -gx PATH $HOME/go/bin $PATH` to your `config.fish`.
 fmt:
