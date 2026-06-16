@@ -4,14 +4,30 @@ return {
         optional = true,
         opts = function(_, opts)
             opts.completion = opts.completion or {}
-            opts.completion.menu = opts.completion.menu or {}
-            opts.completion.menu.auto_show = false
+            opts.completion.list = opts.completion.list or {}
+            opts.completion.list.selection = {
+                preselect = false,
+                auto_insert = true,
+            }
 
             opts.keymap = {
-                ["<Tab>"] = { "show", "select_next", "fallback" },
-                ["<S-Tab>"] = { "select_prev", "fallback" },
-                ["<CR>"] = { "accept", "fallback" },
-                ["<C-e>"] = { "hide", "fallback" },
+                preset = "enter",
+                ["<Tab>"] = {
+                    "snippet_forward",
+                    function()
+                        local ok, suggestion = pcall(require, "supermaven-nvim.completion_preview")
+                        if ok and suggestion.has_suggestion() and not require("blink.cmp").is_visible() then
+                            vim.schedule(function()
+                                suggestion.on_accept_suggestion()
+                            end)
+                            return true
+                        end
+                    end,
+                    "select_next",
+                    "fallback",
+                },
+                ["<S-Tab>"] = { "snippet_backward", "select_prev", "fallback" },
+                ["<Esc>"] = { "cancel", "fallback" },
             }
 
             opts.sources = opts.sources or {}

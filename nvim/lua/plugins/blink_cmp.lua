@@ -16,24 +16,31 @@ require("supermaven-nvim").setup({
 
 require("blink.cmp").setup({
 	completion = {
-		menu = { auto_show = false },
+		list = {
+			selection = {
+				preselect = false,
+				auto_insert = true,
+			},
+		},
 	},
 	keymap = {
 		preset = "enter",
 		["<Tab>"] = {
+			"snippet_forward",
 			function()
 				local ok, suggestion = pcall(require, "supermaven-nvim.completion_preview")
-				if ok and suggestion.has_suggestion() then
+				if ok and suggestion.has_suggestion() and not require("blink.cmp").is_visible() then
 					vim.schedule(function()
 						suggestion.on_accept_suggestion()
 					end)
 					return true
 				end
 			end,
-			"show",
 			"select_next",
 			"fallback",
 		},
+		["<S-Tab>"] = { "snippet_backward", "select_prev", "fallback" },
+		["<Esc>"] = { "cancel", "fallback" },
 	},
 	sources = {
 		default = { "lsp", "path", "snippets" },
