@@ -170,16 +170,6 @@
 | `<CR>`    | i    | Accept Selected               | LazyVim |
 | `<C-e>`   | i    | Hide Menu                     | LazyVim |
 
-## Terminal (ToggleTerm)
-
-| Key          | Mode | Action              | 来源   |
-| ------------ | ---- | ------------------- | ------ |
-| `<leader>tt` | n    | Float Terminal      | 自定义 |
-| `<leader>tf` | n    | Float Terminal      | 自定义 |
-| `<leader>tv` | n    | Vertical Terminal   | 自定义 |
-| `<leader>th` | n    | Horizontal Terminal | 自定义 |
-| `<Esc><Esc>` | t    | Close Terminal      | 自定义 |
-
 ## Markdown
 
 | Key          | Mode | Action           | 来源   |
