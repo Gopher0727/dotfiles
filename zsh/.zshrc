@@ -1,4 +1,9 @@
 # ~/.zshrc
+
+# 插件 (via Homebrew)
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 # 历史命令优化
 HISTFILE=~/.zsh_history
 HISTSIZE=100000
@@ -11,11 +16,30 @@ setopt histignorespace       # 空格开头的命令不记入历史
 # 补全优化
 FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
 autoload -Uz compinit && compinit
+setopt completealiases                               # 别名补全
+setopt autocd                                        # 自动跳转
+zstyle ':completion:*' menu select                   # 按 Tab 弹出交互式选择菜单（上下键选补全项）
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'  # 大小写不敏感
 
-zstyle ':completion:*' menu select # 按 Tab 弹出交互式选择菜单（上下键选补全项）
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # 大小写不敏感
-setopt completealiases # 别名补全
-setopt autocd # 自动跳转
+sudo-command-line() { # 双击 ESC 添加/移除 sudo
+    [[ -z $BUFFER ]] && zle up-history
+    if [[ $BUFFER == sudo\ * ]]; then
+        LBUFFER="${LBUFFER#sudo }"
+    else
+        LBUFFER="sudo $LBUFFER"
+    fi
+}
+zle -N sudo-command-line
+bindkey "\e\e" sudo-command-line
+
+# 初始化
+eval "$(zoxide init zsh)"
+eval "$(starship init zsh)"
+
+# 自定义
+source ~/.zsh_secrets                  # API-Key
+source ${${(%):-%x}:A:h}/brew-env.zsh  # jv、pv
+source ${${(%):-%x}:A:h}/yazi.zsh      # yazi
 
 # alias
 alias c="clear"
@@ -27,44 +51,7 @@ alias la="lsd -a"
 alias ll="lsd -l"
 alias lla="lsd -la"
 alias cat="bat"
-alias py='python3'
-alias python='python3'
 alias fastfetch="fastfetch --config examples/25"
-
-# zoxide 初始化
-eval "$(zoxide init zsh)"
-
-# starship 初始化
-eval "$(starship init zsh)"
-
-# yazi 退出时切换目录
-function y() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
-	EDITOR=micro yazi "$@" --cwd-file="$tmp"
-	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		builtin cd -- "$cwd"
-	fi
-	rm -f -- "$tmp"
-}
-
-# 插件 (via Homebrew)
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
-# API-Key
-source ~/.zsh_secrets
-
-# 双击 ESC 添加/移除 sudo
-sudo-command-line() {
-    [[ -z $BUFFER ]] && zle up-history
-    if [[ $BUFFER == sudo\ * ]]; then
-        LBUFFER="${LBUFFER#sudo }"
-    else
-        LBUFFER="sudo $LBUFFER"
-    fi
-}
-zle -N sudo-command-line
-bindkey "\e\e" sudo-command-line
 
 # Dracula 主题 - 对应 fish_color_*
 ZSH_HIGHLIGHT_STYLES[command]="fg=#8be9fd,bold"                     # fish_color_command
