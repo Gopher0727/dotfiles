@@ -1,5 +1,5 @@
 CXX      := g++
-CXXFLAGS := -std=c++23 -Wall -Wextra -Iinclude -O2
+CXXFLAGS := -std=c++23 -Wall -Wextra -Iinclude -DLocal -O2
 LDFLAGS  :=
 CCACHE   := $(shell command -v ccache 2>/dev/null)
 

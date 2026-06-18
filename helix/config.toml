@@ -1,0 +1,11 @@
+theme = "catppuccin_mocha"
+
+[editor]
+cursorline = true
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+
+[editor.statusline]
+center = ["file-name"]
