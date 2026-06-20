@@ -1,0 +1,16 @@
+CompileFlags:
+  Add:
+    - "-nostdinc++"
+    - "-isystem"
+    - "/opt/homebrew/include/c++/16"
+    - "-isystem"
+    - "/opt/homebrew/include/c++/16/aarch64-apple-darwin25"
+    - "-isystem"
+    - "/opt/homebrew/include/c++/16/backward"
+    - "-ferror-limit=0"
+
+Completion:
+  AllScopes: true
+
+Diagnostics:
+  UnusedIncludes: None

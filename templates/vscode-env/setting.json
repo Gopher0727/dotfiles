@@ -23,7 +23,7 @@
     "extensions.ignoreRecommendations": true,
     "files.associations": {
         ".clangd": "yaml",
-        ".clang-format": "yaml",
+        ".clang-format": "yaml"
     },
     "files.autoSave": "afterDelay",
     "terminal.integrated.cursorBlinking": true,
@@ -89,5 +89,5 @@
             "bold": false,
             "italic": false
         }
-    ],
+    ]
 }

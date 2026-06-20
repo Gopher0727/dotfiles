@@ -4,6 +4,17 @@ return {
         opts = {
             servers = {
                 marksman = {},
+                clangd = {
+                    cmd = {
+                        "clangd",
+                        "--header-insertion=never",
+                        "--log=verbose",
+                        "--pretty",
+                        "--completion-style=detailed",
+                        "--function-arg-placeholders=false",
+                        "--pch-storage=memory",
+                    },
+                },
                 gopls = {
                     settings = {
                         gopls = {
