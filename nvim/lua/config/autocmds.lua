@@ -1,10 +1,3 @@
--- treesitter start
-vim.api.nvim_create_autocmd("FileType", {
-	callback = function(args)
-		pcall(vim.treesitter.start, args.buf)
-	end,
-})
-
 -- edit 打开文件回到上次编辑位置
 vim.api.nvim_create_autocmd("BufReadPost", {
 	callback = function()
@@ -81,14 +74,4 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	end,
 })
 
--- open terminal
-vim.api.nvim_create_autocmd("TermOpen", {
-	pattern = "term://*toggleterm#*",
-	callback = function()
-		vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], { buffer = 0, silent = true })
-		vim.keymap.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]], { buffer = 0, silent = true })
-		vim.keymap.set("t", "<C-j>", [[<Cmd>wincmd j<CR>]], { buffer = 0, silent = true })
-		vim.keymap.set("t", "<C-k>", [[<Cmd>wincmd k<CR>]], { buffer = 0, silent = true })
-		vim.keymap.set("t", "<C-l>", [[<Cmd>wincmd l<CR>]], { buffer = 0, silent = true })
-	end,
-})
+

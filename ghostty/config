@@ -1,7 +1,7 @@
 # ~/.config/ghostty/config
 theme = Catppuccin Mocha
 font-family = Maple Mono NF CN # FiraCode Nerd Font
-font-size = 14
+font-size = 14.5
 font-thicken = true
 background-opacity = 0.95
 minimum-contrast = 1.1

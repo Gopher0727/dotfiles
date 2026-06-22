@@ -3,11 +3,10 @@ vim.opt.timeoutlen = 300
 
 -- ui
 vim.opt.number = true
-vim.opt.relativenumber = true
 vim.opt.cursorline = true
 vim.opt.termguicolors = true
+vim.opt.wrap = false
 vim.opt.signcolumn = "yes"
-vim.opt.colorcolumn = "120"
 
 -- file
 vim.opt.undofile = true
@@ -42,12 +41,8 @@ vim.opt.updatetime = 200
 vim.opt.winborder = "rounded"
 vim.opt.scrolloff = 10
 vim.opt.confirm = true
-vim.g.editorconfig = true
 
 -- diagnostic
 vim.diagnostic.config({
-	signs = true,
-	underline = true,
-	-- virtual_text = true,
 	severity_sort = true,
 })
