@@ -9,41 +9,32 @@ require("supermaven-nvim").setup({
 	disable_inline_completion = false,
 	keymaps = {
 		accept_suggestion = nil,
-		clear_suggestion = nil,
+		clear_suggestion = "<C-e>",
 		accept_word = nil,
 	},
 })
+
+vim.keymap.set("n", "<leader>am", "<cmd>SupermavenToggle<cr>", { desc = "Toggle AI prediction" })
 
 require("blink.cmp").setup({
 	completion = {
 		list = {
 			selection = {
 				preselect = false,
-				auto_insert = true,
+				auto_insert = false,
 			},
 		},
 	},
 	keymap = {
-		preset = "enter",
-		["<Tab>"] = {
-			"snippet_forward",
-			function()
-				local ok, suggestion = pcall(require, "supermaven-nvim.completion_preview")
-				if ok and suggestion.has_suggestion() and not require("blink.cmp").is_visible() then
-					vim.schedule(function()
-						suggestion.on_accept_suggestion()
-					end)
-					return true
-				end
-			end,
-			"select_next",
-			"fallback",
-		},
-		["<S-Tab>"] = { "snippet_backward", "select_prev", "fallback" },
+		preset = "none",
+		["<Up>"] = { "select_prev", "fallback" },
+		["<Down>"] = { "select_next", "fallback" },
+		["<CR>"] = { "accept", "fallback" },
 		["<Esc>"] = { "cancel", "fallback" },
 	},
 	sources = {
 		default = { "lsp", "path", "snippets" },
+		min_keyword_length = 2,
 		providers = {
 			snippets = {
 				opts = {

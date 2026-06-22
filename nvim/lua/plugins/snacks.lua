@@ -12,12 +12,6 @@ require("snacks").setup({
 	scroll = { enabled = true },
 	statuscolumn = { enabled = true },
 
-	toggle = { enabled = false },
-	words = { enabled = false },
-	explorer = { enabled = false },
-	dashboard = { enabled = false },
-	terminal = { enabled = false },
-
 	-- image = { enabled = true },
 	-- animate = { enabled = true },
 	-- picker = {

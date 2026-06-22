@@ -9,27 +9,17 @@ vim.g.loaded_netrwPlugin = 1
 
 require("nvim-tree").setup({
 	filters = {
-		dotfiles = false, -- 显示隐藏文件
 		custom = { "^.git$" }, -- 隐藏 .git 目录
 	},
 	git = {
-		enable = true,
 		ignore = false, -- 显示 .gitignore 里的文件
 	},
 	renderer = {
-		icons = {
-			show = {
-				file = true,
-				folder = true,
-				git = true,
-			},
-		},
 		highlight_git = true,
 	},
 	-- 同步目录光标
 	update_focused_file = {
 		enable = true,
-		update_root = false,
 	},
 })
 
