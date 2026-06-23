@@ -15,13 +15,10 @@ alias lla="lsd -la"
 alias cat="bat"
 alias fastfetch="fastfetch --config examples/25"
 
-# zoxide 初始化
+# zoxide
 zoxide init fish | source
 
-# starship 初始化
-starship init fish | source
-
-# yazi 退出时切换目录
+# yazi
 function y
     set tmp (mktemp -t yazi-cwd.XXXXXX)
     env EDITOR=micro yazi $argv --cwd-file="$tmp"
