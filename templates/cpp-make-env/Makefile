@@ -11,19 +11,20 @@ ifdef CCACHE
 endif
 
 SRC    ?= main.cpp
-TARGET ?= $(basename $(SRC))
+TARGET ?= bin/$(basename $(SRC))
 
-.PHONY: all build run clean
+.PHONY: all build run clean compile_json
 
 all: build
 
 build: $(TARGET)
 
 $(TARGET): $(SRC)
+	@mkdir -p $(dir $@)
 ifeq ($(suffix $(SRC)),.c)
-	$(CC) $(CFLAGS) -o $@ $<
+	@$(CC) $(CFLAGS) -o $@ $<
 else
-	$(CXX) $(CXXFLAGS) -o $@ $<
+	@$(CXX) $(CXXFLAGS) -o $@ $<
 endif
 
 run: build
@@ -31,3 +32,7 @@ run: build
 
 clean:
 	@rm -rf $(TARGET)
+
+# Requires `bear` to be installed first, then run `make compile_json`.
+compile_json:
+	@bear -- make clean build SRC=$(SRC)

@@ -11,6 +11,4 @@ CompileFlags:
 
 Completion:
   AllScopes: true
-
-Diagnostics:
-  UnusedIncludes: None
+  HeaderInsertion: Never

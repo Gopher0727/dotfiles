@@ -3,6 +3,7 @@ vim.pack.add({
 	{ src = "https://github.com/folke/tokyonight.nvim" },
 	{ src = "https://github.com/tanvirtin/monokai.nvim" },
 	{ src = "https://github.com/ellisonleao/gruvbox.nvim" },
+	{ src = "https://github.com/marko-cerovac/material.nvim" },
 })
 
 require("tokyonight").setup({
