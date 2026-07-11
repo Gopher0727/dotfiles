@@ -35,4 +35,4 @@ clean:
 
 # Requires `bear` to be installed first, then run `make compile_json`.
 compile_json:
-	@bear -- make clean build SRC=$(SRC)
+	@bear -- make

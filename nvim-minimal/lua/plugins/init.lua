@@ -1,0 +1,6 @@
+require("plugins.conform")
+require("plugins.snacks")
+require("plugins.surround")
+require("plugins.telescope")
+require("plugins.toggleterm")
+require("plugins.treesitter")
