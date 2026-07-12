@@ -4,8 +4,9 @@ vim.pack.add({
 })
 
 require("nvim-treesitter").setup({
+	highlight = { enable = true },
+	ensure_installed = { "go", "lua", "python", "rust", "c", "cpp" },
 	install = {
 		auto_install = true,
-		sync = true,
 	},
 })

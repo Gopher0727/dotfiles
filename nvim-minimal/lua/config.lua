@@ -28,3 +28,41 @@ vim.keymap.set("n", "<M-S-up>", ":t .-1<cr>==")
 vim.keymap.set("n", "<M-S-down>", ":t .<cr>==")
 vim.keymap.set("v", "<M-S-up>", ":t '<-1<cr>gv=gv")
 vim.keymap.set("v", "<M-S-down>", ":t '>+1<cr>gv=gv")
+
+vim.lsp.enable({ "lua_ls", "gopls", "clangd", "ty" })
+
+vim.lsp.config("lua_ls", {
+	cmd = { "lua-language-server" },
+	filetypes = { "lua" },
+	settings = {
+		Lua = {
+			runtime = { version = "LuaJIT" },
+			diagnostics = { globals = { "vim" } },
+			workspace = { library = { vim.env.VIMRUNTIME, vim.fn.stdpath("config") } },
+			telemetry = { enable = false },
+		},
+	},
+})
+
+vim.lsp.config("clangd", {
+	cmd = { "clangd" },
+	filetypes = { "c", "cpp", "objc", "objcpp" },
+	root_markers = { ".clangd", "compile_commands.json", "compile_flags.txt", ".git" },
+})
+
+vim.lsp.config("gopls", {
+	cmd = { "gopls" },
+	filetypes = { "go", "gomod", "gowork" },
+	root_markers = { "go.mod", "go.work", ".git" },
+})
+
+vim.lsp.config("ty", {
+	cmd = { "ty", "server" },
+	filetypes = { "python" },
+	root_markers = { "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", ".git" },
+})
+
+vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
+vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover" })
+vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "Rename" })
+vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code action" })
