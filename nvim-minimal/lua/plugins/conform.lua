@@ -10,6 +10,7 @@ require("conform").setup({
 		go = { "goimports-reviser", "gofmt" },
 		python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
 		rust = { "rustfmt" },
+		zig = { "zigfmt" },
 		javascript = { "prettier" },
 		typescript = { "prettier" },
 

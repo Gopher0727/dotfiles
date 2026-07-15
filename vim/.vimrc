@@ -2,12 +2,6 @@
 filetype plugin indent on
 syntax on
 
-" 插件
-call plug#begin('~/.vim/plugged')
-" curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-Plug 'mg979/vim-visual-multi', {'branch': 'master'} " 多光标插件
-call plug#end()
-
 set number
 set relativenumber
 

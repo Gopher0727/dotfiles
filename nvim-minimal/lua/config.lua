@@ -29,7 +29,7 @@ vim.keymap.set("n", "<M-S-down>", ":t .<cr>==")
 vim.keymap.set("v", "<M-S-up>", ":t '<-1<cr>gv=gv")
 vim.keymap.set("v", "<M-S-down>", ":t '>+1<cr>gv=gv")
 
-vim.lsp.enable({ "lua_ls", "gopls", "clangd", "ty" })
+vim.lsp.enable({ "lua_ls", "gopls", "clangd", "ty", "rust_analyzer", "zls" })
 
 vim.lsp.config("lua_ls", {
 	cmd = { "lua-language-server" },
@@ -37,7 +37,7 @@ vim.lsp.config("lua_ls", {
 	settings = {
 		Lua = {
 			runtime = { version = "LuaJIT" },
-			diagnostics = { globals = { "vim" } },
+			diagnostics = { globals = { "vim", "Snacks" } },
 			workspace = { library = { vim.env.VIMRUNTIME, vim.fn.stdpath("config") } },
 			telemetry = { enable = false },
 		},
@@ -60,6 +60,18 @@ vim.lsp.config("ty", {
 	cmd = { "ty", "server" },
 	filetypes = { "python" },
 	root_markers = { "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", ".git" },
+})
+
+vim.lsp.config("rust_analyzer", {
+	cmd = { "rust-analyzer" },
+	filetypes = { "rust" },
+	root_markers = { "Cargo.toml", ".git" },
+})
+
+vim.lsp.config("zls", {
+	cmd = { "zls" },
+	filetypes = { "zig" },
+	root_markers = { "build.zig", ".git" },
 })
 
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })

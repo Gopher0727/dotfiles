@@ -1,3 +1,4 @@
+require("plugins.blink_cmp")
 require("plugins.conform")
 require("plugins.snacks")
 require("plugins.surround")
