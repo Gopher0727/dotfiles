@@ -9,9 +9,10 @@ export PATH="/opt/dev:$PATH"
 export PATH="/usr/local/texlive/2026/bin/universal-darwin:$PATH"
 # Go 环境
 export PATH="$HOME/go/bin:$PATH"
-# Java 环境
-export JAVA_HOME="/opt/homebrew/opt/openjdk/libexec/openjdk.jdk/Contents/Home"
-export PATH="$JAVA_HOME/bin:$PATH"
+
+# SDKMAN
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
 
 # Cargo
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"

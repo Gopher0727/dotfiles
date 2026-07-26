@@ -9,4 +9,5 @@ font-size = 15
 font-thicken = true
 background-opacity = 0.95
 minimum-contrast = 1.1
+macos-option-as-alt = true
 bold-is-bright = true

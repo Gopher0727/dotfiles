@@ -32,13 +32,10 @@ sudo-command-line() { # 双击 ESC 添加/移除 sudo
 zle -N sudo-command-line
 bindkey "\e\e" sudo-command-line
 
-# 初始化
 eval "$(zoxide init zsh)"
 
-# 自定义
-source ~/.zsh_secrets                 # API-Key
-source ${${(%):-%x}:A:h}/brew-env.zsh # jv、pv
-source ${${(%):-%x}:A:h}/yazi.zsh     # yazi
+source ~/.zsh_secrets             # API-Key
+source ${${(%):-%x}:A:h}/yazi.zsh # yazi
 
 source $(brew --prefix)/opt/spaceship/spaceship.zsh
 
