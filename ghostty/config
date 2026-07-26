@@ -11,3 +11,4 @@ background-opacity = 0.95
 minimum-contrast = 1.1
 macos-option-as-alt = true
 bold-is-bright = true
+cursor-style = bar
