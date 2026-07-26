@@ -56,7 +56,25 @@
 ; 补全 (minibuffer)
 (ido-mode t)
 (setq ido-enable-flex-matching t)
-(setq ido-everywhere t)
+
+; vertico + consult（替代 ido）
+(unless (package-installed-p 'vertico)
+  (package-install 'vertico))
+(unless (package-installed-p 'consult)
+  (package-install 'consult))
+(unless (package-installed-p 'marginalia)
+  (package-install 'marginalia))
+(unless (package-installed-p 'orderless)
+  (package-install 'orderless))
+(vertico-mode)
+(marginalia-mode)
+(setq completion-styles '(orderless basic)
+      completion-category-defaults nil
+      completion-category-overrides '((file (styles partial-completion))))
+(savehist-mode)
+(global-set-key [remap switch-to-buffer] 'consult-buffer)
+(global-set-key (kbd "C-s") 'consult-line)
+(global-set-key (kbd "C-S-s") 'consult-ripgrep)
 
 ; 代码补全 (corfu)
 (unless (package-installed-p 'corfu)
@@ -84,6 +102,16 @@
 (unless (package-installed-p 'rainbow-delimiters)
   (package-install 'rainbow-delimiters))
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+
+; 多光标
+(unless (package-installed-p 'multiple-cursors)
+  (package-install 'multiple-cursors))
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+
+; 高亮当前行
+(global-hl-line-mode 1)
 
 ; 显示空格/Tab/换行
 (global-set-key (kbd "C-c w") 'whitespace-mode)
@@ -163,7 +191,9 @@
 (add-hook 'python-ts-mode-hook 'eglot-ensure)
 (add-hook 'rust-ts-mode-hook 'eglot-ensure)
 (add-hook 'c-ts-mode-hook 'eglot-ensure)
+(add-hook 'c-ts-mode-hook (lambda () (setq-local c-ts-mode-indent-offset 4)))
 (add-hook 'c++-ts-mode-hook 'eglot-ensure)
+(add-hook 'c++-ts-mode-hook (lambda () (setq-local c-ts-mode-indent-offset 4)))
 
 ; eglot 快捷键
 (add-hook 'eglot-managed-mode-hook
