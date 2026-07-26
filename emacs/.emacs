@@ -5,6 +5,10 @@
 ; 打开符号链接时不询问
 (setq vc-follow-symlinks t)
 
+; ndjson 文件用 json-ts-mode
+(add-to-list 'auto-mode-alist '("\\.ndjson\\'" . json-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.php\\'" . php-ts-mode))
+
 ; 包源
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
@@ -46,6 +50,9 @@
 ; 自动配对括号引号
 (electric-pair-mode 1)
 
+; 缩进全用空格
+(setq-default indent-tabs-mode nil)
+
 ; 补全 (minibuffer)
 (ido-mode t)
 (setq ido-enable-flex-matching t)
@@ -72,6 +79,14 @@
   (package-install 'expand-region))
 (global-set-key (kbd "C-=") 'er/expand-region)
 (global-set-key (kbd "C-M-=") 'er/contract-region)
+
+; 彩虹括号
+(unless (package-installed-p 'rainbow-delimiters)
+  (package-install 'rainbow-delimiters))
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+
+; 显示空格/Tab/换行
+(global-set-key (kbd "C-c w") 'whitespace-mode)
 
 ; dired 文件管理器
 (setq dired-listing-switches "-alh")
@@ -114,7 +129,12 @@
         (cpp . ("https://github.com/tree-sitter/tree-sitter-cpp"))
         (python . ("https://github.com/tree-sitter/tree-sitter-python"))
         (rust . ("https://github.com/tree-sitter/tree-sitter-rust"))
-        (php . ("https://github.com/tree-sitter/tree-sitter-php"))
+        (php . ("https://github.com/tree-sitter/tree-sitter-php" "v0.23.5" "php"))
+        (phpdoc . ("https://github.com/claytonrcarter/tree-sitter-phpdoc"))
+        (html . ("https://github.com/tree-sitter/tree-sitter-html"))
+        (css . ("https://github.com/tree-sitter/tree-sitter-css"))
+        (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript"))
+        (jsdoc . ("https://github.com/tree-sitter/tree-sitter-jsdoc"))
         (json . ("https://github.com/tree-sitter/tree-sitter-json"))
         (yaml . ("https://github.com/ikatyang/tree-sitter-yaml"))
         (markdown . ("https://github.com/tree-sitter-grammars/tree-sitter-markdown"))
