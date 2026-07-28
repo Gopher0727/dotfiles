@@ -4,7 +4,6 @@ vim.pack.add({
 
 vim.lsp.enable({
 	"lua_ls",
-	"gopls",
 	"clangd",
 	"rust_analyzer",
 	"pyright",
@@ -33,25 +32,6 @@ vim.lsp.config("lua_ls", {
 			},
 			telemetry = {
 				enable = false,
-			},
-		},
-	},
-})
-
-vim.lsp.config("gopls", {
-	cmd = { "gopls" },
-	filetypes = { "go", "gomod", "gowork" },
-	root_markers = { "go.mod", "go.work", ".git" },
-	settings = {
-		gopls = {
-			staticcheck = true,
-			gofumpt = true,
-			analyses = {
-				unusedparams = true,
-				unusedvariable = true,
-				shadow = true,
-				nilness = true,
-				unusedwrite = true,
 			},
 		},
 	},
