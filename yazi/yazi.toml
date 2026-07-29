@@ -1,7 +1,7 @@
 # ~/.config/yazi/yazi.toml
 [opener]
 edit = [
-    { run = 'emacs "$@"', block = true }
+    { run = 'nvim "$@"', block = true }
 ]
 
 [mgr]

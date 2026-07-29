@@ -1,13 +1,9 @@
-; 行号
+;行号
 (global-display-line-numbers-mode)
 (setq display-line-numbers-type 'absolute)
 
 ; 打开符号链接时不询问
 (setq vc-follow-symlinks t)
-
-; ndjson 文件用 json-ts-mode
-(add-to-list 'auto-mode-alist '("\\.ndjson\\'" . json-ts-mode))
-(add-to-list 'auto-mode-alist '("\\.php\\'" . php-ts-mode))
 
 ; 包源
 (require 'package)
@@ -43,6 +39,19 @@
 
 ; 主题
 (load-theme 'gruvbox t)
+;; gruvbox 1.30.1 + Emacs 30: :background nil → unspecified
+;; 有些 face 来自尚未加载的包，用 ignore-errors 跳过
+(ignore-errors
+  (dolist (face '(rainbow-delimiters-unmatched-face
+                  diff-added diff-refine-added
+                  diff-removed diff-refine-removed
+                  whitespace-empty
+                  js2-jsdoc-tag js2-jsdoc-type js2-jsdoc-value
+                  js2-function-param js2-function-call
+                  js2-instance-member js2-private-member
+                  js2-private-function-call
+                  js2-jsdoc-html-tag-name js2-jsdoc-html-tag-delimiter))
+    (set-face-attribute face nil :background 'unspecified)))
 
 ; 终端鼠标支持
 (xterm-mouse-mode 1)
@@ -167,6 +176,10 @@
         (yaml . ("https://github.com/ikatyang/tree-sitter-yaml"))
         (markdown . ("https://github.com/tree-sitter-grammars/tree-sitter-markdown"))
         (zig . ("https://github.com/tree-sitter-grammars/tree-sitter-zig"))))
+
+; ndjson 文件用 json-ts-mode
+(add-to-list 'auto-mode-alist '("\\.ndjson\\'" . json-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.php\\'" . php-ts-mode))
 
 ; zig-ts-mode
 (unless (package-installed-p 'zig-ts-mode)
