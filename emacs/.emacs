@@ -126,6 +126,9 @@
 (global-set-key (kbd "C-c w") 'whitespace-mode)
 
 ; dired 文件管理器
+(unless (package-installed-p 'nerd-icons-dired)
+  (package-install 'nerd-icons-dired))
+(add-hook 'dired-mode-hook 'nerd-icons-dired-mode)
 (setq dired-listing-switches "-alh")
 (setq dired-kill-when-opening-new-dired-buffer t)
 (setq dired-dwim-target t)
@@ -139,6 +142,7 @@
 ; 编译输出支持 ANSI 颜色
 (require 'ansi-color)
 (add-hook 'compilation-filter-hook 'ansi-color-compilation-filter)
+
 
 ; C-o 在当前行下方开空行，光标移到新行
 (defun open-line-below ()
