@@ -21,7 +21,11 @@ setopt autocd                                       # 自动跳转
 zstyle ':completion:*' menu select                  # 按 Tab 弹出交互式选择菜单（上下键选补全项）
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # 大小写不敏感
 
-sudo-command-line() { # 双击 ESC 添加/移除 sudo
+# 交互模式允许注释
+setopt interactive_comments
+
+# 双击 ESC 添加/移除 sudo
+sudo-command-line() {
     [[ -z $BUFFER ]] && zle up-history
     if [[ $BUFFER == sudo\ * ]]; then
         LBUFFER="${LBUFFER#sudo }"

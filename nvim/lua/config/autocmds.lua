@@ -53,25 +53,3 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
 })
 
 vim.keymap.set("n", "<leader>as", "<cmd>ASToggle<cr>", { desc = "Toggle auto-save" })
-
--- delete space end of line
-vim.api.nvim_create_autocmd("BufWritePre", {
-	pattern = "*",
-	callback = function()
-		local ignore = {
-			markdown = true,
-			text = true,
-			gitcommit = true,
-		}
-
-		if ignore[vim.bo.filetype] then
-			return
-		end
-
-		local view = vim.fn.winsaveview()
-		vim.cmd([[%s/\s\+$//e]])
-		vim.fn.winrestview(view)
-	end,
-})
-
-

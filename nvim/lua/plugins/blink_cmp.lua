@@ -1,6 +1,5 @@
 vim.pack.add({
 	{ src = "https://github.com/saghen/blink.cmp" },
-	{ src = "https://github.com/rafamadriz/friendly-snippets" },
 	{ src = "https://github.com/saghen/blink.lib" },
 	{ src = "https://github.com/supermaven-inc/supermaven-nvim" },
 })
@@ -33,18 +32,8 @@ require("blink.cmp").setup({
 		["<Esc>"] = { "cancel", "fallback" },
 	},
 	sources = {
-		default = { "lsp", "path", "snippets" },
+		default = { "lsp", "path" },
 		min_keyword_length = 2,
-		providers = {
-			snippets = {
-				opts = {
-					search_paths = {
-						"~/.config/nvim/lua/snippets/",
-					},
-				},
-				score_offset = 100,
-			},
-		},
 	},
 	fuzzy = {
 		implementation = "lua",
