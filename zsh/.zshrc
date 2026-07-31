@@ -1,5 +1,26 @@
 # ~/.zshrc
 
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Go
+export PATH="$HOME/go/bin:$PATH"
+
+# LLVM
+export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
+export CMAKE_PREFIX_PATH="/opt/homebrew/opt/llvm" # For cmake to find llvm
+
+# SDKMAN
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
+
+# Cargo
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+
+# Hermes Agent — ensure ~/.local/bin is on PATH
+export PATH="$HOME/.local/bin:$PATH"
+
 # 插件 (via Homebrew)
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -36,10 +57,19 @@ sudo-command-line() {
 zle -N sudo-command-line
 bindkey "\e\e" sudo-command-line
 
+# yazi: 退出时自动 cd 到浏览目录
+function y() {
+    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" # 临时文件存 yazi 退出路径
+    EDITOR=micro yazi "$@" --cwd-file="$tmp"   # 启动 yazi，退出写路径到 $tmp
+    if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+        builtin cd -- "$cwd"
+    fi
+    rm -f -- "$tmp"
+}
+
 eval "$(zoxide init zsh)"
 
 source ~/.zsh_secrets             # API-Key
-source ${${(%):-%x}:A:h}/yazi.zsh # yazi
 
 source $(brew --prefix)/opt/spaceship/spaceship.zsh
 
