@@ -73,6 +73,28 @@
 (global-set-key (kbd "C-s") 'consult-line)
 (global-set-key (kbd "C-S-s") 'consult-ripgrep)
 
+;; treesitter
+(setq major-mode-remap-alist
+      '((go-mode . go-ts-mode)
+        (c-mode . c-ts-mode)
+        (c++-mode . c++-ts-mode)
+        (python-mode . python-ts-mode)
+        (rust-mode . rust-ts-mode)))
+
+;; LSP eglot
+(add-hook 'go-ts-mode-hook 'eglot-ensure)
+(add-hook 'python-ts-mode-hook 'eglot-ensure)
+(add-hook 'rust-ts-mode-hook 'eglot-ensure)
+(add-hook 'c-ts-mode-hook 'eglot-ensure)
+(add-hook 'c++-ts-mode-hook 'eglot-ensure)
+
+;; eglot 快捷键
+(add-hook 'eglot-managed-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-c a") 'eglot-code-actions)
+            (local-set-key (kbd "C-c r") 'eglot-rename)
+            (local-set-key (kbd "C-c i") 'eglot-code-action-organize-imports)))
+
 ;; 代码补全 (corfu)
 (unless (package-installed-p 'corfu)
   (package-install 'corfu))
