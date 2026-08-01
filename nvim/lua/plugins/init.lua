@@ -6,7 +6,6 @@ require("plugins.dropbar")
 require("plugins.lsp")
 require("plugins.lualine")
 require("plugins.oil")
-require("plugins.go")
 require("plugins.peek-md")
 require("plugins.rainbow")
 
@@ -18,5 +17,4 @@ require("plugins.telescope")
 require("plugins.toggler")
 require("plugins.toggleterm")
 require("plugins.treesitter")
-require("plugins.which-key")
 

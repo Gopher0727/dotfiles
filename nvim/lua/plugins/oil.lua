@@ -14,4 +14,11 @@ require("oil").setup({
 	},
 })
 
-vim.keymap.set("n", "<leader>e", vim.cmd.Oil, { desc = "Open Oil" })
+-- <leader>o 切换 Oil：打开 / 关闭回到原 buffer
+vim.keymap.set("n", "<leader>o", function()
+	if vim.bo.filetype == "oil" then
+		require("oil").close()
+	else
+		require("oil").open()
+	end
+end, { desc = "Toggle Oil" })

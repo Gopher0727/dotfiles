@@ -1,8 +1,7 @@
 # ~/.config/ghostty/config
-theme = Catppuccin Mocha
-# theme = Material Darker
-# theme = Gruvbox Material
-# theme = Monokai Pro Octagon
+
+theme = Gruvbox Dark
+# theme = Catppuccin Mocha
 font-family = Maple Mono NF CN
 # font-family = FiraCode Nerd Font
 font-size = 15

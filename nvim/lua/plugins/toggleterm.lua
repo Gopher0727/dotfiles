@@ -5,6 +5,7 @@ vim.pack.add({
 require("toggleterm").setup({
 	open_mapping = { "<c-/>", "<c-_>" },
 	persist_mode = false,
+	persist_size = false,
 	direction = "horizontal",
 	shade_terminals = false,
 	highlights = {
@@ -28,8 +29,6 @@ require("toggleterm").setup({
 })
 
 -- terminal
-vim.keymap.set("n", "<leader>tt", "<cmd>ToggleTerm direction=float<cr>", { silent = true })
 vim.keymap.set("n", "<leader>tf", "<cmd>ToggleTerm direction=float<cr>", { silent = true })
 vim.keymap.set("n", "<leader>tv", "<cmd>ToggleTerm direction=vertical<cr>", { silent = true })
 vim.keymap.set("n", "<leader>th", "<cmd>ToggleTerm direction=horizontal<cr>", { silent = true })
-vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n><cmd>ToggleTerm<cr>", { silent = true })
