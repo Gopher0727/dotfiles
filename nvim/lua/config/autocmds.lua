@@ -48,7 +48,7 @@ vim.api.nvim_create_autocmd({ "InsertLeave", "TextChanged" }, {
 		if name == "" or not vim.uv.fs_stat(name) then
 			return
 		end
-		pcall(vim.cmd, "silent! write")
+		pcall(function() vim.cmd("silent! write") end)
 	end,
 })
 
