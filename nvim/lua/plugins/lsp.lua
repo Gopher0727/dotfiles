@@ -7,11 +7,6 @@ vim.lsp.enable({
 	"clangd",
 	"rust_analyzer",
 	"pyright",
-	"jsonls",
-	"intelephense",
-	"marksman",
-	"texlab",
-	"cmake",
 })
 
 vim.lsp.config("lua_ls", {

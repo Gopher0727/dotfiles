@@ -15,7 +15,7 @@ git add --renormalize . # 强制重新规范化
 ## Xmake
 ```bash
 # 预编译
-clang++ -std=c++26 --precompile -o module.pcm /opt/homebrew/opt/llvm/share/libc++/v1/std.cppm
+clang++ -std=c++26 --precompile -o std.pcm /opt/homebrew/opt/llvm/share/libc++/v1/std.cppm
 
 # xmake.lua 中添加
 add_languages("cxxlatest")
