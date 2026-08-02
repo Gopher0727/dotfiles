@@ -88,12 +88,17 @@
 (add-hook 'c-ts-mode-hook 'eglot-ensure)
 (add-hook 'c++-ts-mode-hook 'eglot-ensure)
 
+;; C/C++ 缩进 4 空格
+(add-hook 'c-ts-mode-hook (lambda () (setq-local c-ts-mode-indent-offset 4)))
+(add-hook 'c++-ts-mode-hook (lambda () (setq-local c-ts-mode-indent-offset 4)))
+
 ;; eglot 快捷键
 (add-hook 'eglot-managed-mode-hook
           (lambda ()
             (local-set-key (kbd "C-c a") 'eglot-code-actions)
             (local-set-key (kbd "C-c r") 'eglot-rename)
-            (local-set-key (kbd "C-c i") 'eglot-code-action-organize-imports)))
+            (local-set-key (kbd "C-c i") 'eglot-code-action-organize-imports)
+            (local-set-key (kbd "C-c f") 'eglot-format)))
 
 ;; 代码补全 (corfu)
 (unless (package-installed-p 'corfu)

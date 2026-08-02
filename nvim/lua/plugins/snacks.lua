@@ -3,7 +3,16 @@ vim.pack.add({
 })
 
 require("snacks").setup({
-	indent = { enabled = true },
+	indent = {
+		enabled = true,
+		indent = {
+			char = "▏",
+		},
+		scope = {
+			enabled = true,
+			char = "▏",
+		},
+	},
 	scope = { enabled = true },
 	input = { enabled = true },
 	notifier = { enabled = true },
