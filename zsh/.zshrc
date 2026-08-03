@@ -21,9 +21,9 @@ export SDKMAN_DIR="$HOME/.sdkman"
 # Hermes Agent — ensure ~/.local/bin is on PATH
 export PATH="$HOME/.local/bin:$PATH"
 
-# 插件 (via Homebrew)
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# 插件 (git submodule)
+source $HOME/dotfiles/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $HOME/dotfiles/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # 历史命令优化
 HISTFILE=~/.zsh_history
@@ -35,7 +35,7 @@ setopt histignorealldups # 去重历史命令
 setopt histignorespace   # 空格开头的命令不记入历史
 
 # 补全优化
-FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+FPATH=$HOME/dotfiles/zsh/plugins/zsh-completions/src:$FPATH
 autoload -Uz compinit && compinit
 setopt completealiases                              # 别名补全
 setopt autocd                                       # 自动跳转
@@ -71,7 +71,7 @@ eval "$(zoxide init zsh)"
 
 source ~/.zsh_secrets             # API-Key
 
-source $(brew --prefix)/opt/spaceship/spaceship.zsh
+source $HOME/dotfiles/zsh/plugins/spaceship-prompt/spaceship.zsh
 
 # alias
 alias c="clear"
