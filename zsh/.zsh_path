@@ -1,5 +1,6 @@
-# PATH 环境变量（独立文件，由 .zshrc source）
+# 环境变量（由 .zshrc source）
 
+# PATH
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Go
@@ -13,3 +14,10 @@ export CMAKE_PREFIX_PATH="/opt/homebrew/opt/llvm" # For cmake to find llvm
 
 # Hermes Agent — ensure ~/.local/bin is on PATH
 export PATH="$HOME/.local/bin:$PATH"
+
+# SDKMAN
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
+
+# Cargo
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"

@@ -1,13 +1,6 @@
 # ~/.zshrc
 
-source ~/.zsh_path              # PATH 环境变量（独立文件）
-
-# SDKMAN
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
-
-# Cargo
-[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+source ~/.zsh_path              # 环境变量（PATH / SDKMAN / Cargo）
 
 # 插件 (git submodule)
 source $HOME/dotfiles/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
