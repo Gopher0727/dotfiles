@@ -1,15 +1,6 @@
 # ~/.zshrc
 
-eval "$(/opt/homebrew/bin/brew shellenv)"
-
-# Go
-export PATH="$HOME/go/bin:$PATH"
-
-# LLVM
-export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
-export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
-export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
-export CMAKE_PREFIX_PATH="/opt/homebrew/opt/llvm" # For cmake to find llvm
+source ~/.zsh_path              # PATH 环境变量（独立文件）
 
 # SDKMAN
 export SDKMAN_DIR="$HOME/.sdkman"
@@ -17,9 +8,6 @@ export SDKMAN_DIR="$HOME/.sdkman"
 
 # Cargo
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
-
-# Hermes Agent — ensure ~/.local/bin is on PATH
-export PATH="$HOME/.local/bin:$PATH"
 
 # 插件 (git submodule)
 source $HOME/dotfiles/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
