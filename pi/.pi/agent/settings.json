@@ -1,0 +1,13 @@
+{
+  "lastChangelogVersion": "0.83.0",
+  "theme": "gruvbox-dark",
+  "defaultProvider": "deepseek",
+  "defaultModel": "deepseek-v4-flash",
+  "defaultThinkingLevel": "max",
+  "quietStartup": false,
+  "packages": [
+    "npm:pi-mcp-adapter",
+    "npm:pi-open-tui",
+    "npm:@firstpick/pi-themes-bundle"
+  ]
+}
