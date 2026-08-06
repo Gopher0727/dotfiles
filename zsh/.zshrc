@@ -3,8 +3,8 @@
 source ~/.zsh_path              # 环境变量（PATH / SDKMAN / Cargo）
 
 # 插件 (git submodule)
-source $HOME/Documents/dotfiles/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source $HOME/Documents/dotfiles/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $HOME/dotfiles/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $HOME/dotfiles/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # 历史命令优化
 HISTFILE=~/.zsh_history
@@ -16,7 +16,7 @@ setopt histignorealldups # 去重历史命令
 setopt histignorespace   # 空格开头的命令不记入历史
 
 # 补全优化
-FPATH=$HOME/Documents/dotfiles/zsh/plugins/zsh-completions/src:$FPATH
+FPATH=$HOME/dotfiles/zsh/plugins/zsh-completions/src:$FPATH
 autoload -Uz compinit && compinit
 setopt completealiases                              # 别名补全
 setopt autocd                                       # 自动跳转
@@ -52,7 +52,7 @@ eval "$(zoxide init zsh)"
 
 source ~/.zsh_secrets             # API-Key
 
-source $HOME/Documents/dotfiles/zsh/plugins/spaceship-prompt/spaceship.zsh
+source $HOME/dotfiles/zsh/plugins/spaceship-prompt/spaceship.zsh
 
 # alias
 alias c="clear"
