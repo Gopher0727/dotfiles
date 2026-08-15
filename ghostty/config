@@ -1,7 +1,6 @@
 # ~/.config/ghostty/config
 
 theme = Gruvbox Dark
-# theme = Catppuccin Mocha
 font-family = Maple Mono NF CN
 # font-family = FiraCode Nerd Font
 font-size = 15

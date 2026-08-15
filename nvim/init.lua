@@ -9,7 +9,13 @@ vim.o.cursorline = true
 vim.o.signcolumn = "yes"
 vim.o.winborder = "rounded"
 
-vim.cmd.colorscheme("catppuccin")
+-- theme
+vim.pack.add({
+	{ src = "https://github.com/ellisonleao/gruvbox.nvim" },
+})
+vim.cmd.colorscheme("gruvbox")
+
+-- vim.cmd.colorscheme("catppuccin")
 
 -- 顶部导航栏
 vim.pack.add({
@@ -173,6 +179,9 @@ vim.pack.add({
 require("conform").setup({
 	formatters_by_ft = {
 		lua = { "stylua" },
+		sh = { "shfmt" },
+		bash = { "shfmt" },
+		zsh = { "shfmt" },
 		go = { "goimports-reviser", "goimports", "gofmt" },
 		python = { "ruff_fix", "ruff_format", "ruff_organize_imports" },
 		rust = { "rustfmt" },

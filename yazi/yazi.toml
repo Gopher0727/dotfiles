@@ -1,10 +1,10 @@
 # ~/.config/yazi/yazi.toml
-[opener]
-edit = [
-    { run = 'nvim "$@"', block = true }
-]
-
 [mgr]
 show_hidden = true
 ratio = [1, 3, 4]
 linemode = "mtime"
+
+[opener]
+edit = [
+    { run = 'nvim %s', block = true }
+]
