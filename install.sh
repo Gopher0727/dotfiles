@@ -13,10 +13,10 @@ for name in "${stow_config[@]}"; do
 done
 
 # ~/*
-stow_home=(.zshrc .zsh_path .tmux.conf .vimrc .emacs)
+stow_home=(.zshrc .zsh_path .tmux.conf .vimrc)
 
 for conf in "${stow_home[@]}"; do
         [ ! -e "$HOME/$conf" ] || mv "$HOME/$conf" "$HOME/$conf.bak"
 done
 
-stow zsh tmux vim emacs -t ~
+stow zsh tmux vim -t ~
