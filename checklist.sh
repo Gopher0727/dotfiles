@@ -9,6 +9,17 @@ PACKAGES=(
   ghostty git stow yazi zoxide lsd fzf bat nvim vim tldr tmux tokei
   fastfetch btop tree ccache rg fd jq duf dust
   uv ruff rustup
+  emacs clangd shfmt prettier
+)
+
+# 非 brew 安装的 LSP / 格式化工具（需另行安装）
+EXTRA_TOOLS=(
+  rust-analyzer   # rustup component add rust-analyzer
+  pyright         # pip install pyright 或 brew install pyright
+  gopls           # go install golang.org/x/tools/gopls@latest
+  goimports       # go install golang.org/x/tools/cmd/goimports@latest
+  bash-language-server   # npm i -g bash-language-server
+  vscode-json-language-server  # npm i -g vscode-langservers-extracted
 )
 
 MISSING=()
@@ -26,4 +37,12 @@ if (( ${#MISSING[@]} > 0 )); then
     echo "  - $pkg"
   done
 fi
+
+info "检查 LSP / 格式化工具..."
+for pkg in "${EXTRA_TOOLS[@]}"; do
+  if ! command -v "$pkg" &>/dev/null; then
+    error "  - $pkg 未安装（见上方安装方式）"
+  fi
+done
+
 info "所有软件包均已安装..."

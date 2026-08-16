@@ -61,6 +61,14 @@ if not require("snacks").did_setup then
 	})
 end
 
+vim.keymap.set("n", "<leader>fd", function()
+	require("snacks.picker").diagnostics()
+end, { desc = "Diagnostics (workspace)" })
+
+vim.keymap.set("n", "<leader>fD", function()
+	require("snacks.picker").diagnostics_buffer()
+end, { desc = "Diagnostics (buffer)" })
+
 -- Snacks 终端: <leader>t 切换底部终端面板
 vim.keymap.set("n", "<leader>t", function()
 	require("snacks.terminal").toggle()
@@ -137,6 +145,7 @@ vim.o.splitbelow = true
 vim.o.splitright = true
 
 ---- edit
+vim.o.inccommand = "split"
 vim.o.clipboard = "unnamedplus"
 vim.o.confirm = true
 vim.o.undofile = true
