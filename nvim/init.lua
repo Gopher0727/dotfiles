@@ -198,6 +198,7 @@ require("conform").setup({
 		cpp = { "clang-format" },
 		php = { "php_cs_fixer" },
 		json = { "jq" },
+                markdown = {"prettier"},
 		["_"] = { "trim_whitespace" },
 	},
 })
