@@ -13,7 +13,7 @@
 (global-display-line-numbers-mode 1)
 (setq display-line-numbers-type 'relative)
 
-;; Tab 键：行首缩进、文本中间插入 tab（原生默认是永远缩进）
+;; Tab 行首缩进、文本中间插入 tab（原生默认是永远缩进）
 (setq tab-always-indent nil)
 
 ;; 备份文件集中存放，不污染工作目录（file~ 备份 + #file# 自动保存）
@@ -31,7 +31,7 @@
 ;; 符号链接文件打开不询问
 (setq vc-follow-symlinks t)
 
-;; 终端鼠标支持：滚轮直接滚动屏幕（视口），而非光标移动
+;; 滚轮直接滚动屏幕（视口），而非光标移动
 ;; 需终端支持 XTerm 鼠标协议（ghostty/iTerm2 均支持）
 (xterm-mouse-mode 1)
 
@@ -44,7 +44,7 @@
 (dolist (ev '(wheel-left wheel-right mouse-6 mouse-7))
   (global-set-key (vector ev) 'ignore))
 
-;; 终端剪贴板：复制/剪切写入系统剪贴板，粘贴从系统剪贴板读
+;; 剪贴板
 (unless (display-graphic-p)
   (setq select-enable-clipboard t)
   (defun copy-to-osx (text)
@@ -79,8 +79,12 @@
 (dolist (lang '(c cpp go python rust bash json markdown markdown-inline))
   (unless (treesit-language-available-p lang)
     (treesit-install-language-grammar lang)))
+;; php 需多 grammar（php/phpdoc/html/javascript/jsdoc/css），用内置安装器
+(require 'php-ts-mode)
+(unless (treesit-language-available-p 'php)
+  (php-ts-mode-install-parsers))
 
-;; Treesitter 模式映射（c/cpp/rust/python/go/bash/json）+ C/C++ 4 空格缩进
+;; Treesitter 模式映射（c/cpp/rust/python/go/bash/json/php）+ C/C++ 4 空格缩进
 (setq major-mode-remap-alist
       '((go-mode . go-ts-mode)
         (c-mode . c-ts-mode)
@@ -89,7 +93,8 @@
         (rust-mode . rust-ts-mode)
         (sh-mode . bash-ts-mode)
         (bash-ts-mode . bash-ts-mode)
-        (json-mode . json-ts-mode)))
+        (json-mode . json-ts-mode)
+        (php-mode . php-ts-mode)))
 (add-hook 'c-ts-mode-hook (lambda () (setq-local c-ts-mode-indent-offset 4)))
 (add-hook 'c++-ts-mode-hook (lambda () (setq-local c-ts-mode-indent-offset 4)))
 
@@ -102,6 +107,7 @@
               '((markdown-mode . markdown-ts-mode))))
 
 ;; LSP：eglot（C-c a 操作 / C-c r 重命名 / C-c i 整理导入）
+(require 'eglot)
 ;; 语言 → server：
 ;;	- c/cpp → clangd
 ;;	- rust → rust-analyzer
@@ -109,9 +115,11 @@
 ;;	- go → gopls
 ;;	- bash → bash-language-server
 ;;	- json → vscode-json-language-server
+;;	- php → phpantom_lsp（注意下划线，非 eglot 默认 phpactor）
 (dolist (mode '(c-ts-mode c++-ts-mode rust-ts-mode python-ts-mode go-ts-mode
-			  bash-ts-mode json-ts-mode))
+			  bash-ts-mode json-ts-mode php-ts-mode))
   (add-hook (intern (format "%s-hook" mode)) 'eglot-ensure))
+(add-to-list 'eglot-server-programs '(php-ts-mode . ("phpantom_lsp")))
 (add-hook 'eglot-managed-mode-hook
           (lambda ()
             (local-set-key (kbd "C-c a") 'eglot-code-actions)
@@ -191,12 +199,12 @@
 			  bash-ts-mode json-ts-mode))
   (add-hook (intern (format "%s-hook" mode)) 'indent-bars-mode))
 
-;; 彩色括号 rainbow-delimiters（按嵌套深度着色）
+;; 彩色括号
 (unless (package-installed-p 'rainbow-delimiters)
   (package-install 'rainbow-delimiters))
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
-;; Dired 增强（列表格式 / 废纸篓 / 图标）
+;; Dired 增强
 (setq dired-listing-switches "-alh"
       dired-kill-when-opening-new-dired-buffer t
       dired-dwim-target t
