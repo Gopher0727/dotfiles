@@ -7,7 +7,7 @@ warn() { echo -e "\033[0;33m[WARN]\033[0m $1"; }
 
 PACKAGES=(
         ghostty git stow yazi zoxide lsd fzf bat nvim vim tldr tmux tokei
-        fastfetch btop tree ccache rg fd jq duf dust
+        fastfetch btop tree rg fd jq duf dust
         uv ruff rustup
         emacs clangd shfmt prettier
 )
