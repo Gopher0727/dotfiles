@@ -6,13 +6,14 @@ info() { echo -e "\033[0;32m[INFO]\033[0m $1"; }
 warn() { echo -e "\033[0;33m[WARN]\033[0m $1"; }
 
 PACKAGES=(
-        ghostty git stow yazi zoxide lsd fzf bat nvim vim tldr tmux tokei
+        nvim vim emacs
+        ghostty
+        uv ruff rustup clangd
+        git stow yazi zoxide lsd fzf bat tmux tokei
         fastfetch btop tree rg fd jq duf dust
-        uv ruff rustup
-        emacs clangd shfmt prettier
+        shfmt prettier
 )
 
-# 非 brew 安装的 LSP / 格式化工具（需另行安装）
 EXTRA_TOOLS=(
         rust-analyzer               # rustup component add rust-analyzer
         pyright                     # pip install pyright 或 brew install pyright
@@ -31,18 +32,18 @@ for pkg in "${PACKAGES[@]}"; do
         fi
 done
 
-if ((${#MISSING[@]} > 0)); then
-        error "以下软件包未安装:"
-        for pkg in "${MISSING[@]}"; do
-                echo "  - $pkg"
-        done
-fi
-
 info "检查 LSP / 格式化工具..."
 for pkg in "${EXTRA_TOOLS[@]}"; do
         if ! command -v "$pkg" &>/dev/null; then
-                error "  - $pkg 未安装（见上方安装方式）"
+                MISSING+=("$pkg")
         fi
 done
 
-info "所有软件包均已安装..."
+if ((${#MISSING[@]} > 0)); then
+        error "未安装:"
+        for pkg in "${MISSING[@]}"; do
+                echo "  - $pkg"
+        done
+else
+        info "已全部安装"
+fi
