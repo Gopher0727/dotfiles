@@ -14,26 +14,10 @@ PACKAGES=(
         shfmt prettier
 )
 
-EXTRA_TOOLS=(
-        rust-analyzer               # rustup component add rust-analyzer
-        pyright                     # pip install pyright 或 brew install pyright
-        gopls                       # go install golang.org/x/tools/gopls@latest
-        goimports                   # go install golang.org/x/tools/cmd/goimports@latest
-        bash-language-server        # npm i -g bash-language-server
-        vscode-json-language-server # npm i -g vscode-langservers-extracted
-)
-
 MISSING=()
 
 info "检查软件包..."
 for pkg in "${PACKAGES[@]}"; do
-        if ! command -v "$pkg" &>/dev/null; then
-                MISSING+=("$pkg")
-        fi
-done
-
-info "检查 LSP / 格式化工具..."
-for pkg in "${EXTRA_TOOLS[@]}"; do
         if ! command -v "$pkg" &>/dev/null; then
                 MISSING+=("$pkg")
         fi
