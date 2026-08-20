@@ -40,13 +40,29 @@ vim.pack.add({
 
 require("nvim-treesitter").install({ "lua", "go", "rust", "c", "cpp", "python", "vim", "php", "phpdoc" })
 
+-- git signs
+vim.pack.add({
+	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
+})
+
+require("gitsigns").setup({
+	current_line_blame = true,
+	current_line_blame_opts = {
+		delay = 0,
+		virt_text = true,
+		virt_text_pos = "eol",
+	},
+})
+
 -- Snacks
 vim.pack.add({
 	{ src = "https://github.com/folke/snacks.nvim" },
 })
 
-if not require("snacks").did_setup then
-	require("snacks").setup({
+local Snacks = require("snacks")
+
+if not Snacks.did_setup then
+	Snacks.setup({
 		indent = { enabled = true, indent = { char = "▏" }, scope = { enabled = true, char = "▏" } },
 		scope = { enabled = true },
 		picker = { enabled = true },
@@ -55,24 +71,31 @@ if not require("snacks").did_setup then
 		quickfile = { enabled = true },
 		bigfile = { enabled = true },
 		scroll = { enabled = true },
-		statuscolumn = { enabled = true },
+		statuscolumn = {
+			enabled = true,
+			left = { "git", "sign", "mark" },
+			right = { "fold" },
+		},
 		image = { enabled = true },
 		animate = { enabled = true },
 	})
 end
 
-vim.keymap.set("n", "<leader>fd", function()
-	require("snacks.picker").diagnostics()
+vim.keymap.set("n", "<leader>fD", function()
+	Snacks.picker.diagnostics()
 end, { desc = "Diagnostics (workspace)" })
 
-vim.keymap.set("n", "<leader>fD", function()
-	require("snacks.picker").diagnostics_buffer()
+vim.keymap.set("n", "<leader>fd", function()
+	Snacks.picker.diagnostics_buffer()
 end, { desc = "Diagnostics (buffer)" })
 
--- Snacks 终端: <leader>t 切换底部终端面板
 vim.keymap.set("n", "<leader>t", function()
-	require("snacks.terminal").toggle()
+	Snacks.terminal.toggle()
 end, { desc = "Toggle terminal" })
+
+vim.keymap.set("n", "<leader>e", function()
+	Snacks.explorer()
+end, { desc = "Toggle explorer" })
 
 -- 彩虹括号
 vim.pack.add({
@@ -154,6 +177,16 @@ vim.o.autowriteall = true
 vim.o.softtabstop = 8
 vim.o.expandtab = true
 vim.keymap.set("i", "<C-CR>", "<C-o>o", { desc = "Open line below" })
+
+-- 打开文件回到上次编辑位置
+vim.api.nvim_create_autocmd("BufReadPost", {
+	callback = function()
+		local row = vim.fn.line([['"]])
+		if row > 1 and row <= vim.fn.line("$") then
+			vim.cmd("normal! g'\"")
+		end
+	end,
+})
 
 -- 自动括号补全
 vim.pack.add({
