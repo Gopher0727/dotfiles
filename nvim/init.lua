@@ -38,7 +38,7 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter-context" },
 })
 
-require("nvim-treesitter").install({ "lua", "go", "rust", "c", "cpp", "python", "vim" })
+require("nvim-treesitter").install({ "lua", "go", "rust", "c", "cpp", "python", "vim", "php", "phpdoc" })
 
 -- Snacks
 vim.pack.add({
@@ -198,7 +198,7 @@ require("conform").setup({
 		cpp = { "clang-format" },
 		php = { "php_cs_fixer" },
 		json = { "jq" },
-                markdown = {"prettier"},
+		markdown = { "prettier" },
 		["_"] = { "trim_whitespace" },
 	},
 })
@@ -259,7 +259,19 @@ vim.pack.add({
 	{ src = "https://github.com/neovim/nvim-lspconfig" },
 })
 
-vim.lsp.enable({ "lua_ls", "gopls", "clangd", "rust_analyzer", "pyright" })
+vim.lsp.enable({ "lua_ls", "gopls", "clangd", "rust_analyzer", "pyright", "phpantom" })
+
+vim.lsp.config("lua_ls", {
+	settings = {
+		Lua = {
+			runtime = { version = "LuaJIT" },
+			diagnostics = { globals = { "vim", "Snacks" }, disable = { "codestyle-check" } },
+			hint = { enable = false },
+			workspace = { library = { vim.env.VIMRUNTIME, vim.fn.stdpath("config") } },
+			telemetry = { enable = false },
+		},
+	},
+})
 
 vim.lsp.config("gopls", {
 	settings = {
@@ -273,16 +285,10 @@ vim.lsp.config("gopls", {
 
 vim.lsp.config("clangd", { cmd = { "clangd", "--function-arg-placeholders=1" } })
 
-vim.lsp.config("lua_ls", {
-	settings = {
-		Lua = {
-			runtime = { version = "LuaJIT" },
-			diagnostics = { globals = { "vim", "Snacks" }, disable = { "codestyle-check" } },
-			hint = { enable = false },
-			workspace = { library = { vim.env.VIMRUNTIME, vim.fn.stdpath("config") } },
-			telemetry = { enable = false },
-		},
-	},
+vim.lsp.config("phpantom", {
+	cmd = { "phpantom_lsp" },
+	filetypes = { "php" },
+	root_markers = { "composer.json", ".git" },
 })
 
 -- LSP HotKeys
