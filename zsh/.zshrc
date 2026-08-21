@@ -28,29 +28,46 @@ setopt interactive_comments
 
 # 双击 ESC 添加/移除 sudo
 sudo-command-line() {
-    [[ -z $BUFFER ]] && zle up-history
-    if [[ $BUFFER == sudo\ * ]]; then
-        LBUFFER="${LBUFFER#sudo }"
-    else
-        LBUFFER="sudo $LBUFFER"
-    fi
+        [[ -z $BUFFER ]] && zle up-history
+        if [[ $BUFFER == sudo\ * ]]; then
+                LBUFFER="${LBUFFER#sudo }"
+        else
+                LBUFFER="sudo $LBUFFER"
+        fi
 }
 zle -N sudo-command-line
 bindkey "\e\e" sudo-command-line
 
 # yazi: 退出时自动 cd 到浏览目录
 function y() {
-    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" # 临时文件存 yazi 退出路径
-    EDITOR=micro yazi "$@" --cwd-file="$tmp"   # 启动 yazi，退出写路径到 $tmp
-    if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-        builtin cd -- "$cwd"
-    fi
-    rm -f -- "$tmp"
+        local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" # 临时文件存 yazi 退出路径
+        EDITOR=micro yazi "$@" --cwd-file="$tmp"   # 启动 yazi，退出写路径到 $tmp
+        if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+                builtin cd -- "$cwd"
+        fi
+        rm -f -- "$tmp"
+}
+
+# lsd: 默认以树形结构展示，深度默认为 2
+lt() {
+        local depth=2
+        local -a args
+        while (($#)); do
+                if [[ $1 == -d ]]; then
+                        depth=$2
+                        shift 2
+                else
+                        args+=("$1")
+                        shift
+                fi
+        done
+        command lsd --tree --depth "$depth" "$@"
 }
 
 eval "$(zoxide init zsh)"
 
-source ~/.zsh_secrets             # API-Key
+# API-Key
+[[ -f ~/.zsh_secrets ]] && source ~/.zsh_secrets
 
 source $HOME/dotfiles/zsh/plugins/spaceship-prompt/spaceship.zsh
 

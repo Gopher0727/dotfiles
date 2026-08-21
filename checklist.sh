@@ -10,7 +10,7 @@ PACKAGES=(
         ghostty
         uv ruff rustup clangd
         git stow yazi zoxide lsd fzf bat tmux tokei
-        fastfetch btop tree rg fd jq duf dust
+        fastfetch btop rg fd jq duf dust
         shfmt prettier
 )
 

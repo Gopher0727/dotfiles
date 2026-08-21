@@ -236,9 +236,15 @@ require("conform").setup({
 	},
 })
 
+-- 格式化文件
 vim.keymap.set("n", "<leader>cf", function()
 	require("conform").format({ async = true, lsp_format = "fallback" })
 end, { desc = "Format file" })
+
+-- 格式化选中区域
+vim.keymap.set("v", "<leader>cs", function()
+	require("conform").format({ async = true, lsp_fallback = true })
+end, { desc = "Format selection" })
 
 -- 补全
 -- 注意：vim.pack.add 不跑构建，重装插件后需手动编译原生库：

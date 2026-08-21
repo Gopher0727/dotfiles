@@ -20,3 +20,6 @@ for conf in "${stow_home[@]}"; do
 done
 
 stow zsh tmux vim git -t ~
+
+# yazi 配置
+ya pkg install > /dev/null
