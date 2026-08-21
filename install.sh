@@ -13,13 +13,13 @@ for name in "${stow_config[@]}"; do
 done
 
 # ~/*
-stow_home=(.zshrc .zsh_path .tmux.conf .vimrc .gitconfig)
+stow_home=(.zshrc .zsh_path .tmux.conf .vimrc .gitconfig .emacs .emacs.custom.el)
 
 for conf in "${stow_home[@]}"; do
         [ ! -e "$HOME/$conf" ] || mv "$HOME/$conf" "$HOME/$conf.bak"
 done
 
-stow zsh tmux vim git -t ~
+stow zsh tmux vim git emacs -t ~
 
 # yazi 配置
 ya pkg install > /dev/null
