@@ -54,6 +54,10 @@ require("gitsigns").setup({
 	},
 })
 
+vim.keymap.set("n", "<leader>gp", function()
+	require("gitsigns").preview_hunk()
+end, { desc = "Preview Git Hunk" })
+
 -- Snacks
 vim.pack.add({
 	{ src = "https://github.com/folke/snacks.nvim" },
@@ -92,10 +96,6 @@ end, { desc = "Diagnostics (buffer)" })
 vim.keymap.set("n", "<leader>t", function()
 	Snacks.terminal.toggle()
 end, { desc = "Toggle terminal" })
-
-vim.keymap.set("n", "<leader>e", function()
-	Snacks.explorer()
-end, { desc = "Toggle explorer" })
 
 -- 彩虹括号
 vim.pack.add({
