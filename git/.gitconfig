@@ -1,0 +1,7 @@
+[user]
+	name = Gopher
+	email = gopher0727@gmail.com
+[core]
+	editor = nvim
+[alias]
+	clone-sub = clone --recurse-submodules
