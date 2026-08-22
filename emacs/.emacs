@@ -2,9 +2,6 @@
 (setq custom-file "~/.emacs.custom.el")
 (load custom-file)
 
-;; 重新打开文件时，回到上次光标所在位置
-(save-place-mode 1)
-
 ;; C-c r 配置热加载
 (defun my-reload-config ()
   (interactive)
@@ -14,6 +11,11 @@
 ;; 启用鼠标支持
 (unless (display-graphic-p)
   (xterm-mouse-mode 1))
+
+;; 启用滚轮上下滑动
+(require 'mwheel)
+(dolist (ev '(wheel-up wheel-down))
+  (global-set-key (vector ev) 'mwheel-scroll))
 
 ;; 终端下使用 macOS 系统剪贴板
 (unless (display-graphic-p)
@@ -42,17 +44,29 @@
 (global-set-key (kbd "C-c k") 'kill-line-before)
 
 ;; 删除整行
-(defun kill-whole-line-anywhere ()
-  (interactive)
-  (kill-region (line-beginning-position) (line-beginning-position 2)))
-(global-set-key (kbd "C-c K") 'kill-whole-line-anywhere)
+(global-set-key (kbd "C-c d") 'kill-whole-line)
 
-;; 在当前行下方新开一行
+;; 在当前行上方/下方开新行
+(defun open-line-above ()
+  (interactive)
+  (beginning-of-line)
+  (newline)
+  (previous-line))
+(global-set-key (kbd "C-c o") 'open-line-above)
 (defun open-line-below ()
   (interactive)
   (move-end-of-line 1)
   (newline-and-indent))
 (global-set-key (kbd "C-o") 'open-line-below)
+
+;; 选中整行
+(defun mark-whole-line ()
+  (interactive)
+  (beginning-of-line)
+  (set-mark (point))
+  (end-of-line)
+  (activate-mark))
+(global-set-key (kbd "C-c l") 'mark-whole-line)
 
 ;; 移动当前行：M-<up> / M-<down>
 (defun move-line-up ()
@@ -93,6 +107,18 @@
       (comment-region (region-beginning) (region-end))))
 (global-set-key (kbd "C-c b") 'my-comment-block)
 
+;; 重新打开文件时，回到上次光标所在位置
+(save-place-mode 1)
+
+;; 选中内容后直接输入会替换选中内容
+(delete-selection-mode t)
+
+;; 文件被外部修改时自动 revert
+(global-auto-revert-mode t)
+
+;; 保存前删除行尾空格
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 ;; 禁用备份文件
 (setq make-backup-files nil)
 
@@ -109,9 +135,11 @@
 (global-hl-line-mode 1)
 
 ;; 状态栏显示行号和列号
-(setq line-number-mode t)
+;;(setq line-number-mode t)
 (setq column-number-mode t)
 
+;; 开启行号时，按当前 buffer 的最大行号计算宽度
+(setq display-line-numbers-width-start t)
 ;; 显示（相对）行号
 (global-display-line-numbers-mode)
 ;;(setq display-line-numbers-type 'relative)
@@ -160,6 +188,11 @@
   :config
   (corfu-terminal-mode))
 
+;;; minibuffer 补全
+(use-package vertico
+  :config
+  (vertico-mode))
+
 ;;; apheleia 格式化
 (use-package apheleia
   :config
@@ -174,3 +207,48 @@
   (setf (alist-get 'markdown-mode apheleia-mode-alist) '(prettier-markdown))
   ;; 格式化当前 buffer
   (global-set-key (kbd "C-c f") 'apheleia-format-buffer))
+
+;; dired 图标字体支持
+(use-package nerd-icons
+  :defer t)
+(use-package nerd-icons-dired
+  :hook (dired-mode . nerd-icons-dired-mode))
+;; 让文件夹排在前面
+(when (executable-find "gls")
+  (setq insert-directory-program "gls")
+  (setq dired-listing-switches "-alh --group-directories-first"))
+
+;; orderless 模糊匹配
+(use-package orderless
+  :config
+  (setq completion-styles '(orderless basic)
+        completion-category-overrides '((file (styles partial-completion)))))
+
+;;; eglot
+(require 'eglot)
+;; 选择模式打开文件
+(add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-ts-mode))
+(add-to-list 'auto-mode-alist '("\\.py\\'" . python-ts-mode))
+;; 进入模式之后启动 eglot
+(add-hook 'rust-ts-mode-hook 'eglot-ensure)
+(add-hook 'python-ts-mode-hook 'eglot-ensure)
+;; 当前模式使用的 LSP server
+(add-to-list 'eglot-server-programs '(rust-ts-mode . ("rust-analyzer")))
+(add-to-list 'eglot-server-programs '(python-ts-mode . ("pyright-langserver" "--stdio")))
+;;; 其他配置
+;; Python 缩进 4 格
+(add-hook 'python-ts-mode-hook (lambda () (setq-local python-indent-offset 4)))
+
+;; LSP 常用键位
+(add-hook 'eglot-managed-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-c a") 'eglot-code-actions)
+            (local-set-key (kbd "C-c r") 'eglot-rename)
+            (local-set-key (kbd "C-c i") 'eglot-code-action-organize-imports)))
+
+;; 诊断列表
+(global-set-key (kbd "C-c d") 'flymake-show-buffer-diagnostics)
+(global-set-key (kbd "C-c D") 'flymake-show-project-diagnostics)
+
+;; 关掉 hover 和 inlay hint
+(setq eglot-ignored-server-capabilities '(:hoverProvider :inlayHintProvider))
