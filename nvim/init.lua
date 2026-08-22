@@ -168,6 +168,7 @@ vim.o.splitbelow = true
 vim.o.splitright = true
 
 ---- edit
+vim.o.autoread = true
 vim.o.inccommand = "split"
 vim.o.clipboard = "unnamedplus"
 vim.o.confirm = true
