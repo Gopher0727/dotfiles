@@ -131,6 +131,9 @@
 ;; 关闭菜单栏
 (menu-bar-mode -1)
 
+;; 自动加载变更
+(global-auto-revert-mode t)
+
 ;; 高亮当前行
 (global-hl-line-mode 1)
 
