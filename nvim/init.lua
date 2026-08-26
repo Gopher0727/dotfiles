@@ -180,11 +180,6 @@ vim.o.expandtab = true
 
 vim.keymap.set("i", "<C-CR>", "<C-o>o", { desc = "Open line below" })
 
-vim.keymap.set("i", "<S-Up>", "<C-o>v<Up>", { silent = true })
-vim.keymap.set("i", "<S-Down>", "<C-o>v<Down>", { silent = true })
-vim.keymap.set("v", "<S-Up>", "<Up>", { silent = true })
-vim.keymap.set("v", "<S-Down>", "<Down>", { silent = true })
-
 -- 打开文件回到上次编辑位置
 vim.api.nvim_create_autocmd("BufReadPost", {
 	callback = function()
@@ -238,6 +233,7 @@ require("conform").setup({
 		cpp = { "clang-format" },
 		php = { "php_cs_fixer" },
 		json = { "jq" },
+		jsonl = { "jq" },
 		markdown = { "prettier" },
 		["_"] = { "trim_whitespace" },
 	},
