@@ -266,9 +266,35 @@ require("blink.cmp").setup({
 		preset = "none",
 		["<Up>"] = { "select_prev", "fallback" },
 		["<Down>"] = { "select_next", "fallback" },
+		["<C-k>"] = { "select_prev", "fallback" },
+		["<C-j>"] = { "select_next", "fallback" },
 		["<CR>"] = { "accept", "fallback" },
+		["<Tab>"] = false,
+		["<S-Tab>"] = false,
 	},
-	sources = { default = { "lsp", "path" } },
+	sources = {
+		default = { "lsp", "path", "buffer" },
+		providers = {
+			lsp = { fallbacks = {} },
+			path = { fallbacks = {} },
+		},
+	},
+	cmdline = {
+		keymap = {
+			preset = "none",
+			["<Up>"] = { "select_prev", "fallback" },
+			["<Down>"] = { "select_next", "fallback" },
+			["<C-k>"] = { "select_prev", "fallback" },
+			["<C-j>"] = { "select_next", "fallback" },
+			["<CR>"] = { "accept", "fallback" },
+			["<Tab>"] = false,
+			["<S-Tab>"] = false,
+		},
+		completion = {
+			list = { selection = { preselect = false, auto_insert = false } },
+			menu = { auto_show = true },
+		},
+	},
 })
 
 -- 环绕编辑
