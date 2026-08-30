@@ -1,6 +1,11 @@
+;; -*- lexical-binding: t; -*-
+
 ;; Custom 配置文件
 (setq custom-file "~/.emacs.custom.el")
 (load custom-file)
+
+;; 符号链接直接访问文件
+(setq vc-follow-symlinks t)
 
 ;; C-c r 配置热加载
 (defun my-reload-config ()
@@ -184,12 +189,12 @@
   :config
   (global-corfu-mode))
 
-;; 终端下额外启用 corfu-terminal
-(use-package corfu-terminal
-  :after corfu
-  :if (not (display-graphic-p))
-  :config
-  (corfu-terminal-mode))
+;; ;; 终端下额外启用 corfu-terminal
+;; (use-package corfu-terminal
+;;   :after corfu
+;;   :if (not (display-graphic-p))
+;;   :config
+;;   (corfu-terminal-mode))
 
 ;;; minibuffer 补全
 (use-package vertico
