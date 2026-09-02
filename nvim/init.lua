@@ -15,8 +15,6 @@ vim.pack.add({
 })
 vim.cmd.colorscheme("gruvbox")
 
--- vim.cmd.colorscheme("catppuccin")
-
 -- 顶部导航栏
 vim.pack.add({
 	{ src = "https://github.com/Bekaboo/dropbar.nvim" },
@@ -140,7 +138,7 @@ vim.g.loaded_netrwPlugin = 1
 
 require("oil").setup({ columns = { "permissions", "size", "mtime", "icon" } })
 
-vim.keymap.set("n", "<leader>o", function()
+vim.keymap.set("n", "<leader>e", function()
 	if vim.bo.filetype == "oil" then
 		require("oil").close()
 	else
@@ -263,7 +261,7 @@ vim.pack.add({
 
 require("blink.cmp").setup({
 	appearance = {
-		nerd_font_variant = "mono", -- 候选类型图标 (函数/变量/关键字等), 同 LazyVim 配置
+		nerd_font_variant = "mono",
 	},
 	completion = { list = { selection = { preselect = true, auto_insert = false } } },
 	keymap = {
@@ -282,6 +280,9 @@ require("blink.cmp").setup({
 			lsp = { fallbacks = {} },
 			path = { fallbacks = {} },
 		},
+	},
+	term = {
+		enabled = false,
 	},
 	cmdline = {
 		keymap = {
@@ -363,7 +364,6 @@ vim.lsp.config("phpantom", {
 	root_markers = { "composer.json", ".git" },
 })
 
--- LSP HotKeys
 vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
 vim.keymap.set("n", "gD", vim.lsp.buf.declaration, { desc = "Go to declaration" })
 vim.keymap.set({ "n", "v" }, "<leader>fi", vim.lsp.buf.code_action, { desc = "Code actions" })
