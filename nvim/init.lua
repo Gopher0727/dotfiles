@@ -178,7 +178,7 @@ vim.o.expandtab = true
 
 vim.keymap.set("i", "<C-CR>", "<C-o>o", { desc = "Open line below" })
 
--- 打开文件回到上次编辑位置
+-- 打开文件回到上次退出的位置
 vim.api.nvim_create_autocmd("BufReadPost", {
 	callback = function()
 		local row = vim.fn.line([['"]])

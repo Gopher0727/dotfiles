@@ -1,6 +1,6 @@
 # ~/.zshrc
 
-source ~/.zsh_path              # 环境变量（PATH / SDKMAN / Cargo）
+source ~/.zsh_path # 环境变量（PATH / SDKMAN / Cargo）
 
 # 插件 (git submodule)
 source $HOME/dotfiles/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
