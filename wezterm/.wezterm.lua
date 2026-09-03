@@ -7,10 +7,7 @@ config.default_domain = "WSL:archlinux"
 
 -- 字体
 config.font = wezterm.font("Maple Mono NF CN")
-config.font_size = 12
-
--- 行号
-config.line_height = 0.9
+config.font_size = 11.5
 
 -- 窗口大小
 config.initial_cols = 140
