@@ -1,7 +1,7 @@
 # 环境变量（由 .zshrc source）
 
 # PATH
-eval "$(/opt/homebrew/bin/brew shellenv)"
+[ -x /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Go
 export PATH="$HOME/go/bin:$PATH"
