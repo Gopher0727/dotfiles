@@ -311,6 +311,7 @@ require("blink.cmp").setup({
 		["<S-Tab>"] = false,
 	},
 	sources = {
+		min_keyword_length = 2,
 		default = { "lsp", "path", "buffer" },
 		providers = {
 			lsp = { fallbacks = {} },
