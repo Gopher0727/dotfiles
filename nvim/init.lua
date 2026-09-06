@@ -10,12 +10,11 @@ vim.o.signcolumn = "yes"
 vim.o.winborder = "rounded"
 
 vim.pack.add({
+	-- gruvbox
 	{ src = "https://github.com/ellisonleao/gruvbox.nvim" },
-})
+	-- catppuccin
+	{ src = "https://github.com/catppuccin/nvim" },
 
-vim.cmd.colorscheme("gruvbox")
-
-vim.pack.add({
 	-- 顶部导航栏
 	{ src = "https://github.com/Bekaboo/dropbar.nvim" },
 	-- 底部状态栏
@@ -24,6 +23,12 @@ vim.pack.add({
 	-- 彩虹括号
 	{ src = "https://github.com/hiphish/rainbow-delimiters.nvim" },
 })
+
+require("catppuccin").setup({
+	flavour = "mocha", -- latte, frappe, macchiato, mocha
+	no_italic = true,
+})
+vim.cmd.colorscheme("catppuccin-nvim")
 
 require("dropbar").setup({})
 
