@@ -230,19 +230,19 @@
 (use-package orderless
   :config
   (setq completion-styles '(orderless basic)
-        completion-category-overrides '((file (styles partial-completion)))))
+        completion-category-overrides
+	'((eglot-capf (styles orderless))  (file (styles partial-completion)))
+	orderless-matching-styles '(orderless-flex orderless-literal orderless-regexp)))
 
 ;;; eglot
 (require 'eglot)
-;; 选择模式打开文件
-(add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-ts-mode))
-(add-to-list 'auto-mode-alist '("\\.py\\'" . python-ts-mode))
-;; 进入模式之后启动 eglot
+(setopt treesit-enabled-modes '(go-ts-mode rust-ts-mode python-ts-mode))
+;; 1. 选择模式打开文件
+;; 2. 进入模式之后启动 eglot
 (add-hook 'rust-ts-mode-hook 'eglot-ensure)
 (add-hook 'python-ts-mode-hook 'eglot-ensure)
-;; 当前模式使用的 LSP server
-(add-to-list 'eglot-server-programs '(rust-ts-mode . ("rust-analyzer")))
-(add-to-list 'eglot-server-programs '(python-ts-mode . ("pyright-langserver" "--stdio")))
+(add-hook 'go-ts-mode-hook 'eglot-ensure)
+;; 3. 当前模式使用的 LSP server
 ;;; 其他配置
 ;; Python 缩进 4 格
 (add-hook 'python-ts-mode-hook (lambda () (setq-local python-indent-offset 4)))
