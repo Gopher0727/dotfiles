@@ -159,6 +159,8 @@
 (require 'compile)
 (setq compile-command "")
 (global-set-key (kbd "C-c c") #'compile)
+(require 'ansi-color)
+(add-hook 'compilation-filter-hook #'ansi-color-compilation-filter)
 
 ;;; 包管理
 ;; 启用 Emacs 的 package.el

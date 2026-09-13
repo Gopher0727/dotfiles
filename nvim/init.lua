@@ -219,23 +219,28 @@ vim.keymap.set("n", "<leader>fD", Snacks.picker.diagnostics)
 vim.keymap.set("n", "<leader>fd", Snacks.picker.diagnostics_buffer)
 vim.keymap.set({ "n", "t" }, "<C-/>", Snacks.terminal.toggle)
 
----- Oil
+---- Yazi
 vim.pack.add({
-	{ src = "https://github.com/stevearc/oil.nvim" },
+	{ src = "https://github.com/nvim-lua/plenary.nvim" },
+	{ src = "https://github.com/mikavilpas/yazi.nvim" },
 })
 
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-require("oil").setup({ columns = { "permissions", "size", "mtime", "icon" } })
+require("yazi").setup({
+	open_for_directories = true,
+	floating_window_scaling_factor = 1,
+	yazi_floating_window_border = "none",
+	integrations = {
+		grep_in_directory = "snacks.picker",
+		grep_in_selected_files = "snacks.picker",
+	},
+})
 
-vim.keymap.set("n", "<leader>e", function()
-	if vim.bo.filetype == "oil" then
-		require("oil").close()
-	else
-		require("oil").open()
-	end
-end, { desc = "Toggle Oil" })
+vim.keymap.set({ "n", "v" }, "<leader>e", function()
+	require("yazi").yazi()
+end, { desc = "Open Yazi" })
 
 ---- LSP
 vim.pack.add({

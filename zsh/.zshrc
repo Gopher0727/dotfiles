@@ -1,6 +1,10 @@
 # ~/.zshrc
 
-source ~/.zsh_path # 环境变量（PATH / SDKMAN / Cargo）
+# 环境变量
+source ~/.zsh_path
+
+# API-Key
+[[ -f ~/.zsh_secrets ]] && source ~/.zsh_secrets
 
 # 插件 (git submodule)
 source $HOME/dotfiles/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -26,18 +30,6 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' # 大小写不敏感
 # 交互模式允许注释
 setopt interactive_comments
 
-# 双击 ESC 添加/移除 sudo
-sudo-command-line() {
-        [[ -z $BUFFER ]] && zle up-history
-        if [[ $BUFFER == sudo\ * ]]; then
-                LBUFFER="${LBUFFER#sudo }"
-        else
-                LBUFFER="sudo $LBUFFER"
-        fi
-}
-zle -N sudo-command-line
-bindkey "\e\e" sudo-command-line
-
 # yazi: 退出时自动 cd 到浏览目录
 function y() {
         local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" # 临时文件存 yazi 退出路径
@@ -48,26 +40,7 @@ function y() {
         rm -f -- "$tmp"
 }
 
-# lsd: 默认以树形结构展示，深度默认为 2
-lt() {
-        local depth=2
-        local -a args
-        while (($#)); do
-                if [[ $1 == -d ]]; then
-                        depth=$2
-                        shift 2
-                else
-                        args+=("$1")
-                        shift
-                fi
-        done
-        command lsd --tree --depth "$depth" "$@"
-}
-
 eval "$(zoxide init zsh)"
-
-# API-Key
-[[ -f ~/.zsh_secrets ]] && source ~/.zsh_secrets
 
 source $HOME/dotfiles/zsh/plugins/spaceship-prompt/spaceship.zsh
 
