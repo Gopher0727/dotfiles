@@ -19,3 +19,6 @@
 [submodule "zsh/plugins/spaceship-prompt"]
 	path = zsh/plugins/spaceship-prompt
 	url = https://github.com/spaceship-prompt/spaceship-prompt
+[submodule "zsh/plugins/zsh-abbr"]
+	path = zsh/plugins/zsh-abbr
+	url = https://github.com/olets/zsh-abbr

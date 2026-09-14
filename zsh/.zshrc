@@ -6,10 +6,6 @@ source ~/.zsh_path
 # API-Key
 [[ -f ~/.zsh_secrets ]] && source ~/.zsh_secrets
 
-# 插件 (git submodule)
-source $HOME/dotfiles/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source $HOME/dotfiles/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
 # 历史命令优化
 HISTFILE=~/.zsh_history
 HISTSIZE=100000
@@ -19,8 +15,14 @@ setopt sharehistory      # 多终端共享历史
 setopt histignorealldups # 去重历史命令
 setopt histignorespace   # 空格开头的命令不记入历史
 
-# 补全优化
+# 插件 (git submodule)
+source $HOME/dotfiles/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $HOME/dotfiles/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $HOME/dotfiles/zsh/plugins/zsh-abbr/zsh-abbr.zsh
+
 FPATH=$HOME/dotfiles/zsh/plugins/zsh-completions/src:$FPATH
+FPATH=$HOME/dotfiles/zsh/plugins/zsh-abbr/completions:$FPATH
+
 autoload -Uz compinit && compinit
 setopt completealiases                              # 别名补全
 setopt autocd                                       # 自动跳转
