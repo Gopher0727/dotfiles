@@ -20,6 +20,14 @@ source $HOME/dotfiles/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $HOME/dotfiles/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source $HOME/dotfiles/zsh/plugins/zsh-abbr/zsh-abbr.zsh
 
+# zsh-abbr 高亮: 用 zsh-syntax-highlighting 的 regexp highlighter 按 alias 风格高亮缩写
+# 注意: 规则只在启动时构建, 添加/删除缩写后需 exec zsh 或开新终端才生效
+(( ${#ABBR_REGULAR_USER_ABBREVIATIONS} )) && {
+        ZSH_HIGHLIGHT_HIGHLIGHTERS+=(regexp)
+        ZSH_HIGHLIGHT_REGEXP+=('^[[:blank:][:space:]]*('${(j:|:)${(Qk)ABBR_REGULAR_USER_ABBREVIATIONS}}')$' 'fg=#8be9fd,bold')
+        ZSH_HIGHLIGHT_REGEXP+=('\<('${(j:|:)${(Qk)ABBR_GLOBAL_USER_ABBREVIATIONS}}')$' 'fg=#8be9fd,bold')
+}
+
 FPATH=$HOME/dotfiles/zsh/plugins/zsh-completions/src:$FPATH
 FPATH=$HOME/dotfiles/zsh/plugins/zsh-abbr/completions:$FPATH
 
