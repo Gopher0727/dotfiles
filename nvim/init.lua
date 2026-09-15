@@ -29,29 +29,30 @@ require("catppuccin").setup({
 	no_italic = true,
 })
 vim.cmd.colorscheme("catppuccin-nvim")
+-- vim.cmd.colorscheme("gruvbox")
 
 require("dropbar").setup({})
 
 require("lualine").setup({})
 
-local rainbow_colors = {
-	RainbowDelimiterRed = "#f38ba8",
-	RainbowDelimiterOrange = "#fab387",
-	RainbowDelimiterYellow = "#f9e2af",
-	RainbowDelimiterGreen = "#a6e3a1",
-	RainbowDelimiterCyan = "#94e2d5",
-	RainbowDelimiterBlue = "#89b4fa",
-	RainbowDelimiterViolet = "#cba6f7",
-}
-require("rainbow-delimiters.setup").setup({
-	strategy = { [""] = "rainbow-delimiters.strategy.global", vim = "rainbow-delimiters.strategy.local" },
-	query = { [""] = "rainbow-delimiters", lua = "rainbow-blocks" },
-	priority = { [""] = 110, lua = 210 },
-	highlight = vim.tbl_keys(rainbow_colors),
-})
-for name, color in pairs(rainbow_colors) do
-	vim.api.nvim_set_hl(0, name, { fg = color })
-end
+-- local rainbow_colors = {
+--         RainbowDelimiterOrange = "#fab387",
+-- 	RainbowDelimiterRed = "#f38ba8",
+-- 	RainbowDelimiterYellow = "#f9e2af",
+-- 	RainbowDelimiterGreen = "#a6e3a1",
+-- 	RainbowDelimiterCyan = "#94e2d5",
+-- 	RainbowDelimiterBlue = "#89b4fa",
+-- 	RainbowDelimiterViolet = "#cba6f7",
+-- }
+-- require("rainbow-delimiters.setup").setup({
+-- 	strategy = { [""] = "rainbow-delimiters.strategy.global", vim = "rainbow-delimiters.strategy.local" },
+-- 	query = { [""] = "rainbow-delimiters", lua = "rainbow-blocks" },
+-- 	priority = { [""] = 110, lua = 210 },
+-- 	highlight = vim.tbl_keys(rainbow_colors),
+-- })
+-- for name, color in pairs(rainbow_colors) do
+-- 	vim.api.nvim_set_hl(0, name, { fg = color })
+-- end
 
 ---- search
 vim.o.ignorecase = true
@@ -69,11 +70,11 @@ vim.o.autoread = true
 vim.o.inccommand = "split"
 vim.o.clipboard = "unnamedplus"
 vim.o.confirm = true
-vim.o.undofile = true
+-- vim.o.undofile = true
 vim.o.swapfile = false
 vim.o.softtabstop = 8
 vim.o.expandtab = true
-vim.o.autowriteall = true
+-- vim.o.autowriteall = true
 
 -- Option + 上下：移动当前行
 vim.keymap.set("n", "<M-up>", ":move .-2<cr>==")
@@ -113,20 +114,11 @@ vim.api.nvim_create_autocmd("BufReadPost", {
 vim.pack.add({
 	-- 自动括号补全
 	{ src = "https://github.com/windwp/nvim-autopairs" },
-	-- 多光标
-	{ src = "https://github.com/brenton-leighton/multiple-cursors.nvim" },
 	-- 格式化
 	{ src = "https://github.com/stevearc/conform.nvim" },
 })
 
 require("nvim-autopairs").setup({ check_ts = true, disable_filetype = { "snacks_picker_input", "vim" } })
-
-require("multiple-cursors").setup()
-
-vim.keymap.set({ "n", "x" }, "<C-n>", "<Cmd>MultipleCursorsAddJumpNextMatch<CR>", { desc = "Add cursor at next cword" })
-vim.keymap.set({ "n", "x" }, "g<C-n>", "<Cmd>MultipleCursorsAddMatches<CR>")
-vim.keymap.set({ "n", "x" }, "<C-j>", "<Cmd>MultipleCursorsAddDown<CR>", { desc = "Add cursor below" })
-vim.keymap.set({ "n", "x" }, "<C-k>", "<Cmd>MultipleCursorsAddUp<CR>", { desc = "Add cursor above" })
 
 require("conform").setup({
 	formatters_by_ft = {
