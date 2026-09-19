@@ -1,0 +1,20 @@
+# clangd 用户级配置（对所有项目 / 单文件生效，nvim、emacs(eglot)、VSCode 共用）
+#
+# 安装位置（macOS 固定是这个路径，clangd 不读 ~/.config，也不看 XDG_CONFIG_HOME）：
+#   ~/Library/Preferences/clangd/config.yaml
+# 软链接安装：
+#   mkdir -p ~/Library/Preferences/clangd
+#   ln -sfn ~/dotfiles/clangd/config.yaml ~/Library/Preferences/clangd/config.yaml
+#
+# <bits/stdc++.h> 是 GCC/libstdc++ 的私有头文件，Apple clang 和
+# Homebrew LLVM 都不自带，本机是手工放在 /usr/local/include/bits/stdc++.h 的。
+# 编译时 Apple clang(g++) 默认搜索 /usr/local/include；
+# 但 clangd（Homebrew LLVM）的 fallback 命令行不含该路径。
+# 这里显式补上，让 clangd 和真正参与编译的 g++ 看到同一套头文件。
+#
+# 注意：如果以后 brew install gcc 用 GCC，需要改成
+#   在 nvim 里给 clangd 传 --query-driver=/opt/homebrew/bin/g++-*，
+# 并让项目使用 -stdlib=libstdc++。
+CompileFlags:
+  Add:
+    - -I/usr/local/include

@@ -14,6 +14,8 @@ vim.pack.add({
 	{ src = "https://github.com/ellisonleao/gruvbox.nvim" },
 	-- catppuccin
 	{ src = "https://github.com/catppuccin/nvim" },
+	-- dracula
+	{ src = "https://github.com/mofiqul/dracula.nvim" },
 
 	-- 顶部导航栏
 	{ src = "https://github.com/Bekaboo/dropbar.nvim" },
@@ -24,12 +26,15 @@ vim.pack.add({
 	{ src = "https://github.com/hiphish/rainbow-delimiters.nvim" },
 })
 
-require("catppuccin").setup({
-	flavour = "mocha", -- latte, frappe, macchiato, mocha
-	no_italic = true,
-})
-vim.cmd.colorscheme("catppuccin-nvim")
+-- require("catppuccin").setup({
+-- 	flavour = "mocha", -- latte, frappe, macchiato, mocha
+-- 	no_italic = true,
+-- })
+-- vim.cmd.colorscheme("catppuccin-nvim")
+
 -- vim.cmd.colorscheme("gruvbox")
+
+vim.cmd.colorscheme("dracula")
 
 require("dropbar").setup({})
 
@@ -239,7 +244,7 @@ vim.pack.add({
 	{ src = "https://github.com/neovim/nvim-lspconfig" },
 })
 
-vim.lsp.enable({ "lua_ls", "gopls", "clangd", "rust_analyzer", "pyright", "phpantom" })
+vim.lsp.enable({ "lua_ls", "gopls", "clangd", "rust_analyzer", "basedpyright", "phpantom" })
 
 vim.lsp.config("lua_ls", {
 	settings = {
@@ -292,6 +297,16 @@ vim.pack.add({
 	{ src = "https://github.com/saghen/blink.lib" },
 })
 
+-- 如果使用了万能头文件，就不再自动补全头文件
+local function uses_universal_header(bufnr)
+	for _, line in ipairs(vim.api.nvim_buf_get_lines(bufnr, 0, 200, false)) do
+		if line:match('^%s*#%s*include%s*[<"]bits/stdc%+%+') then
+			return true
+		end
+	end
+	return false
+end
+
 require("blink.cmp").setup({
 	appearance = {
 		nerd_font_variant = "mono",
@@ -308,6 +323,20 @@ require("blink.cmp").setup({
 		["<S-Tab>"] = false,
 	},
 	sources = {
+		transform_items = function(ctx, items)
+			if ctx.mode ~= "default" or not uses_universal_header(ctx.bufnr) then
+				return items
+			end
+			for _, item in ipairs(items) do
+				if item.additionalTextEdits ~= nil then
+					item.additionalTextEdits = nil
+					if item.label ~= nil and item.label:sub(1, #"•") == "•" then
+						item.label = " " .. item.label:sub(#"•" + 1)
+					end
+				end
+			end
+			return items
+		end,
 		min_keyword_length = 2,
 		default = { "lsp", "path", "buffer" },
 		providers = {

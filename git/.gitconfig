@@ -3,5 +3,6 @@
 	email = gopher0727@gmail.com
 [core]
 	editor = nvim
+	excludesFile = ~/.gitignore_global
 [alias]
 	clone-sub = clone --recurse-submodules
