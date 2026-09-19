@@ -19,6 +19,20 @@
   (setq custom-safe-theme t)
   (load-theme 'gruvbox t))
 
+;; 非活跃窗口变暗
+(use-package dimmer
+  :ensure t
+  :config
+  (dimmer-mode 1))
+
+;; 当前窗口比例更大
+(use-package golden-ratio
+  :ensure t
+  :custom
+  (golden-ratio-auto-scale t)
+  :config
+  (golden-ratio-mode 1))
+
 ;;; 基础配置
 ;; C-c r 配置热加载
 (defun my-reload-config ()
@@ -62,6 +76,9 @@
 
 ;; 高亮当前行
 (global-hl-line-mode t)
+
+;; 关闭折行
+(setq-default truncate-lines t)
 
 ;; 状态栏展示行列位置
 (setq column-number-mode t)
@@ -153,6 +170,27 @@
       (common-region (region-beginning) (region-end))))
 (global-set-key (kbd "C-c b") 'my-comment-block)
 
+;; magit
+(use-package magit
+  :ensure t
+  :bind
+  ("C-c g" . magit-status))
+
+;; gitsigns
+(use-package git-gutter
+  :ensure t
+  :config
+  (global-git-gutter-mode 1)
+  (setq git-gutter:modified-sign "~"
+        git-gutter:added-sign "+"
+        git-gutter:deleted-sign "-"))
+
+;; 预览颜色值
+(use-package colorful-mode
+  :ensure t
+  :config
+  (global-colorful-mode 1))
+
 ;;; 补全
 ;; 括号补全
 (electric-pair-mode t)
@@ -173,15 +211,15 @@
   (global-corfu-mode))
 
 ;;; Dired 文件管理
-(setq dired-listing-switches "-alh --group-directories-first")
-
 (defun my-dired-sort-dotfiles-first (orig-fun &rest args)
-  "Use predictable name ordering for Dired directory listings."
   (let ((process-environment (copy-sequence process-environment)))
     (setenv "LC_ALL" "C.UTF-8")
     (apply orig-fun args)))
 
-(with-eval-after-load 'dired  (unless (advice-member-p #'my-dired-sort-dotfiles-first
+(with-eval-after-load 'dired
+  (setq dired-listing-switches "-alh --group-directories-first")
+  (setq dired-kill-when-opening-new-dired-buffer t)
+  (unless (advice-member-p #'my-dired-sort-dotfiles-first
                            'dired-insert-directory)
     (advice-add 'dired-insert-directory :around
                 #'my-dired-sort-dotfiles-first)))
