@@ -18,7 +18,7 @@ git clone-sub git@github.com:Gopher0727/dotfiles.git
 
 软件包列表见 [checklist.sh](./checklist.sh)。
 
-## Nvim
+## NeoVim
 
 nvim 首次启动会自动装插件，但 blink.cmp 的原生库要手动编译一次（需要 cargo）：
 
@@ -42,28 +42,12 @@ git -C ~/.vim/pack/vendor/start/catppuccin pull --ff-only
 
 ## Yazi
 
+依赖安装与更新：
+
 ```bash
 ya pkg install     # 按 package.toml 的 rev 装
 ya pkg upgrade     # 升级
 ```
-
-## C++ / clangd
-
-clangd 的用户级配置：macOS 只读 `~/Library/Preferences/clangd`（其他平台读 `~/.config/clangd`）
-
-```bash
-clangd_dir=~/Library/Preferences/clangd                                  # Linux 用 ~/.config/clangd
-mkdir -p "$clangd_dir"
-stow clangd -t "$clangd_dir"
-```
-
-`clangd/config.yaml`  ->  `$clangd_dir/config.yaml`
-
-`#include <bits/stdc++.h>` 是 GCC(libstdc++) 的私有头文件，macOS 自带的 Apple clang 和 Homebrew LLVM 都不提供。
-
-编译时 Apple clang(`g++`) 默认搜索 `/usr/local/include`，可以通过编译；但 Homebrew 的 clangd 不搜索该路径，nvim/emacs(`eglot`) 打开单文件时会出现 `'bits/stdc++.h' file not found`。
-
-如果以后改用 GCC（`brew install gcc`），要换成给 clangd 传 `--query-driver=/opt/homebrew/bin/g++-*`，并让项目使用 `-stdlib=libstdc++`。
 
 ## Git
 
@@ -91,3 +75,21 @@ add_cxxflags("-fmodule-file=std=std.pcm")
 # 选择工具链
 xmake -f --toolchain=clang # LLVM
 ```
+
+## C++ / clangd
+
+clangd 的用户级配置：macOS 只读 `~/Library/Preferences/clangd`（其他平台读 `~/.config/clangd`）
+
+```bash
+clangd_dir=~/Library/Preferences/clangd  # Linux 用 ~/.config/clangd
+mkdir -p "$clangd_dir"
+stow clangd -t "$clangd_dir"
+```
+
+`clangd/config.yaml`  ->  `$clangd_dir/config.yaml`
+
+`#include <bits/stdc++.h>` 是 GCC(libstdc++) 的私有头文件，macOS 自带的 Apple clang 和 Homebrew LLVM 都不提供。
+
+编译时 Apple clang(`g++`) 默认搜索 `/usr/local/include`，可以通过编译；但 Homebrew 的 clangd 不搜索该路径，nvim/emacs(`eglot`) 打开单文件时会出现 `'bits/stdc++.h' file not found`。
+
+如果以后改用 GCC（`brew install gcc`），要换成给 clangd 传 `--query-driver=/opt/homebrew/bin/g++-*`，并让项目使用 `-stdlib=libstdc++`。
