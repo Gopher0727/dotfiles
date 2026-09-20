@@ -23,3 +23,5 @@
   (apheleia-global-mode 1)
 
   (global-set-key (kbd "C-c f") 'apheleia-format-buffer))
+
+(provide '.emacs.lsp)

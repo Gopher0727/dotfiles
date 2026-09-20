@@ -4,28 +4,23 @@
 (setq custom-file (expand-file-name "~/.emacs.custom.el"))
 (load custom-file)
 
-;; 包管理
+;;; 包管理
 (require 'package)
 (setq package-archives '(("gnu" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
                          ("nongnu" . "https://mirrors.tuna.tsinghua.edu.cn/elpa/nongnu/")
                          ("melpa" . "https://melpa.org/packages/")))
 (package-initialize)
 
-;; 插件管理
+;;; 插件管理
 (require 'use-package)
 
+;;; 基础配置
 ;; 主题
 (use-package gruvbox-theme
   :ensure t
   :config
   (setq custom-safe-theme t)
   (load-theme 'gruvbox t))
-
-;; 非活跃窗口变暗
-(use-package dimmer
-  :ensure t
-  :config
-  (dimmer-mode 1))
 
 ;; 当前窗口比例更大
 (use-package golden-ratio
@@ -35,22 +30,27 @@
   :config
   (golden-ratio-mode 1))
 
-;;; 基础配置
 ;; C-c r 配置热加载
 (defun my-reload-config ()
   (interactive)
+  (dolist (f '(.emacs.lsp .emacs.clipboard))
+    (when (featurep f) (unload-feature f t)))
   (load (or user-init-file "~/.emacs")))
 (global-set-key (kbd "C-c r") 'my-reload-config)
 
 ;; C-c c compile 编译
 (require 'compile)
-(setq compile-command "")
 (global-set-key (kbd "C-c c") #'compile)
+
+;; 终端颜色
 (require 'ansi-color)
 (add-hook 'compilation-filter-hook #'ansi-color-compilation-filter)
 
-;; 模糊匹配
-(setq completion-styles '(flex basic))
+;;; 预览颜色值
+(use-package colorful-mode
+  :ensure t
+  :config
+  (global-colorful-mode 1))
 
 ;; 符号链接直达
 (setq vc-follow-symlinks t)
@@ -90,7 +90,7 @@
 (setq display-line-numbers-type 'relative)
 (setq display-line-numbers-width-start t)
 
-;; 简短 yes/no tis
+;; 简短 yes/no
 (setq use-short-answers t)
 
 ;; 打开文件，回到上次光标位置
@@ -107,8 +107,42 @@
 
 ;;; 编辑
 ;; 复制和剪切互换
-(global-set-key (kbd "C-w") 'kill-ring-save)
-(global-set-key (kbd "M-w") 'kill-region)
+(when (and (eq system-type 'darwin) (display-graphic-p))
+  (global-set-key (kbd "C-w") 'kill-ring-save)
+  (global-set-key (kbd "M-w") 'kill-region))
+
+;;; 注释
+;; 行注释
+(global-set-key (kbd "C-c ;") 'comment-line)
+
+;; 块注释
+(defun my-comment-block ()
+  (interactive)
+  (if (use-region-p)
+      (comment-dwim nil)))
+(global-set-key (kbd "C-c b") 'my-comment-block)
+
+;; 模糊匹配
+(use-package orderless
+  :ensure t
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-defaults nil)
+  (orderless-smart-case t))
+
+;; 开新行
+(defun open-line-above ()
+  (interactive)
+  (beginning-of-line)
+  (newline)
+  (previous-line))
+(global-set-key (kbd "C-c o") 'open-line-above)
+
+(defun open-line-below ()
+  (interactive)
+  (move-end-of-line 1)
+  (newline-and-indent))
+(global-set-key (kbd "C-o") 'open-line-below)
 
 ;; 移动当前行
 (defun move-line-up ()
@@ -149,29 +183,7 @@
     (move-to-column column)))
 (global-set-key (kbd "M-S-<down>") #'duplicate-line-down)
 
-;; 开新行
-(defun open-line-above ()
-  (interactive)
-  (beginning-of-line)
-  (newline)
-  (previous-line))
-(global-set-key (kbd "C-c o") 'open-line-above)
-
-(defun open-line-below ()
-  (interactive)
-  (move-end-of-line 1)
-  (newline-and-indent))
-(global-set-key (kbd "C-o") 'open-line-below)
-
-;; 注释
-(global-set-key (kbd "C-c ;") 'comment-line)
-
-(defun my-comment-block ()
-  (interactive)
-  (if (use-region-p)
-      (common-region (region-beginning) (region-end))))
-(global-set-key (kbd "C-c b") 'my-comment-block)
-
+;;; Git
 ;; magit
 (use-package magit
   :ensure t
@@ -187,18 +199,17 @@
         git-gutter:added-sign "+"
         git-gutter:deleted-sign "-"))
 
-;; 预览颜色值
-(use-package colorful-mode
-  :ensure t
-  :config
-  (global-colorful-mode 1))
-
 ;;; 补全
 ;; 括号补全
 (electric-pair-mode t)
 
 ;; minibuffer 补全
-(fido-vertical-mode 1)
+(use-package vertico
+  :ensure t
+  :custom
+  (vertico-cycle t)
+  :init
+  (vertico-mode 1))
 
 ;; Corfu 补全
 (use-package corfu
@@ -217,47 +228,17 @@
   (let ((process-environment (copy-sequence process-environment)))
     (setenv "LC_ALL" "C.UTF-8")
     (apply orig-fun args)))
-
 (with-eval-after-load 'dired
   (setq dired-listing-switches "-alh --group-directories-first")
   (setq dired-kill-when-opening-new-dired-buffer t)
-  (unless (advice-member-p #'my-dired-sort-dotfiles-first
-                           'dired-insert-directory)
-    (advice-add 'dired-insert-directory :around
-                #'my-dired-sort-dotfiles-first)))
-
+  (unless (advice-member-p #'my-dired-sort-dotfiles-first 'dired-insert-directory)
+    (advice-add 'dired-insert-directory :around #'my-dired-sort-dotfiles-first)))
 (use-package nerd-icons-dired
   :ensure t
   :hook (dired-mode . nerd-icons-dired-mode))
 
-;;; 加载 LSP 配置
-(load "~/.emacs.lsp.el")
+;;; require
+(add-to-list 'load-path (file-name-directory (or load-file-name buffer-file-name)))
 
-;;; 剪贴板互通
-;; Macos：
-(unless (display-graphic-p)
-  (setq select-enable-clipboard t)
-  (defun copy-to-osx (text)
-    (with-temp-buffer
-      (insert text)
-      (call-process-region (point-min) (point-max) "pbcopy")))
-  (defun paste-from-osx ()
-    (with-output-to-string
-      (call-process "pbpaste" nil standard-output)))
-  (setq interprogram-cut-function 'copy-to-osx)
-  (setq interprogram-paste-function 'paste-from-osx)
-  (setq save-interprogram-paste-before-kill t))
-
-;; WSL：
-;; 终端模式下, Emacs 通过 OSC 52 转义序列把剪贴板内容发给终端，终端再同步到系统剪贴板。
-;; Emacs 31 内置此支持, 但默认只对部分终端自动探测开启,
-;; Ghostty 的 TERM 不在名单内, 且 tmux 分支默认只开 modifyOtherKeys, 故显式开启。
-(use-package emacs
-  :ensure nil
-  :config
-  (when (and (not (display-graphic-p))
-             (eq system-type 'gnu/linux))
-    (setq xterm-extra-capabilities '(setSelection getSelection modifyOtherKeys))
-    (setq xterm-tmux-extra-capabilities '(setSelection getSelection modifyOtherKeys))
-    (setq xterm-screen-extra-capabilities '(setSelection getSelection modifyOtherKeys))
-    (setq tty-select-active-regions t)))
+(require '.emacs.lsp)
+(require '.emacs.clipboard)
