@@ -14,8 +14,6 @@ vim.pack.add({
 	{ src = "https://github.com/ellisonleao/gruvbox.nvim" },
 	-- catppuccin
 	{ src = "https://github.com/catppuccin/nvim" },
-	-- dracula
-	{ src = "https://github.com/mofiqul/dracula.nvim" },
 
 	-- 顶部导航栏
 	{ src = "https://github.com/Bekaboo/dropbar.nvim" },
@@ -26,15 +24,11 @@ vim.pack.add({
 	{ src = "https://github.com/hiphish/rainbow-delimiters.nvim" },
 })
 
--- require("catppuccin").setup({
--- 	flavour = "mocha", -- latte, frappe, macchiato, mocha
--- 	no_italic = true,
--- })
--- vim.cmd.colorscheme("catppuccin-nvim")
-
--- vim.cmd.colorscheme("gruvbox")
-
-vim.cmd.colorscheme("dracula")
+require("catppuccin").setup({
+	flavour = "mocha", -- latte, frappe, macchiato, mocha
+	no_italic = true,
+})
+vim.cmd.colorscheme("catppuccin-nvim")
 
 require("dropbar").setup({})
 
@@ -158,7 +152,14 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter-context" },
 })
 
-require("nvim-treesitter").install({ "lua", "go", "rust", "c", "cpp", "python", "vim", "php", "phpdoc" })
+require("nvim-treesitter").install({ "lua", "go", "rust", "c", "cpp", "python", "vim", "php", "phpdoc", "markdown", "markdown_inline" })
+
+---- markdown 行内渲染
+vim.pack.add({
+	{ src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
+})
+
+require("render-markdown").setup({})
 
 ---- git signs
 vim.pack.add({

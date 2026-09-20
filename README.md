@@ -1,6 +1,6 @@
 # 常用 OS 配置
 
-将该仓库克隆到用户根目录，执行 [install.sh](./install.sh) 即可。
+将该仓库克隆到用户根目录：
 
 ```bash
 git clone --recurse-submodules git@github.com:Gopher0727/dotfiles.git
@@ -14,30 +14,54 @@ git config --global alias.clone-sub 'clone --recurse-submodules'
 git clone-sub git@github.com:Gopher0727/dotfiles.git
 ```
 
+执行 [install.sh](./install.sh) 即可。
+
 软件包列表见 [checklist.sh](./checklist.sh)。
 
 ## Nvim
 
-nvim 首次启动会自动装插件，但 blink.cmp 的原生库要手动编译一次（需要 cargo），否则退回较慢的 Lua 实现：
+nvim 首次启动会自动装插件，但 blink.cmp 的原生库要手动编译一次（需要 cargo）：
 
 ```bash
 nvim --headless "+lua require('blink.cmp').build():pwait()" +qa
 ```
 
+## Vim
+
+需要安装 catppuccin 主题：
+
+```bash
+git clone https://github.com/catppuccin/vim ~/.vim/pack/vendor/start/catppuccin
+```
+
+它不参与 stow，如果需要升级：
+
+```bash
+git -C ~/.vim/pack/vendor/start/catppuccin pull --ff-only
+```
+
+## Yazi
+
+```bash
+ya pkg install     # 按 package.toml 的 rev 装
+ya pkg upgrade     # 升级
+```
+
 ## C++ / clangd
+
+clangd 的用户级配置：macOS 只读 `~/Library/Preferences/clangd`（其他平台读 `~/.config/clangd`）
+
+```bash
+clangd_dir=~/Library/Preferences/clangd                                  # Linux 用 ~/.config/clangd
+mkdir -p "$clangd_dir"
+stow clangd -t "$clangd_dir"
+```
+
+`clangd/config.yaml`  ->  `$clangd_dir/config.yaml`
 
 `#include <bits/stdc++.h>` 是 GCC(libstdc++) 的私有头文件，macOS 自带的 Apple clang 和 Homebrew LLVM 都不提供。
 
-```bash
-# 1. 头文件本体，需要从任意 GCC 安装里的 libstdc++-v3/include/precompiled/stdc++.h 拷贝
-/usr/local/include/bits/stdc++.h
-
-# 2. clangd 用户级配置
-~/Library/Preferences/clangd/config.yaml  ->  ~/dotfiles/clangd/config.yaml
-```
-
-编译时 Apple clang(`g++`) 默认搜索 `/usr/local/include`，可以通过编译；但 Homebrew 的 clangd 不搜，
-于是 nvim/emacs(`eglot`) 打开单文件时会出现 `'bits/stdc++.h' file not found`。
+编译时 Apple clang(`g++`) 默认搜索 `/usr/local/include`，可以通过编译；但 Homebrew 的 clangd 不搜索该路径，nvim/emacs(`eglot`) 打开单文件时会出现 `'bits/stdc++.h' file not found`。
 
 如果以后改用 GCC（`brew install gcc`），要换成给 clangd 传 `--query-driver=/opt/homebrew/bin/g++-*`，并让项目使用 `-stdlib=libstdc++`。
 
