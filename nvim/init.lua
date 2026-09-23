@@ -69,11 +69,13 @@ vim.o.autoread = true
 vim.o.inccommand = "split"
 vim.o.clipboard = "unnamedplus"
 vim.o.confirm = true
--- vim.o.undofile = true
+vim.o.undofile = true
 vim.o.swapfile = false
 vim.o.softtabstop = 8
 vim.o.expandtab = true
--- vim.o.autowriteall = true
+vim.o.autowriteall = true
+vim.o.exrc = true
+vim.o.secure = true
 
 -- Option + 上下：移动当前行
 vim.keymap.set("n", "<M-up>", ":move .-2<cr>==")
@@ -130,6 +132,7 @@ require("conform").setup({
 		rust = { "rustfmt" },
 		c = { "clang-format" },
 		cpp = { "clang-format" },
+		cuda = { "clang-format" },
 		php = { "php_cs_fixer" },
 		json = { "jq" },
 		jsonl = { "jq" },
@@ -152,7 +155,19 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter-context" },
 })
 
-require("nvim-treesitter").install({ "lua", "go", "rust", "c", "cpp", "python", "vim", "php", "phpdoc", "markdown", "markdown_inline" })
+require("nvim-treesitter").install({
+	"lua",
+	"go",
+	"rust",
+	"c",
+	"cpp",
+	"python",
+	"vim",
+	"php",
+	"phpdoc",
+	"markdown",
+	"markdown_inline",
+})
 
 ---- markdown 行内渲染
 vim.pack.add({
