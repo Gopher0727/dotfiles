@@ -26,6 +26,14 @@ nvim 首次启动会自动装插件，但 blink.cmp 的原生库要手动编译�
 nvim --headless "+lua require('blink.cmp').build():pwait()" +qa
 ```
 
+文件目录侧栏默认随启动打开，不显示搜索框：
+
+- `空格 E` 或 `:SidebarToggle`：显示 / 隐藏当前标签页的侧栏。
+- `:SidebarAuto off` / `:SidebarAuto on`：关闭 / 开启下次启动时自动显示。
+- `:SidebarAuto`：查看当前启动偏好。偏好保存在 `stdpath("state")/sidebar-auto`，仅对本机生效，不随仓库同步。
+- 关闭最后一个编辑窗口时，侧栏一并关闭，保留 Neovim 正常的未保存检查。
+- `空格 e` 仍然打开 yazi，打开目录也仍由 yazi 接管。
+
 ## Vim
 
 需要安装 catppuccin 主题：

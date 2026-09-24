@@ -205,7 +205,15 @@ if not Snacks.did_setup then
 	Snacks.setup({
 		indent = { enabled = true, indent = { char = "▏" }, scope = { enabled = true, char = "▏" } },
 		scope = { enabled = true },
-		picker = { enabled = true },
+		explorer = { enabled = true, replace_netrw = false }, -- 目录仍由 yazi 接管
+		picker = {
+			enabled = true,
+			sources = {
+				explorer = {
+					layout = { preset = "sidebar", preview = false, hidden = { "input" } },
+				},
+			},
+		},
 		input = { enabled = true },
 		notifier = { enabled = true },
 		quickfile = { enabled = true },
@@ -220,6 +228,83 @@ if not Snacks.did_setup then
 		animate = { enabled = true },
 	})
 end
+
+---- 文件侧栏（启动偏好仅保存在本机，不随 dotfiles 同步）
+local sidebar_state = vim.fn.stdpath("state") .. "/sidebar-auto"
+local sidebar_auto = vim.fn.filereadable(sidebar_state) == 0 or vim.fn.readfile(sidebar_state)[1] ~= "off"
+
+local function toggle_sidebar()
+	local pickers = Snacks.picker.get({ source = "explorer" })
+	if #pickers == 0 then
+		Snacks.explorer()
+	else
+		for _, picker in ipairs(pickers) do
+			picker:close()
+		end
+	end
+end
+
+vim.keymap.set("n", "<leader>E", toggle_sidebar, { desc = "Toggle file sidebar" })
+vim.api.nvim_create_user_command("SidebarToggle", toggle_sidebar, { desc = "Toggle file sidebar" })
+vim.api.nvim_create_user_command("SidebarAuto", function(opts)
+	if opts.args ~= "" then
+		if opts.args ~= "on" and opts.args ~= "off" then
+			vim.notify("Usage: :SidebarAuto [on|off]", vim.log.levels.ERROR)
+			return
+		end
+		vim.fn.mkdir(vim.fn.stdpath("state"), "p")
+		vim.fn.writefile({ opts.args }, sidebar_state)
+		sidebar_auto = opts.args == "on"
+	end
+	vim.notify("Sidebar auto-start: " .. (sidebar_auto and "on" or "off"))
+end, {
+	nargs = "?",
+	complete = function()
+		return { "on", "off" }
+	end,
+	desc = "Save this device's sidebar startup preference",
+})
+
+local sidebar_group = vim.api.nvim_create_augroup("FileSidebar", { clear = true })
+vim.api.nvim_create_autocmd("VimEnter", {
+	group = sidebar_group,
+	callback = function()
+		if sidebar_auto and #vim.api.nvim_list_uis() > 0 then
+			vim.schedule(function()
+				Snacks.explorer({ focus = false })
+			end)
+		end
+	end,
+})
+
+-- 退出本标签页最后一个普通窗口时，先移除侧栏，让 :q / :wq 正常处理退出。
+vim.api.nvim_create_autocmd("QuitPre", {
+	group = sidebar_group,
+	callback = function()
+		local pickers = Snacks.picker.get({ source = "explorer" })
+		local sidebar_windows = {}
+		for _, picker in ipairs(pickers) do
+			for _, win in pairs(picker.layout:get_wins()) do
+				if win.win then
+					sidebar_windows[win.win] = true
+				end
+			end
+		end
+		local current = vim.api.nvim_get_current_win()
+		if sidebar_windows[current] or vim.api.nvim_win_get_config(current).relative ~= "" then
+			return
+		end
+		for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+			if win ~= current and not sidebar_windows[win] and vim.api.nvim_win_get_config(win).relative == "" then
+				return
+			end
+		end
+		for _, picker in ipairs(pickers) do
+			picker:close()
+			picker.layout:close() -- picker:close() 的布局清理是异步的，这里需在 :q 前完成
+		end
+	end,
+})
 
 -- picker
 vim.keymap.set("n", "<leader>ff", Snacks.picker.files)
