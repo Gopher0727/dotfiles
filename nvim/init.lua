@@ -251,9 +251,7 @@ require("yazi").setup({
 	},
 })
 
-vim.keymap.set({ "n", "v" }, "<leader>e", function()
-	require("yazi").yazi()
-end, { desc = "Open Yazi" })
+vim.keymap.set({ "n", "v" }, "<leader>e", "<cmd>Yazi toggle<cr>", { desc = "Toggle Yazi" })
 
 ---- LSP
 vim.pack.add({
