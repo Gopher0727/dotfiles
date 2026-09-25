@@ -267,26 +267,46 @@
                  (window-width . 34)
                  (window-height . 0.35))))
 
+(defvar my-sidebar-source-buffer nil)
+
 (defun my-sidebar-toggle ()
   (interactive)
   (require 'treemacs)
   (require 'imenu-list)
-  (let ((tree-window (treemacs-get-local-window))
-        (outline-window (get-buffer-window "*Ilist*" t)))
-    (if (or tree-window outline-window)
+  (let* ((tree-window (treemacs-get-local-window))
+         (outline-window (get-buffer-window "*Ilist*" (selected-frame)))
+         (current-is-sidebar
+          (or (and tree-window
+                   (eq (current-buffer) (window-buffer tree-window)))
+              (equal (buffer-name) "*Ilist*")))
+         (source-buffer
+          (if current-is-sidebar
+              (or (and (buffer-live-p my-sidebar-source-buffer)
+                       my-sidebar-source-buffer)
+                  (and (boundp 'imenu-list--displayed-buffer)
+                       (buffer-live-p imenu-list--displayed-buffer)
+                       imenu-list--displayed-buffer)
+                  (other-buffer))
+            (current-buffer))))
+    (if (and tree-window outline-window)
         (progn
-          (when outline-window
-            (with-current-buffer "*Ilist*"
-              (imenu-list-quit-window)))
-          (when (treemacs-get-local-window)
-            (treemacs-quit)))
-      (let ((source-buffer (current-buffer))
-            (source-window (selected-window)))
-        (treemacs-add-and-display-current-project-exclusively)
-        (when (window-live-p source-window)
-          (select-window source-window))
+          (with-current-buffer "*Ilist*"
+            (imenu-list-quit-window))
+          (when (window-live-p tree-window)
+            (delete-window tree-window)))
+      (setq my-sidebar-source-buffer source-buffer)
+      (unless tree-window
         (with-current-buffer source-buffer
-          (imenu-list-smart-toggle))))))
+          (treemacs-add-and-display-current-project)))
+      (with-current-buffer source-buffer
+        (unless (bound-and-true-p imenu-list-minor-mode)
+          (imenu-list-minor-mode 1))
+        (imenu-list-update t)
+        (unless outline-window
+          (imenu-list-show-noselect)))
+      (let ((source-window (get-buffer-window source-buffer (selected-frame))))
+        (when (window-live-p source-window)
+          (select-window source-window))))))
 (global-set-key (kbd "C-c e") #'my-sidebar-toggle)
 
 ;;; require
