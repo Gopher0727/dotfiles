@@ -81,6 +81,7 @@
 
 ;; 关闭折行
 (setq-default truncate-lines t)
+(setq window-sides-vertical nil)
 
 ;; 状态栏展示行列位置
 (setq column-number-mode t)
@@ -236,6 +237,57 @@
 (use-package nerd-icons-dired
   :ensure t
   :hook (dired-mode . nerd-icons-dired-mode))
+
+(use-package treemacs
+  :ensure t
+  :defer t
+  :custom
+  (treemacs-display-in-side-window t)
+  (treemacs-position 'right)
+  (treemacs-width 34)
+  (treemacs-follow-after-init t)
+  :config
+  (treemacs-follow-mode 1))
+
+(use-package imenu-list
+  :ensure t
+  :defer t
+  :custom
+  (imenu-list-position 'right)
+  (imenu-list-size 0.35)
+  (imenu-list-focus-after-activation nil)
+  (imenu-list-update-current-entry t)
+  (imenu-list-idle-update-delay 0.25)
+  :config
+  (add-to-list 'display-buffer-alist
+               '("\\*Ilist\\*"
+                 (display-buffer-in-side-window)
+                 (side . right)
+                 (slot . 1)
+                 (window-width . 34)
+                 (window-height . 0.35))))
+
+(defun my-sidebar-toggle ()
+  (interactive)
+  (require 'treemacs)
+  (require 'imenu-list)
+  (let ((tree-window (treemacs-get-local-window))
+        (outline-window (get-buffer-window "*Ilist*" t)))
+    (if (or tree-window outline-window)
+        (progn
+          (when outline-window
+            (with-current-buffer "*Ilist*"
+              (imenu-list-quit-window)))
+          (when (treemacs-get-local-window)
+            (treemacs-quit)))
+      (let ((source-buffer (current-buffer))
+            (source-window (selected-window)))
+        (treemacs-add-and-display-current-project-exclusively)
+        (when (window-live-p source-window)
+          (select-window source-window))
+        (with-current-buffer source-buffer
+          (imenu-list-smart-toggle))))))
+(global-set-key (kbd "C-c e") #'my-sidebar-toggle)
 
 ;;; require
 (add-to-list 'load-path (file-name-directory (or load-file-name buffer-file-name)))

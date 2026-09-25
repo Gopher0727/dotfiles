@@ -6,8 +6,8 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    '(apheleia colorful-mode corfu git-gutter golden-ratio
-              gruvbox-theme magit nerd-icons-dired orderless
-              rainbow-delimiters vertico)))
+              gruvbox-theme imenu-list magit nerd-icons-dired orderless
+              rainbow-delimiters treemacs vertico)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

@@ -1,6 +1,16 @@
 ;; -*- lexical-binding: t; -*-
 
 ;;; eglot
+(defun my-c-indent-settings ()
+  (setq-local indent-tabs-mode nil)
+  (setq-local tab-width 8)
+  (setq-local c-basic-offset 8)
+  (setq-local c-ts-indent-offset 8))
+
+(add-hook 'c-mode-common-hook #'my-c-indent-settings)
+(add-hook 'c-ts-mode-hook #'my-c-indent-settings)
+(add-hook 'c++-ts-mode-hook #'my-c-indent-settings)
+
 (let ((modes '(go-ts-mode
 	       rust-ts-mode
 	       python-ts-mode
