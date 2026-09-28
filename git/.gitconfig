@@ -2,7 +2,7 @@
 	name = Gopher
 	email = gopher0727@gmail.com
 [core]
-	editor = nvim
+	editor = emacs
 	excludesFile = ~/.gitignore_global
 [alias]
 	clone-sub = clone --recurse-submodules
