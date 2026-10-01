@@ -5,7 +5,7 @@ set -e
 cd "$(dirname "$0")"
 
 # ~/.config/*
-stow_config=(ghostty nvim yazi)
+stow_config=(ghostty yazi)
 
 for name in "${stow_config[@]}"; do
         src="$HOME/.config/$name"
@@ -14,6 +14,6 @@ for name in "${stow_config[@]}"; do
 done
 
 # ~/*
-stow_home=(zsh tmux vim git emacs wezterm)
+stow_home=(zsh tmux git emacs)
 
 stow "${stow_home[@]}" -t "$HOME"
