@@ -14,7 +14,13 @@ git config --global alias.clone-sub 'clone --recurse-submodules'
 git clone-sub git@github.com:Gopher0727/dotfiles.git
 ```
 
-执行 [install.sh](./install.sh) 即可。
+执行 [install.sh](./install.sh) 即可：
+
+```bash
+./install.sh          # 默认硬链接
+./install.sh -s       # 软链接
+./install.sh -u       # 卸载链接并恢复 *.bak
+```
 
 软件包列表见 [checklist.sh](./checklist.sh)。
 
@@ -40,34 +46,12 @@ git add --renormalize . # 强制重新规范化
 git config --global core.excludesFile ~/.gitignore_global # 全局忽略
 ```
 
-## Xmake
-
-```bash
-# 预编译
-clang++ -std=c++26 --precompile -o std.pcm /opt/homebrew/opt/llvm/share/libc++/v1/std.cppm
-
-# xmake.lua 中添加
-add_languages("cxxlatest")
-add_cxxflags("-fmodule-file=std=std.pcm")
-
-# 选择工具链
-xmake -f --toolchain=clang # LLVM
-```
-
 ## C++ / clangd
 
-clangd 的用户级配置：macOS 只读 `~/Library/Preferences/clangd`（其他平台读 `~/.config/clangd`）
-
-```bash
-clangd_dir=~/Library/Preferences/clangd  # Linux 用 ~/.config/clangd
-mkdir -p "$clangd_dir"
-stow clangd -t "$clangd_dir"
-```
-
-`clangd/config.yaml`  ->  `$clangd_dir/config.yaml`
+`install.sh` 会把 `clangd/config.yaml` 链接到 `~/Library/Preferences/clangd/config.yaml`（其他平台为 `~/.config/clangd/config.yaml`）。
 
 `#include <bits/stdc++.h>` 是 GCC(libstdc++) 的私有头文件，macOS 自带的 Apple clang 和 Homebrew LLVM 都不提供。
 
-编译时 Apple clang(`g++`) 默认搜索 `/usr/local/include`，可以通过编译；但 Homebrew 的 clangd 不搜索该路径，nvim/emacs(`eglot`) 打开单文件时会出现 `'bits/stdc++.h' file not found`。
+编译时 Apple clang(`g++`) 默认搜索 `/usr/local/include`，可以通过编译，但 Homebrew 的 clangd 不搜索该路径。
 
 如果以后改用 GCC（`brew install gcc`），要换成给 clangd 传 `--query-driver=/opt/homebrew/bin/g++-*`，并让项目使用 `-stdlib=libstdc++`。
