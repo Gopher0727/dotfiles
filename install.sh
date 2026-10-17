@@ -1,19 +1,26 @@
 #!/bin/bash
-# dotfiles 安装器：默认硬链接，-s 软链接，-u 卸载。
+# dotfiles 安装器：按包安装，默认硬链接；-s 软链接，-u 卸载。
 set -euo pipefail
 
 usage() {
 	cat <<'EOF'
-usage: install.sh [-s|--symlink] [-u|--uninstall]
+usage: install.sh [options] <package>...
 
+packages:
+  all      全部
+  zsh tmux git emacs vim ghostty yazi clangd
+
+options:
   -s, --symlink     使用软链接（默认硬链接）
   -u, --uninstall   删除链接并恢复 *.bak
+  -h, --help        显示帮助（默认）
 EOF
 }
 
 repo_root=$(cd -- "$(dirname -- "$0")" && pwd -P)
 action=install
 link_type=hard
+packages=()
 
 while [ $# -gt 0 ]; do
 	case $1 in
@@ -23,13 +30,40 @@ while [ $# -gt 0 ]; do
 		usage
 		exit 0
 		;;
+	-*)
+		usage >&2
+		exit 2
+		;;
+	*) packages+=("$1") ;;
+	esac
+	shift
+done
+
+if [ ${#packages[@]} -eq 0 ]; then
+	usage
+	exit 0
+fi
+
+for pkg in "${packages[@]}"; do
+	case $pkg in
+	all | zsh | tmux | git | emacs | vim | ghostty | yazi | clangd) ;;
 	*)
+		printf 'unknown package: %s\n' "$pkg" >&2
 		usage >&2
 		exit 2
 		;;
 	esac
-	shift
 done
+
+selected() {
+	local pkg
+	for pkg in "${packages[@]}"; do
+		if [ "$pkg" = all ] || [ "$pkg" = "$1" ]; then
+			return 0
+		fi
+	done
+	return 1
+}
 
 warn() { printf 'warning: %s\n' "$*" >&2; }
 
@@ -102,6 +136,7 @@ apply_file() {
 		unlink_file "$1" "$2"
 	fi
 }
+
 # 处理包目录下的顶层文件；plugins 等子目录不处理。
 apply_package() {
 	local src_dir=$1 target_dir=$2
@@ -117,28 +152,67 @@ apply_package() {
 	done
 }
 
+# 维护固定入口 ~/.config/dotfiles -> 仓库，供 zsh 等配置定位插件。
+sync_repo_link() {
+	local dst=${XDG_CONFIG_HOME:-$HOME/.config}/dotfiles
+
+	if [ "$action" = uninstall ]; then
+		if [ -L "$dst" ]; then
+			rm -- "$dst"
+		fi
+		return
+	fi
+
+	mkdir -p -- "$(dirname -- "$dst")"
+
+	if [ -L "$dst" ]; then
+		if [ "$(readlink -- "$dst")" = "$repo_root" ]; then
+			return
+		fi
+		rm -- "$dst"
+	elif [ -e "$dst" ]; then
+		warn "skip existing path: $dst"
+		return
+	fi
+
+	ln -s -- "$repo_root" "$dst"
+}
+
 # ~/.zshrc、~/.gitconfig、~/.vimrc 等
 for pkg in zsh tmux git emacs vim; do
-	apply_package "$repo_root/$pkg" "$HOME"
+	if selected "$pkg"; then
+		apply_package "$repo_root/$pkg" "$HOME"
+	fi
 done
 
 # ~/.config/ghostty、~/.config/yazi
 for pkg in ghostty yazi; do
-	apply_package "$repo_root/$pkg" "$HOME/.config/$pkg"
+	if selected "$pkg"; then
+		apply_package "$repo_root/$pkg" "$HOME/.config/$pkg"
+	fi
 done
 
 # clangd 的用户级配置路径和平台有关。
-clangd_dir=$HOME/.config/clangd
-if [ "$(uname -s)" = Darwin ]; then
-	clangd_dir=$HOME/Library/Preferences/clangd
+if selected clangd; then
+	clangd_dir=$HOME/.config/clangd
+	if [ "$(uname -s)" = Darwin ]; then
+		clangd_dir=$HOME/Library/Preferences/clangd
+	fi
+	apply_file "$repo_root/clangd/config.yaml" "$clangd_dir/config.yaml"
 fi
-apply_file "$repo_root/clangd/config.yaml" "$clangd_dir/config.yaml"
+
+# zsh 通过这个链接定位仓库里的插件。
+if selected zsh; then
+	sync_repo_link
+fi
 
 # 安装时初始化依赖，卸载时不动它们。
 if [ "$action" = install ]; then
-	git -C "$repo_root" submodule update --init --recursive --quiet ||
-		warn "git submodule update failed"
-	if command -v ya >/dev/null; then
+	if selected zsh; then
+		git -C "$repo_root" submodule update --init --recursive --quiet ||
+			warn "git submodule update failed"
+	fi
+	if selected yazi && command -v ya >/dev/null; then
 		ya pkg install >/dev/null || warn "ya pkg install failed"
 	fi
 fi

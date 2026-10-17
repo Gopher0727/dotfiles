@@ -15,10 +15,15 @@ setopt sharehistory      # 多终端共享历史
 setopt histignorealldups # 去重历史命令
 setopt histignorespace   # 空格开头的命令不记入历史
 
+# dotfiles 根目录：install.sh 会维护 ~/.config/dotfiles 指向仓库
+DOTFILES=${DOTFILES:-${XDG_CONFIG_HOME:-$HOME/.config}/dotfiles}
+[[ -d $DOTFILES ]] || DOTFILES=$HOME/dotfiles
+export DOTFILES
+
 # 插件 (git submodule)
-source $HOME/dotfiles/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source $HOME/dotfiles/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source $HOME/dotfiles/zsh/plugins/zsh-abbr/zsh-abbr.zsh
+source "$DOTFILES/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+source "$DOTFILES/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+source "$DOTFILES/zsh/plugins/zsh-abbr/zsh-abbr.zsh"
 
 # zsh-abbr 高亮: 用 zsh-syntax-highlighting 的 regexp highlighter 按 alias 风格高亮缩写
 # 注意: 规则只在启动时构建, 添加/删除缩写后需 exec zsh 或开新终端才生效
@@ -28,8 +33,8 @@ source $HOME/dotfiles/zsh/plugins/zsh-abbr/zsh-abbr.zsh
         ZSH_HIGHLIGHT_REGEXP+=('\<('${(j:|:)${(Qk)ABBR_GLOBAL_USER_ABBREVIATIONS}}')$' 'fg=#8be9fd,bold')
 }
 
-FPATH=$HOME/dotfiles/zsh/plugins/zsh-completions/src:$FPATH
-FPATH=$HOME/dotfiles/zsh/plugins/zsh-abbr/completions:$FPATH
+FPATH="$DOTFILES/zsh/plugins/zsh-completions/src:$FPATH"
+FPATH="$DOTFILES/zsh/plugins/zsh-abbr/completions:$FPATH"
 
 autoload -Uz compinit && compinit
 setopt completealiases                              # 别名补全
@@ -52,7 +57,7 @@ function y() {
 
 eval "$(zoxide init zsh)"
 
-source $HOME/dotfiles/zsh/plugins/spaceship-prompt/spaceship.zsh
+source "$DOTFILES/zsh/plugins/spaceship-prompt/spaceship.zsh"
 
 # alias
 alias c="clear"

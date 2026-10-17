@@ -1,6 +1,6 @@
 # 常用 OS 配置
 
-将该仓库克隆到用户根目录：
+将该仓库克隆到任意目录（例如 `~/dotfiles`）：
 
 ```bash
 git clone --recurse-submodules git@github.com:Gopher0727/dotfiles.git
@@ -14,12 +14,13 @@ git config --global alias.clone-sub 'clone --recurse-submodules'
 git clone-sub git@github.com:Gopher0727/dotfiles.git
 ```
 
-执行 [install.sh](./install.sh) 即可：
+执行 [install.sh](./install.sh)，按需选择配置项：
 
 ```bash
-./install.sh          # 默认硬链接
-./install.sh -s       # 软链接
-./install.sh -u       # 卸载链接并恢复 *.bak
+./install.sh zsh tmux     # 只配置 zsh 和 tmux（默认硬链接）
+./install.sh all          # 全部
+./install.sh -s all       # 全部用软链接
+./install.sh -u zsh tmux  # 卸载 zsh 和 tmux，并恢复 *.bak
 ```
 
 软件包列表见 [checklist.sh](./checklist.sh)。
