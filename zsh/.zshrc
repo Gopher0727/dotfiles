@@ -57,6 +57,7 @@ function y() {
 
 eval "$(zoxide init zsh)"
 
+SPACESHIP_DOCKER_CONTEXT_SHOW=false
 source "$DOTFILES/zsh/plugins/spaceship-prompt/spaceship.zsh"
 
 # alias
