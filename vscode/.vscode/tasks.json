@@ -6,15 +6,12 @@
             "label": "C++",
             "command": "clang++",
             "args": [
-                "-std=c++26",
-                "-fsanitize=undefined", // win 开不了
-                // "-O2",
-                // "-pipe",
-                // "-Wno-vla # 禁用变量长度数组(VLA)的警告",
+                "-std=c++23",
+                "-fsanitize=undefined",
                 // "-fdiagnostics-color=always",
                 "-g",
                 "-DLOCAL",
-                "-I/home/Gopher/Code/headers",
+                "-Iinc",
                 // "-Wconversion",
                 // "-Wall",
                 "-o",
@@ -25,6 +22,9 @@
                 "kind": "build",
                 "isDefault": true
             },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
         }
     ]
 }

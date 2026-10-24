@@ -34,3 +34,8 @@ function! s:Shfmt(args) abort range
 	execute printf('%d,%d!shfmt %s', a:firstline, a:lastline, a:args)
 endfunction
 command! -range=% -nargs=* Shfmt call <SID>Shfmt(<q-args>)
+
+augroup json_indent
+    autocmd!
+    autocmd FileType json,jsonc setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
+augroup END

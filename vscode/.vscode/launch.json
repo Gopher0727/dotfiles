@@ -8,9 +8,7 @@
             "program": "${workspaceFolder}/${fileBasenameNoExtension}",
             "args": [],
             "cwd": "${workspaceFolder}",
-            "preLaunchTask": "C++",
-            "internalConsoleOptions": "neverOpen",
-            "console": "integratedTerminal"
+            "preLaunchTask": "C++"
         },
         {
             "name": "Launch Package",
