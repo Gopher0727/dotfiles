@@ -16,7 +16,7 @@ PACKAGES=(
 	btop
 	rg
 	fd
-	jq
+	jq yq
 	duf dust
 )
 

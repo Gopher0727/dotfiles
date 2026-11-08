@@ -13,6 +13,7 @@ path_prepend "$HOME/go/bin"
 
 # Cargo
 [[ -f "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
+path_prepend "$HOME/.cargo/bin"
 
 # LLVM
 if [[ -d /opt/homebrew/opt/llvm ]]; then
@@ -21,8 +22,5 @@ if [[ -d /opt/homebrew/opt/llvm ]]; then
     export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
     export CMAKE_PREFIX_PATH="/opt/homebrew/opt/llvm"
 fi
-
-# OrbStack docker CLI
-path_prepend "/Applications/OrbStack.app/Contents/MacOS/xbin"
 
 unset -f path_prepend

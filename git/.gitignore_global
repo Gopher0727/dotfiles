@@ -1,6 +1,0 @@
-# 全局忽略
-**/.claude/settings.local.json
-.DS_Store
-AGENTS.md
-.localized/
-.localized
