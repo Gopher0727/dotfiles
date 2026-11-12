@@ -1,0 +1,16 @@
+CompileFlags:
+  Remove: [-std=*]
+  Add:
+    - -std=c++23
+    - -Wno-vla
+    - -DLOCAL
+    - -Iinc
+    - -I/usr/local/include/
+
+Completion:
+  HeaderInsertion: Never
+  ArgumentLists: Delimiters
+
+InlayHints:
+  Designators: false
+  ParameterNames: false
